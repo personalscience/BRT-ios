@@ -17,7 +17,16 @@
 
 @implementation BTSettingsVC
 
-
+- (NSDate *) startDate {
+    
+    NSString *Jan1ThisYear = @"01-Jan-2014";
+    NSDateFormatter *Jan1Formatted = [[NSDateFormatter alloc] init];
+    Jan1Formatted.dateFormat = @"dd-MMM-yyyy";
+    NSDate *Jan1date = [Jan1Formatted dateFromString:Jan1ThisYear];
+    
+    
+    return Jan1date;
+}
 
 - (NSString *) randomString {
     
@@ -28,17 +37,34 @@
     
 }
 
+- (NSTimeInterval) randomDays {  // a random number of days between 0 and 65 (expressed as timeInterval)
+    
+    int oneDay = 24*60*60;
+    int oneWeek = oneDay*7;
+    
+    NSTimeInterval days = ((double) (arc4random() % oneDay)) * 65;
+    
+    return days;
+    
+}
+
 - (void) fillOneItemInDatabase {
     BTResponse *response = [[BTResponse alloc] initWithString:[self randomString]];
     
     double val = ((double)arc4random() / 0x100000000);
-    [response setResponseTime:val];
+    
+    double margin = (500.0 + ((double) (arc4random() % 100)))/1000.0; // between 500 and 600 ms
+    
+    [response setResponseTime:margin];
+    
+    
+    NSDate *randomDateSinceJan1 = [NSDate dateWithTimeInterval:[self randomDays] sinceDate:[self startDate]]; //
     
     BTData *BTDataResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:self.context];
     
     BTDataResponse.responseTime = response.response[KEY_RESPONSE_TIME];
     BTDataResponse.responseString = response.response[KEY_RESPONSE_STRING];
-    BTDataResponse.responseDate = response.response[KEY_RESPONSE_DATE];
+    BTDataResponse.responseDate = randomDateSinceJan1;
     
     
 }

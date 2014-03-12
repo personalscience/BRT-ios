@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *resultsTableView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) BTData *BTResponse;
+@property (weak, nonatomic) IBOutlet UILabel *countLable;
 
 //@property (strong, nonatomic) NSArray *results;
 
@@ -40,11 +41,11 @@
     
     // Configure the cell...
     
-    NSManagedObject *item  = [self.fetchedResultsController objectAtIndexPath:indexPath]; //[self.results objectAtIndex:indexPath.row];
+    BTData *item  = [self.fetchedResultsController objectAtIndexPath:indexPath]; //[self.results objectAtIndex:indexPath.row];
     
     
-    NSTimeInterval responseTime =  [[item valueForKey:KEY_RESPONSE_TIME] doubleValue]; //[self.BTResponse.responseTime doubleValue]; //
-    NSString *responseDate = [NSDateFormatter localizedStringFromDate:[item valueForKey:KEY_RESPONSE_DATE] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]; //[NSDateFormatter localizedStringFromDate:self.BTResponse.responseDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle];
+    NSTimeInterval responseTime = [item.responseTime doubleValue]; //[[item valueForKey:KEY_RESPONSE_TIME] doubleValue]; //[self.BTResponse.responseTime doubleValue]; //
+    NSString *responseDate = [NSDateFormatter localizedStringFromDate:item.responseDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]; //[NSDateFormatter localizedStringFromDate:self.BTResponse.responseDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]; 
     
     cell.textLabel.text = [[NSString alloc] initWithFormat:@"%3.2f",responseTime];
     cell.detailTextLabel.text = responseDate;//
@@ -93,6 +94,8 @@
     bool success = [self.fetchedResultsController performFetch:&error];
     
     if (!success) {NSLog(@"no results from Fetch: %@",error.description);}
+    
+    self.countLable.text = [[NSString alloc] initWithFormat:@"count=%d",[[[self.fetchedResultsController sections] objectAtIndex:0] numberOfObjects]];
     
     
     [self.resultsTableView reloadData];
