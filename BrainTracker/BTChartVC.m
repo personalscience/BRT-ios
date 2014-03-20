@@ -58,21 +58,21 @@
 - (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
     
     NSArray *sections = [self.fetchedResultsController sections];
-    uint len = [sections count];
-    NSArray *fetchedObjects = self.fetchedResultsController.fetchedObjects;
+  //  uint len = (uint)[sections count];
+  //  NSArray *fetchedObjects = self.fetchedResultsController.fetchedObjects;
     id obj = [sections objectAtIndex:0];
-    uint c = [obj numberOfObjects];
+    uint c = (uint)[obj numberOfObjects];
     
     return c; //[[[self.fetchedResultsController sections] objectAtIndex:0] numberOfObjects] ; //150;
 }
 
 - (NSNumber *) numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx {
     
-    int oneDay = 24*60*60;
-    int oneWeek = oneDay*7;
+  //  int oneDay = 24*60*60;
+  //  int oneWeek = oneDay*7;
   //  int x = oneWeek*25; //idx -4;
     
-    NSIndexPath *indexNew = [NSIndexPath indexPathWithIndex:idx ];
+  //  NSIndexPath *indexNew = [NSIndexPath indexPathWithIndex:idx ];
     
         NSArray *fetchedObjects = self.fetchedResultsController.fetchedObjects;
     
@@ -83,7 +83,7 @@
     NSDate *responseDate = myObject.responseDate;
     
     NSTimeInterval timeInt = [responseDate timeIntervalSinceDate:[self startDate]];
-    int numDays = idx*oneDay;
+    //int numDays = idx*oneDay;
     
     NSNumber *responseTime = myObject.responseTime;
     double rt = [responseTime doubleValue] * 1000;
@@ -144,12 +144,22 @@
     self.graph = [[CPTXYGraph alloc] initWithFrame:hostView.bounds];
     hostView.hostedGraph = self.graph;
     
+    CPTColor *backgroundColor = [CPTColor yellowColor];
+    CPTColor *axisLabelColor = [CPTColor redColor];
+    self.graph.fill = [CPTFill fillWithColor:backgroundColor];
+  //  self.graph.plotAreaFrame.fill = [CPTFill fillWithColor:backgroundColor];
+   // self.graph.plotAreaFrame.plotArea.fill = [CPTFill fillWithColor:backgroundColor];
+    
+    
+    
     self.graph.paddingBottom = 0.0;
     
     NSTimeInterval oneDay = 24*60*60;
     NSTimeInterval oneWeek = oneDay * 7;
     
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.graph.axisSet;
+    
+    //axisSet.
     
     axisSet.yAxis.majorIntervalLength = CPTDecimalFromFloat(500);
     axisSet.yAxis.minorTicksPerInterval = 10;
@@ -162,7 +172,7 @@
 
     
     NSDate *startDate = [self startDate];
-    NSDate *endDate = [self toDate];
+ //   NSDate *endDate = [self toDate];
     
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
