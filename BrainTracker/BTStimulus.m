@@ -14,7 +14,7 @@
 
 - (uint) newStimulus {
     
-    self.displayNumber = (arc4random() % TOTAL_STIMULI )+ 2;  // a number from 2 to n
+    self.displayNumber = (arc4random() % TOTAL_STIMULI ) ;  // a number from 1 to n-1
     
     return self.displayNumber;
 }

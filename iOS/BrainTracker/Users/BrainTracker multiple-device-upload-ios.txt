@@ -1,0 +1,2 @@
+deviceIdentifier	deviceName
+b50bbd49ac53793645a95d2d5bcd289e4da7f1e7	Alex Chernavsky iPhone 5 CDMA+GSM

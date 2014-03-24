@@ -144,12 +144,22 @@
     self.graph = [[CPTXYGraph alloc] initWithFrame:hostView.bounds];
     hostView.hostedGraph = self.graph;
     
+    CPTColor *backgroundColor = [CPTColor yellowColor];
+    CPTColor *axisLabelColor = [CPTColor redColor];
+    self.graph.fill = [CPTFill fillWithColor:backgroundColor];
+  //  self.graph.plotAreaFrame.fill = [CPTFill fillWithColor:backgroundColor];
+   // self.graph.plotAreaFrame.plotArea.fill = [CPTFill fillWithColor:backgroundColor];
+    
+    
+    
     self.graph.paddingBottom = 0.0;
     
     NSTimeInterval oneDay = 24*60*60;
     NSTimeInterval oneWeek = oneDay * 7;
     
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.graph.axisSet;
+    
+    //axisSet.
     
     axisSet.yAxis.majorIntervalLength = CPTDecimalFromFloat(500);
     axisSet.yAxis.minorTicksPerInterval = 10;
@@ -162,7 +172,7 @@
 
     
     NSDate *startDate = [self startDate];
-    NSDate *endDate = [self toDate];
+ //   NSDate *endDate = [self toDate];
     
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

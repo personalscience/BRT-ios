@@ -26,6 +26,7 @@
 @property BOOL alreadyResponded; // makes sure you don't respond to the same stimulus more than once.
 
 @property (strong, nonatomic) BTTimer *roundTimer;  // a timer for this particular round of the test.
+
 @property (weak, nonatomic) IBOutlet UILabel *stimulusNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *waitLabel;
