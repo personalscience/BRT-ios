@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FE25E93718DE57AB00713A41 /* Wedge.m in Sources */ = {isa = PBXBuildFile; fileRef = FE25E93618DE57AB00713A41 /* Wedge.m */; };
+		FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A780D18E0A4750049F45E /* BTPlayViewController.m */; };
+		FE3A781118E0A6850049F45E /* BTStartButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A781018E0A6850049F45E /* BTStartButtonView.m */; };
 		FE5B4C9C18CA830600409CA5 /* home-7.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9B18CA830600409CA5 /* home-7.png */; };
 		FE5B4C9E18CA831300409CA5 /* config30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9D18CA831300409CA5 /* config30x30.png */; };
 		FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */; };
@@ -39,6 +41,7 @@
 		FEB3388318D7A53B00BA1D4D /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB3382F18D79D5000BA1D4D /* libCorePlot-CocoaTouch.a */; };
 		FEB338D418D7A5FD00BA1D4D /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB338D318D7A5FD00BA1D4D /* libCorePlot-CocoaTouch.a */; };
 		FEB338D718DA68FB00BA1D4D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FEB338D618DA68FB00BA1D4D /* README.md */; };
+		FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */; };
 		FED2524018CE30A100EEA247 /* BTData.m in Sources */ = {isa = PBXBuildFile; fileRef = FED2523F18CE30A100EEA247 /* BTData.m */; };
 		FED57F8E18CF737200B91DEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED57F8D18CF737200B91DEA /* QuartzCore.framework */; };
 		FED57F9118CF757C00B91DEA /* BTChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FED57F9018CF757C00B91DEA /* BTChartVC.m */; };
@@ -57,8 +60,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FE25E93518DE57AB00713A41 /* Wedge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wedge.h; sourceTree = "<group>"; };
-		FE25E93618DE57AB00713A41 /* Wedge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wedge.m; sourceTree = "<group>"; };
+		FE25E93518DE57AB00713A41 /* Wedge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wedge.h; path = BrainTracker/Wedge.h; sourceTree = "<group>"; };
+		FE25E93618DE57AB00713A41 /* Wedge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Wedge.m; path = BrainTracker/Wedge.m; sourceTree = "<group>"; };
+		FE3A780C18E0A4750049F45E /* BTPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPlayViewController.h; sourceTree = "<group>"; };
+		FE3A780D18E0A4750049F45E /* BTPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPlayViewController.m; sourceTree = "<group>"; };
+		FE3A780F18E0A6850049F45E /* BTStartButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTStartButtonView.h; sourceTree = "<group>"; };
+		FE3A781018E0A6850049F45E /* BTStartButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTStartButtonView.m; sourceTree = "<group>"; };
 		FE5B4C9B18CA830600409CA5 /* home-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-7.png"; sourceTree = "<group>"; };
 		FE5B4C9D18CA831300409CA5 /* config30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config30x30.png; sourceTree = "<group>"; };
 		FE5B4C9F18CA86A900409CA5 /* BTResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTResultsVC.h; path = ../BTResultsVC.h; sourceTree = "<group>"; };
@@ -182,6 +189,8 @@
 		FEB338D218D7A5FD00BA1D4D /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		FEB338D318D7A5FD00BA1D4D /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		FEB338D618DA68FB00BA1D4D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleVC.h; sourceTree = "<group>"; };
+		FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleVC.m; sourceTree = "<group>"; };
 		FED2523E18CE30A100EEA247 /* BTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTData.h; sourceTree = "<group>"; };
 		FED2523F18CE30A100EEA247 /* BTData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTData.m; sourceTree = "<group>"; };
 		FED57F8D18CF737200B91DEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -221,6 +230,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE3A781218E0A6960049F45E /* PlayTab */ = {
+			isa = PBXGroup;
+			children = (
+				FE3A780F18E0A6850049F45E /* BTStartButtonView.h */,
+				FE3A781018E0A6850049F45E /* BTStartButtonView.m */,
+				FE3A780C18E0A4750049F45E /* BTPlayViewController.h */,
+				FE3A780D18E0A4750049F45E /* BTPlayViewController.m */,
+			);
+			name = PlayTab;
+			sourceTree = "<group>";
+		};
 		FE3CB5A318CA81B40025B040 /* BrainTracker Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,10 +304,10 @@
 			isa = PBXGroup;
 			children = (
 				FE9148DB18C7CE8B00A694B5 /* Main.storyboard */,
-				FE25E93518DE57AB00713A41 /* Wedge.h */,
-				FE25E93618DE57AB00713A41 /* Wedge.m */,
+				FE3A781218E0A6960049F45E /* PlayTab */,
 				FEFDCA1318DDD0E10083F7EF /* BTStartVC.h */,
 				FEFDCA1418DDD0E10083F7EF /* BTStartVC.m */,
+				FEBEC07E18E5ECD000CED03B /* MoleView */,
 				FE9148DE18C7CE8B00A694B5 /* BTScoreKeeperVC.h */,
 				FE9148DF18C7CE8B00A694B5 /* BTScoreKeeperVC.m */,
 				FED57F8F18CF757C00B91DEA /* BTChartVC.h */,
@@ -355,6 +375,8 @@
 		FE91491618C7D38F00A694B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FE25E93518DE57AB00713A41 /* Wedge.h */,
+				FE25E93618DE57AB00713A41 /* Wedge.m */,
 				FEFDCA0918DD513E0083F7EF /* BTStimulusView.h */,
 				FEFDCA0A18DD513E0083F7EF /* BTStimulusView.m */,
 				FE91491018C7D36500A694B5 /* BTResponseView.h */,
@@ -456,6 +478,15 @@
 				FEB338D318D7A5FD00BA1D4D /* libCorePlot-CocoaTouch.a */,
 			);
 			name = CorePlot;
+			sourceTree = "<group>";
+		};
+		FEBEC07E18E5ECD000CED03B /* MoleView */ = {
+			isa = PBXGroup;
+			children = (
+				FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */,
+				FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */,
+			);
+			name = MoleView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -564,10 +595,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE25E93718DE57AB00713A41 /* Wedge.m in Sources */,
+				FE3A781118E0A6850049F45E /* BTStartButtonView.m in Sources */,
 				FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */,
 				FE9148E318C7CE8B00A694B5 /* BTSettingsVC.m in Sources */,
 				FEFDCA0B18DD513E0083F7EF /* BTStimulusView.m in Sources */,
 				FEFDCA1518DDD0E10083F7EF /* BTStartVC.m in Sources */,
+				FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */,
 				FE5B4CAB18CBE60A00409CA5 /* CoreDataTableViewController.m in Sources */,
 				FED2524018CE30A100EEA247 /* BTData.m in Sources */,
 				FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */,
@@ -577,6 +610,7 @@
 				FE9148DA18C7CE8B00A694B5 /* BTAppDelegate.m in Sources */,
 				FE9148D618C7CE8B00A694B5 /* main.m in Sources */,
 				FE5B4CA418CBE03900409CA5 /* BrainTest.xcdatamodeld in Sources */,
+				FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */,
 				FE9148E018C7CE8B00A694B5 /* BTScoreKeeperVC.m in Sources */,
 				FE91490618C7D02F00A694B5 /* BTResponse.m in Sources */,
 				FE91490918C7D03F00A694B5 /* BTTimer.m in Sources */,
@@ -711,6 +745,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BrainTracker/BrainTracker-Prefix.pch";
 				INFOPLIST_FILE = "BrainTracker/BrainTracker-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BrainTracker",
@@ -734,6 +769,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BrainTracker/BrainTracker-Prefix.pch";
 				INFOPLIST_FILE = "BrainTracker/BrainTracker-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BrainTracker",

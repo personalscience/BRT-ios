@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet BTStimulusView *view;
 
 @property  NSTimeInterval startPressTime;
+@property uint numWedges;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -97,11 +98,11 @@
     
     NSTimeInterval time = [[touches anyObject] timestamp];
     
-    for (uint w=0;w<=8;w++){
+    for (uint w=0;w<=self.numWedges;w++){
         
         if ([self.view.wedges[w] containsPoint:[[touches anyObject] locationInView:self.view]]){
             NSLog(@"touching wedge %d",w);
-            if (w==8) { // it's the center circle, so treat it like a start button press
+            if (w==self.numWedges) { // it's the center circle, so treat it like a start button press
                 [self startPressedAtTime:time];
                 
             } else {
@@ -158,7 +159,7 @@
         
         double g=[self.results percentileOfResponse:thisResponse];
         
-        self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.2f (%2.3f)",duration * 1000,g];
+        self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.0f mSec (%2.3f)%%",duration * 1000,g];
  
         self.alreadyResponded = YES;
         self.stimulusNumberLabel.textColor = [UIColor blackColor];
@@ -169,7 +170,7 @@
     else NSLog(@"failure: response doesn't match stimulus");
 }
 
-
+/*
 - (void) setupWedges {
     
     NSMutableArray *wedges = [[NSMutableArray alloc] init];
@@ -177,7 +178,7 @@
     
     
     
-    for (uint i=0;i<8;i++){
+    for (uint i=0;i<self.numWedges;i++){
         [wedges addObject:[self.view wedge:i]];
     }
     
@@ -186,6 +187,7 @@
   //  self.wedges = [[NSArray alloc] initWithArray:wedges copyItems:YES];
     
 }
+ */
 
 - (void) doInitializationsIfNecessary {
     
@@ -203,6 +205,7 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [self.view setNeedsDisplay];
         self.timeLabel.text = @"Score";
     
 }
@@ -216,6 +219,7 @@
     self.randomNumberStimulus = [[BTStimulus alloc] init];
     self.alreadyResponded = NO;
     self.stimulusNumberLabel.text = @"Start";
+    self.numWedges = [BTStimulusView numWedges];
     
     self.lastTime = [NSDate date];
 }

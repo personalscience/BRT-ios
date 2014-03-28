@@ -11,44 +11,88 @@
 #define RESPONSE_POINT_RADIUS 35.0
 
 
+
 @implementation BTStimulusView
 
 @synthesize wedges;
 
-- (CGPoint) edgeOffsetMultiplier: (uint) wedgeNumber {
+- (CGPoint) edgeOffsetMultiplierForWedgNumber: (uint) wedgeNumber withTotalWedges: (uint) numWedges width:(uint) width height: (uint) height {
     // given a wedgeNumber, returns the (width,height) multiplier for where a left wedge side should intercept the side of the rectangle.
     
-    CGPoint offset = CGPointMake(1, 0.5);
+   CGPoint offset = CGPointMake(width, height /2 );
     
+
     switch (wedgeNumber) {
         case 0:
-            offset =CGPointMake(1, 0.5);
+            offset =CGPointMake(width, height/2);
             break;
         case 1:
-            offset = CGPointMake(1, 1);
+            offset = CGPointMake(width, height);
             break;
         case 2:
-            offset = CGPointMake(0.5,1);
+            offset = CGPointMake(width/2,height);
             break;
         case 3:
-            offset = CGPointMake(0,1.0);
+            offset = CGPointMake(0,height);
             break;
         case 4:
-            offset = CGPointMake(0,0.5);
+            offset = CGPointMake(0,height/2);
             break;
         case 5:
             offset = CGPointMake(0,0);
             break;
         case 6:
-            offset = CGPointMake(0.5,0);
+            offset = CGPointMake(width/2,0);
             break;
         case 7:
-            offset = CGPointMake(1,0);
+            offset = CGPointMake(width,0);
             break;
         default:
-            offset = CGPointMake(1, 0.5);
+            offset = CGPointMake(width, height/2);
             break;
     }
+//
+    
+    float angleForWedge = wedgeNumber * (2* M_PI) / [BTStimulusView numWedges];  // angle (in radians) this wedge is pointing.
+    
+    float xPart = cosf(angleForWedge)*width/2 + width/2;
+    float yPart =  sinf(angleForWedge)*height/2 + height/2;
+    
+//    float c= height/2;
+//    
+//    float a = sqrtf(pow(c*sinf(angleForWedge),2) + pow((height/2),2));
+//    float x2 = width/2 +
+    
+    
+/*  offset = CGPointMake(xPart
+                        
+                       // + cosf(angleForWedge-M_PI_2)*width/2
+                        ,
+                        
+                        yPart
+                        
+                      //  + sinf(angleForWedge-M_PI_2)*width/2
+                        )
+    ;
+*/
+    
+//    float y =width/2 / asinf(angleForWedge);
+//    float x = height/2 / acos(angleForWedge);
+    
+    float y = asinf(angleForWedge)==0?width:(width/2)/asinf(angleForWedge);
+    float x = acosf(angleForWedge) ==0?height:(height/2)/acosf(angleForWedge);
+    
+    
+    
+   // float y = asinf(angleForWedge)>width?width:asinf(angleForWedge);
+    
+    
+    //  float x =height/2*tanf(angleForWedge)+width/2;
+    
+//    offset = CGPointMake(x,y);
+//    NSLog(@"WedgeNumber=%d, offset=%@, angle=%f, (xPart=%f,yPart=%f), xy=(%f,%f)",wedgeNumber, NSStringFromCGPoint(CGPointMake(offset.x,offset.y)),angleForWedge, xPart,yPart,x,y);
+    
+    
     
     return offset;
     
@@ -56,9 +100,14 @@
 }
 
 
+
 - (CGFloat) responsePointRadius {
     
     return RESPONSE_POINT_RADIUS;
+}
+
++ (uint) numWedges {
+    return TOTAL_STIMULI ;
 }
 
 - (UIBezierPath *) circleAtCenterWithRadius: (CGFloat) radius {
@@ -80,6 +129,14 @@
 }
 
 
+- (UIColor *) colorForWedge: (uint) n {
+    
+    NSArray *myColors = [self colorArray];
+    UIColor *aColor = myColors[n % [[self colorArray] count]];
+    
+    return aColor;
+    
+}
 - (NSArray *) colorArray {
     
     return @[[UIColor redColor], [UIColor purpleColor],[UIColor grayColor], [UIColor orangeColor], [UIColor magentaColor], [UIColor greenColor], [UIColor brownColor], [UIColor cyanColor]];
@@ -98,12 +155,12 @@
     CGPoint center = CGPointMake(origin.x+width/2, origin.y+height/2);
     
     // means left Edge Multiplier: a way to figure out which wedge you're in
-    CGPoint leftEdgeX = [self edgeOffsetMultiplier:wedgeNumber];
+    CGPoint leftEdgeX = [self edgeOffsetMultiplierForWedgNumber:wedgeNumber withTotalWedges:[BTStimulusView numWedges] width:width height:height];
     
-    CGPoint leftEdge = CGPointMake(leftEdgeX.x*width,leftEdgeX.y * height);
-    CGPoint rightEdgeX = [self edgeOffsetMultiplier:(wedgeNumber + 1) % 8]; // right edge is just one wedge ahead of the other 8 (hence the modulo)
+    CGPoint leftEdge = CGPointMake(leftEdgeX.x,leftEdgeX.y );
+    CGPoint rightEdgeX = [self edgeOffsetMultiplierForWedgNumber:(wedgeNumber + 1) % [BTStimulusView numWedges] withTotalWedges:[BTStimulusView numWedges] width:width height:height]; // right edge is just one wedge ahead of the other 8 (hence the modulo)
     
-    CGPoint rightEdge = CGPointMake(rightEdgeX.x*width,rightEdgeX.y * height);
+    CGPoint rightEdge = CGPointMake(rightEdgeX.x,rightEdgeX.y );
     
     CGPoint wedgeCentroid = CGPointMake((center.x+leftEdge.x+rightEdge.x)/3,(center.y+leftEdge.y+rightEdge.y)/3);
     
@@ -131,17 +188,18 @@
     
     
     
-    CGFloat startAngle = wedgeNumber * M_PI / 4.0;
-    CGFloat endAngle= startAngle + M_PI / 4.0;
+    CGFloat startAngle = wedgeNumber * M_PI / ([BTStimulusView numWedges] / 2);
+    CGFloat endAngle= startAngle + M_PI / ([BTStimulusView numWedges] / 2);
     
     
     // means left Edge Multiplier: a way to figure out which wedge you're in
-    CGPoint leftEdgeX = [self edgeOffsetMultiplier:wedgeNumber];
+    CGPoint leftEdgeX = [self edgeOffsetMultiplierForWedgNumber:wedgeNumber withTotalWedges:[BTStimulusView numWedges] width:width height:height];
     
-    CGPoint leftEdge = CGPointMake(leftEdgeX.x*width,leftEdgeX.y * height);
-    CGPoint rightEdgeX = [self edgeOffsetMultiplier:(wedgeNumber + 1) % 8]; // right edge is just one wedge ahead of the other 8 (hence the modulo)
+    CGPoint leftEdge = CGPointMake(leftEdgeX.x,leftEdgeX.y );
     
-    CGPoint rightEdge = CGPointMake(rightEdgeX.x*width,rightEdgeX.y * height);
+    CGPoint rightEdgeX = [self edgeOffsetMultiplierForWedgNumber:(wedgeNumber + 1) % [BTStimulusView numWedges] withTotalWedges:[BTStimulusView numWedges] width:width height:height]; // right edge is just one wedge ahead of the other 8 (hence the modulo)
+    
+    CGPoint rightEdge = CGPointMake(rightEdgeX.x,rightEdgeX.y );
     
     
     UIBezierPath *arc = [UIBezierPath bezierPath];
@@ -206,11 +264,11 @@
             
             NSMutableArray *tempWedges = [[NSMutableArray alloc] init];
             
-            for (int w =0;w<8;w++){
+            for (int w =0;w<[BTStimulusView numWedges];w++){
                 UIBezierPath *wedge = [self wedge: w];
                 [tempWedges addObject:wedge];
                 
-                [[[self colorArray] objectAtIndex:w] setFill];
+                [[self colorForWedge:w] setFill];
                 [wedge stroke];
                 [wedge fill];
                 [self drawNumberInWedge:w];
