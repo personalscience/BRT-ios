@@ -7,32 +7,39 @@
 //
 
 #import "BTPlayViewController.h"
-#import "BTStartButtonView.h"
+#import "BTStimulusResponseView.h"
 
-@interface BTPlayViewController ()
+@interface BTPlayViewController ()<TouchReturned>
+
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *difLabel;
 @property NSTimeInterval prevTime;
-@property (weak, nonatomic) IBOutlet BTStartButtonView *StartButtonView;
+@property (strong, nonatomic)  BTStimulusResponseView *StartButtonView;
+@property (weak, nonatomic) IBOutlet BTStimulusResponseView *tempFrame;
 
 @end
 
 @implementation BTPlayViewController
 
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event  {
-    
-    NSTimeInterval time = [[touches anyObject] timestamp];
-    
-    
+- (void) didReceiveTouchAtTime: (NSTimeInterval) time from:(uint)idNum {
     
     self.timeLabel.text = [[NSString alloc] initWithFormat:@"Touch Time:%f",time];
+    
+
     
     self.difLabel.text = [[NSString alloc] initWithFormat:@"msec since last touch: %f",(time-self.prevTime)*1000];
     
     self.prevTime = time;
     [self.StartButtonView drawRed];
     
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event  {
+    
+ //   NSTimeInterval time = [[touches anyObject] timestamp];
+    
+
     
 }
 
@@ -49,7 +56,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+  
+    self.StartButtonView = [[BTStimulusResponseView alloc] initWithFrame:self.tempFrame.frame id:4];
+    self.StartButtonView.delegate = self;
+    [self.tempFrame removeFromSuperview];
+    [self.view addSubview:self.StartButtonView];
+   // self.tempFrame = self.StartButtonView;
     self.prevTime = 0.0;
     
 }

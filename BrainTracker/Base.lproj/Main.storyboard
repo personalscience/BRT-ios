@@ -5,6 +5,37 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--MoleVC - Moles-->
+        <scene sceneID="Erx-op-qSz">
+            <objects>
+                <viewController id="O2g-6A-x6g" customClass="BTMoleVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mcb-e3-qkI"/>
+                        <viewControllerLayoutGuide type="bottom" id="ItS-sU-1vk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QsD-Yx-8wG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfz-x7-KCB">
+                                <rect key="frame" x="20" y="20" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Moles" image="homeTab" id="54q-Gr-t8U"/>
+                    <connections>
+                        <outlet property="timeLabel" destination="kfz-x7-KCB" id="27o-lZ-moj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FgC-jq-Y1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="453" y="-399"/>
+        </scene>
         <!--StartVC - Home2-->
         <scene sceneID="zn3-es-AcQ">
             <objects>
@@ -13,7 +44,7 @@
                         <viewControllerLayoutGuide type="top" id="lwI-jf-NlB"/>
                         <viewControllerLayoutGuide type="bottom" id="Nge-ds-Eiy"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="F7e-3S-jI0" customClass="BTStimulusView">
+                    <view key="view" contentMode="scaleToFill" id="F7e-3S-jI0" customClass="BTWedgeView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -42,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bky-6k-pjZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="662" y="-321"/>
+            <point key="canvasLocation" x="958" y="-133"/>
         </scene>
         <!--Score KeeperVC - First-->
         <scene sceneID="W3I-pn-N6e">
@@ -298,7 +329,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="61t-ya-e3a" customClass="BTStartButtonView">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="61t-ya-e3a" customClass="BTStimulusResponseView">
                                 <rect key="frame" x="110" y="101" width="83" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
@@ -316,6 +347,7 @@
                     <connections>
                         <outlet property="StartButtonView" destination="61t-ya-e3a" id="zfC-3a-JD5"/>
                         <outlet property="difLabel" destination="K8o-2i-pOE" id="8x3-d7-q3X"/>
+                        <outlet property="tempFrame" destination="61t-ya-e3a" id="L0B-T6-r6P"/>
                         <outlet property="timeLabel" destination="0vP-Dy-g8E" id="E8x-AG-Ide"/>
                     </connections>
                 </viewController>
@@ -415,12 +447,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="O2g-6A-x6g" kind="relationship" relationship="viewControllers" id="h6R-h3-k2g"/>
                         <segue destination="kbU-81-sRB" kind="relationship" relationship="viewControllers" id="F7H-AM-G6r"/>
-                        <segue destination="CZ4-MO-1fc" kind="relationship" relationship="viewControllers" id="gV9-8V-Bw2"/>
                         <segue destination="qye-5G-8XC" kind="relationship" relationship="viewControllers" id="agm-UH-Jxl"/>
                         <segue destination="ZUN-VP-gDx" kind="relationship" relationship="viewControllers" id="L2E-jd-n4H"/>
                         <segue destination="QUy-BD-bpt" kind="relationship" relationship="viewControllers" id="M8t-EP-wfW"/>
                         <segue destination="PWl-bH-0QC" kind="relationship" relationship="viewControllers" id="YFl-Rv-1cC"/>
+                        <segue destination="CZ4-MO-1fc" kind="relationship" relationship="viewControllers" id="gV9-8V-Bw2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>

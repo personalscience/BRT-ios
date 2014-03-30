@@ -7,7 +7,7 @@
 //
 
 #import "BTStartVC.h"
-#import "BTStimulusView.h"
+#import "BTWedgeView.h"
 
 // import all classes for the BrainTracker model
 #import "BTStimulus.h"
@@ -16,7 +16,7 @@
 #import "BTResultsTracker.h"
 
 @interface BTStartVC ()
-@property (strong, nonatomic) IBOutlet BTStimulusView *view;
+@property (strong, nonatomic) IBOutlet BTWedgeView *view;
 
 @property  NSTimeInterval startPressTime;
 @property uint numWedges;
@@ -144,7 +144,7 @@
 }
 
 - (void)  responsePressed: (NSString *) responseString atTime: (NSTimeInterval) time {
-    NSTimeInterval duration = time - self.startPressTime; //[self.roundTimer elapsedTime];
+    NSTimeInterval duration = time - self.startPressTime; 
     
     BTResponse *thisResponse = [[BTResponse alloc] initWithString:responseString];
     
@@ -205,7 +205,7 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    [self.view setNeedsDisplay];
+    //[self.view setNeedsDisplay];
         self.timeLabel.text = @"Score";
     
 }
@@ -219,7 +219,7 @@
     self.randomNumberStimulus = [[BTStimulus alloc] init];
     self.alreadyResponded = NO;
     self.stimulusNumberLabel.text = @"Start";
-    self.numWedges = [BTStimulusView numWedges];
+    self.numWedges = [BTWedgeView numWedges];
     
     self.lastTime = [NSDate date];
 }

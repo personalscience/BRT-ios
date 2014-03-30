@@ -10,7 +10,7 @@
 #import "BTStimulus.h"
 #import "Wedge.h"
 
-@interface BTStimulusView : UIView
+@interface BTWedgeView : UIView
 
 
 @property (strong,nonatomic) NSArray *wedges;

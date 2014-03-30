@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		FE25E93718DE57AB00713A41 /* Wedge.m in Sources */ = {isa = PBXBuildFile; fileRef = FE25E93618DE57AB00713A41 /* Wedge.m */; };
 		FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A780D18E0A4750049F45E /* BTPlayViewController.m */; };
-		FE3A781118E0A6850049F45E /* BTStartButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A781018E0A6850049F45E /* BTStartButtonView.m */; };
+		FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */; };
 		FE5B4C9C18CA830600409CA5 /* home-7.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9B18CA830600409CA5 /* home-7.png */; };
 		FE5B4C9E18CA831300409CA5 /* config30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9D18CA831300409CA5 /* config30x30.png */; };
 		FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */; };
@@ -17,6 +17,7 @@
 		FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA618CBE5C900409CA5 /* SharedDocumentHandler.m */; };
 		FE5B4CAB18CBE60A00409CA5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */; };
 		FE5B4CAD18CBEE0C00409CA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */; };
+		FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8BB5EB18E7DB50004A7F19 /* BTStartView.m */; };
 		FE9148CA18C7CE8B00A694B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9148C918C7CE8B00A694B5 /* Foundation.framework */; };
 		FE9148CC18C7CE8B00A694B5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9148CB18C7CE8B00A694B5 /* CoreGraphics.framework */; };
 		FE9148CE18C7CE8B00A694B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9148CD18C7CE8B00A694B5 /* UIKit.framework */; };
@@ -42,10 +43,11 @@
 		FEB338D418D7A5FD00BA1D4D /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB338D318D7A5FD00BA1D4D /* libCorePlot-CocoaTouch.a */; };
 		FEB338D718DA68FB00BA1D4D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FEB338D618DA68FB00BA1D4D /* README.md */; };
 		FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */; };
+		FEBEC08418E5F32B00CED03B /* BTMoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC08318E5F32B00CED03B /* BTMoleView.m */; };
 		FED2524018CE30A100EEA247 /* BTData.m in Sources */ = {isa = PBXBuildFile; fileRef = FED2523F18CE30A100EEA247 /* BTData.m */; };
 		FED57F8E18CF737200B91DEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED57F8D18CF737200B91DEA /* QuartzCore.framework */; };
 		FED57F9118CF757C00B91DEA /* BTChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FED57F9018CF757C00B91DEA /* BTChartVC.m */; };
-		FEFDCA0B18DD513E0083F7EF /* BTStimulusView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFDCA0A18DD513E0083F7EF /* BTStimulusView.m */; };
+		FEFDCA0B18DD513E0083F7EF /* BTWedgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFDCA0A18DD513E0083F7EF /* BTWedgeView.m */; };
 		FEFDCA1518DDD0E10083F7EF /* BTStartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFDCA1418DDD0E10083F7EF /* BTStartVC.m */; };
 /* End PBXBuildFile section */
 
@@ -64,8 +66,8 @@
 		FE25E93618DE57AB00713A41 /* Wedge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Wedge.m; path = BrainTracker/Wedge.m; sourceTree = "<group>"; };
 		FE3A780C18E0A4750049F45E /* BTPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPlayViewController.h; sourceTree = "<group>"; };
 		FE3A780D18E0A4750049F45E /* BTPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPlayViewController.m; sourceTree = "<group>"; };
-		FE3A780F18E0A6850049F45E /* BTStartButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTStartButtonView.h; sourceTree = "<group>"; };
-		FE3A781018E0A6850049F45E /* BTStartButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTStartButtonView.m; sourceTree = "<group>"; };
+		FE3A780F18E0A6850049F45E /* BTStimulusResponseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTStimulusResponseView.h; path = BrainTracker/BTStimulusResponseView.h; sourceTree = "<group>"; };
+		FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTStimulusResponseView.m; path = BrainTracker/BTStimulusResponseView.m; sourceTree = "<group>"; };
 		FE5B4C9B18CA830600409CA5 /* home-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-7.png"; sourceTree = "<group>"; };
 		FE5B4C9D18CA831300409CA5 /* config30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config30x30.png; sourceTree = "<group>"; };
 		FE5B4C9F18CA86A900409CA5 /* BTResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTResultsVC.h; path = ../BTResultsVC.h; sourceTree = "<group>"; };
@@ -76,6 +78,8 @@
 		FE5B4CA918CBE60A00409CA5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FE8BB5EA18E7DB50004A7F19 /* BTStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTStartView.h; sourceTree = "<group>"; };
+		FE8BB5EB18E7DB50004A7F19 /* BTStartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTStartView.m; sourceTree = "<group>"; };
 		FE9148C618C7CE8B00A694B5 /* BrainTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrainTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE9148C918C7CE8B00A694B5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FE9148CB18C7CE8B00A694B5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -191,13 +195,15 @@
 		FEB338D618DA68FB00BA1D4D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleVC.h; sourceTree = "<group>"; };
 		FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleVC.m; sourceTree = "<group>"; };
+		FEBEC08218E5F32B00CED03B /* BTMoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTMoleView.h; path = ../BTMoleView.h; sourceTree = "<group>"; };
+		FEBEC08318E5F32B00CED03B /* BTMoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMoleView.m; path = ../BTMoleView.m; sourceTree = "<group>"; };
 		FED2523E18CE30A100EEA247 /* BTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTData.h; sourceTree = "<group>"; };
 		FED2523F18CE30A100EEA247 /* BTData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTData.m; sourceTree = "<group>"; };
 		FED57F8D18CF737200B91DEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FED57F8F18CF757C00B91DEA /* BTChartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTChartVC.h; sourceTree = "<group>"; };
 		FED57F9018CF757C00B91DEA /* BTChartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTChartVC.m; sourceTree = "<group>"; };
-		FEFDCA0918DD513E0083F7EF /* BTStimulusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTStimulusView.h; sourceTree = "<group>"; };
-		FEFDCA0A18DD513E0083F7EF /* BTStimulusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTStimulusView.m; sourceTree = "<group>"; };
+		FEFDCA0918DD513E0083F7EF /* BTWedgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTWedgeView.h; sourceTree = "<group>"; };
+		FEFDCA0A18DD513E0083F7EF /* BTWedgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTWedgeView.m; sourceTree = "<group>"; };
 		FEFDCA1318DDD0E10083F7EF /* BTStartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTStartVC.h; path = ../BTStartVC.h; sourceTree = "<group>"; };
 		FEFDCA1418DDD0E10083F7EF /* BTStartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTStartVC.m; path = ../BTStartVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -233,8 +239,6 @@
 		FE3A781218E0A6960049F45E /* PlayTab */ = {
 			isa = PBXGroup;
 			children = (
-				FE3A780F18E0A6850049F45E /* BTStartButtonView.h */,
-				FE3A781018E0A6850049F45E /* BTStartButtonView.m */,
 				FE3A780C18E0A4750049F45E /* BTPlayViewController.h */,
 				FE3A780D18E0A4750049F45E /* BTPlayViewController.m */,
 			);
@@ -375,10 +379,14 @@
 		FE91491618C7D38F00A694B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FE3A780F18E0A6850049F45E /* BTStimulusResponseView.h */,
+				FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */,
 				FE25E93518DE57AB00713A41 /* Wedge.h */,
 				FE25E93618DE57AB00713A41 /* Wedge.m */,
-				FEFDCA0918DD513E0083F7EF /* BTStimulusView.h */,
-				FEFDCA0A18DD513E0083F7EF /* BTStimulusView.m */,
+				FEFDCA0918DD513E0083F7EF /* BTWedgeView.h */,
+				FEFDCA0A18DD513E0083F7EF /* BTWedgeView.m */,
+				FE8BB5EA18E7DB50004A7F19 /* BTStartView.h */,
+				FE8BB5EB18E7DB50004A7F19 /* BTStartView.m */,
 				FE91491018C7D36500A694B5 /* BTResponseView.h */,
 				FE91491118C7D36500A694B5 /* BTResponseView.m */,
 			);
@@ -483,6 +491,8 @@
 		FEBEC07E18E5ECD000CED03B /* MoleView */ = {
 			isa = PBXGroup;
 			children = (
+				FEBEC08218E5F32B00CED03B /* BTMoleView.h */,
+				FEBEC08318E5F32B00CED03B /* BTMoleView.m */,
 				FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */,
 				FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */,
 			);
@@ -595,10 +605,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE25E93718DE57AB00713A41 /* Wedge.m in Sources */,
-				FE3A781118E0A6850049F45E /* BTStartButtonView.m in Sources */,
+				FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */,
 				FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */,
 				FE9148E318C7CE8B00A694B5 /* BTSettingsVC.m in Sources */,
-				FEFDCA0B18DD513E0083F7EF /* BTStimulusView.m in Sources */,
+				FEFDCA0B18DD513E0083F7EF /* BTWedgeView.m in Sources */,
 				FEFDCA1518DDD0E10083F7EF /* BTStartVC.m in Sources */,
 				FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */,
 				FE5B4CAB18CBE60A00409CA5 /* CoreDataTableViewController.m in Sources */,
@@ -607,8 +617,10 @@
 				FE91491218C7D36500A694B5 /* BTResponseView.m in Sources */,
 				FE91490C18C7D05A00A694B5 /* BTResultsTracker.m in Sources */,
 				FED57F9118CF757C00B91DEA /* BTChartVC.m in Sources */,
+				FEBEC08418E5F32B00CED03B /* BTMoleView.m in Sources */,
 				FE9148DA18C7CE8B00A694B5 /* BTAppDelegate.m in Sources */,
 				FE9148D618C7CE8B00A694B5 /* main.m in Sources */,
+				FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */,
 				FE5B4CA418CBE03900409CA5 /* BrainTest.xcdatamodeld in Sources */,
 				FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */,
 				FE9148E018C7CE8B00A694B5 /* BTScoreKeeperVC.m in Sources */,
