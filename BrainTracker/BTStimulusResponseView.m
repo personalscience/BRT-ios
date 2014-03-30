@@ -12,9 +12,6 @@
 @interface BTStimulusResponseView()
 
 @property (strong, nonatomic) UIColor *buttonColor;
-//@property uint idNum;
-
-
 
 @end
 
@@ -35,7 +32,8 @@
           ];
     
     idNum = num;
-     self.backgroundColor = [UIColor blueColor];
+    self.backgroundColor = nil; // makes background transparent
+    self.opaque = NO;
 
     return self;
     
@@ -45,7 +43,7 @@
 
 - (UIImage *)createImage
 {
-	UIColor *color = [UIColor redColor];
+	UIColor *color = [self buttonColor];
     
 	
     
@@ -69,6 +67,16 @@
     
 }
 
+- (void) animatePresence {
+    
+   
+    [UIView animateWithDuration:3.0 animations:^{
+        [self setAlpha:1.0];
+    } completion:^(BOOL finished) {
+        [self setAlpha:0.0];
+    }];
+    
+}
 
 
 
@@ -92,7 +100,7 @@
     
     self.buttonColor = color;
 
-    [self setNeedsDisplay];
+    [self setNeedsDisplay]; //update the new color right away
     
 }
 - (UIBezierPath *) circleButton {
@@ -101,6 +109,16 @@
    
     
     return cPath;
+    
+}
+
+
+- (void) showLabels {
+    NSString *numLabelString = [[NSString alloc] initWithFormat:@"%d",idNum];
+    NSAttributedString *numLabel = [[NSAttributedString alloc] initWithString:numLabelString];
+    
+    
+    [numLabel drawAtPoint:(CGPoint){floor(self.bounds.size.width/2-5),floor(self.bounds.size.height/2-5)}];
     
 }
 
@@ -113,27 +131,24 @@
     [self setColor:[UIColor redColor]];
 }
 
+- (void) drawColor: (UIColor*) newColor {
+    [self setColor:newColor];
+}
 
 
 - (void)drawRect:(CGRect)rect
 {
     
-   // self.layer.contents= [self createImage];
-    UIBezierPath *cPath = [self circleButton];
-    [self.buttonColor setFill];
-    self.backgroundColor = [UIColor grayColor];
+
+    self.backgroundColor = nil;
+    self.opaque = NO;
+
     
-    [cPath fill];
+    UIImageView *circleImage = [[UIImageView alloc] initWithImage:[self createImage]];
     
- //   UIImageView *circleImage = [[UIImageView alloc] initWithImage:[self createImage]];
+    [self addSubview:circleImage];
     
- //   [self addSubview:circleImage];
-    
-    NSString *numLabelString = [[NSString alloc] initWithFormat:@"%d",idNum];
-    NSAttributedString *numLabel = [[NSAttributedString alloc] initWithString:numLabelString];
-    
-    
-    [numLabel drawAtPoint:(CGPoint){floor(self.bounds.size.width/2-5),floor(self.bounds.size.height/2-5)}];
+   
     
 }
 

@@ -26,6 +26,8 @@
 - (id) initWithFrame:(CGRect)frame id: (uint) num;
 - (void) drawGreen;
 - (void) drawRed;
+- (void) drawColor: (UIColor *) newColor;
+- (void) animatePresence;
 @property (weak) id <TouchReturned>delegate;
 
 @end

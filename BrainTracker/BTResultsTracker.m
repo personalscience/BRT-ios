@@ -47,7 +47,7 @@
     for (BTData *result in results) {
         
         
-        NSTimeInterval rt = [result.responseTime doubleValue];
+ //       NSTimeInterval rt = [result.responseTime doubleValue];
         [responseTimes addObject:result.responseTime];
         
         
@@ -68,12 +68,14 @@
     
     double MedianVal = [value doubleValue];
     
+    NSLog(@"responseTime=%0.3f",[responseTime doubleValue]);
+    
     uint g= 0;
     uint rc=(uint)[responseTimes count] ;
     
     for (uint i = 0; i<rc;i++){
-        if (responseTimes[i]>=responseTime) {
-            NSLog(@"MedianVal=%f, g=%d",MedianVal,i);
+        if ([responseTimes[i] doubleValue]>=[responseTime doubleValue]) {
+            NSLog(@"Count = %d, MedianVal=%f, rt[%d]=%0.3f",rc, MedianVal,i,[responseTimes[i] doubleValue]);
             g=i;break;
         }
         else {NSLog(@"i=%f",[responseTimes[i] doubleValue]);}

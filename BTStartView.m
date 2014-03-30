@@ -16,7 +16,18 @@
     if (self) {
         // Initialization code
     }
+
+
     return self;
+}
+
+- (UIBezierPath *) rectButton {
+    
+    UIBezierPath *cPath = [UIBezierPath bezierPathWithRect:self.bounds];
+    [cPath fill];
+    
+    return cPath;
+    
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -32,13 +43,7 @@
     [self.delegate didStopTouchAtTime:[[touches anyObject] timestamp]];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+
+
 
 @end

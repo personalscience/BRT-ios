@@ -53,10 +53,10 @@
     }
 //
     
-    float angleForWedge = wedgeNumber * (2* M_PI) / [BTWedgeView numWedges];  // angle (in radians) this wedge is pointing.
+ //   float angleForWedge = wedgeNumber * (2* M_PI) / [BTWedgeView numWedges];  // angle (in radians) this wedge is pointing.
     
-    float xPart = cosf(angleForWedge)*width/2 + width/2;
-    float yPart =  sinf(angleForWedge)*height/2 + height/2;
+ //   float xPart = cosf(angleForWedge)*width/2 + width/2;
+ //   float yPart =  sinf(angleForWedge)*height/2 + height/2;
     
 //    float c= height/2;
 //    
@@ -79,8 +79,8 @@
 //    float y =width/2 / asinf(angleForWedge);
 //    float x = height/2 / acos(angleForWedge);
     
-    float y = asinf(angleForWedge)==0?width:(width/2)/asinf(angleForWedge);
-    float x = acosf(angleForWedge) ==0?height:(height/2)/acosf(angleForWedge);
+//    float y = asinf(angleForWedge)==0?width:(width/2)/asinf(angleForWedge);
+//    float x = acosf(angleForWedge) ==0?height:(height/2)/acosf(angleForWedge);
     
     
     
@@ -116,7 +116,6 @@
     CGFloat width = self.bounds.size.width;
     CGFloat height = self.bounds.size.height;
     
-    CGPoint origin  = CGPointMake(width/2 - radius,height/2-radius);
     
     CGRect circleRect = CGRectMake(width/2 - radius, height/2 - radius, radius*2, radius*2 );
     
@@ -150,9 +149,7 @@
     CGFloat height = self.bounds.size.height;
     
     
-    CGPoint origin  = self.bounds.origin;
-    
-    CGPoint center = self.center; //CGPointMake(origin.x+width/2, origin.y+height/2);
+    CGPoint center = self.center;
     
     // means left Edge Multiplier: a way to figure out which wedge you're in
     CGPoint leftEdgeX = [self edgeOffsetMultiplierForWedgNumber:wedgeNumber withTotalWedges:[BTWedgeView numWedges] width:width height:height];
@@ -178,10 +175,7 @@
     CGFloat width = self.bounds.size.width;
     CGFloat height = self.bounds.size.height;
     
-    
-    CGPoint origin  = self.bounds.origin;
-    
-    CGPoint center = CGPointMake(origin.x+width/2, origin.y+height/2);
+     
     
     
     

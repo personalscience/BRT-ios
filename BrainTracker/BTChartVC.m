@@ -145,7 +145,7 @@
     hostView.hostedGraph = self.graph;
     
     CPTColor *backgroundColor = [CPTColor yellowColor];
-    CPTColor *axisLabelColor = [CPTColor redColor];
+//    CPTColor *axisLabelColor = [CPTColor redColor];
     self.graph.fill = [CPTFill fillWithColor:backgroundColor];
   //  self.graph.plotAreaFrame.fill = [CPTFill fillWithColor:backgroundColor];
    // self.graph.plotAreaFrame.plotArea.fill = [CPTFill fillWithColor:backgroundColor];

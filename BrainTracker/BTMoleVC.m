@@ -12,7 +12,7 @@
 #import "BTStimulusResponseView.h"
 #import "BTStartView.h"
 
-const CGFloat kMoleHeight = 65;
+const CGFloat kMoleHeight = 50;
 const uint kMoleNumCols = 2;
 const uint kMOleNumRows = 3;
 const uint kMoleCount = kMOleNumRows * kMoleNumCols;
@@ -109,7 +109,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 - (BTStartView *) makeStartButton: (CGRect) frame {
     
     BTStartView *button = self.startButton = [[BTStartView alloc] initWithFrame:frame id:0];  // by convention, start button is always 0
-    [self.startButton drawRed];
+    //[self.startButton drawGreen];
     self.startButton.delegate = self;
     [self.view addSubview:self.startButton];
     
@@ -136,7 +136,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         
         double g=[self.results percentileOfResponse:thisResponse];
         
-        self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.0f mSec (%2.3f)%%",duration * 1000,g];
+        self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.0f mSec (%2.3f)%%",duration * 1000,g*100];
         
         [self.startButton drawGreen];
         [[self.moles objectAtIndex:idNum] setAlpha:0.0];
@@ -163,6 +163,17 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     return YES;
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    for (uint i=1;i<[self.moles count]; i++){
+        [self.moles[i] setAlpha:0.0];
+        [self.moles[i] animatePresence];
+    }
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -170,14 +181,16 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     [self doInitializationsIfNecessary];
     
+    self.timeLabel.text = @"Press the orange button to start";
+    
     NSMutableArray *Moles = [[NSMutableArray alloc] init];
     
     CGRect myFrame = self.view.frame; // now I can calculate the size of the current view.
     CGFloat height = myFrame.size.height;
     CGFloat width = myFrame.size.width;
     
-    BTStartView *button = [self makeStartButton:CGRectMake(width/(2)-kMoleHeight, height - kMoleHeight*2, kMoleHeight*3, kMoleHeight)];
-    
+    BTStartView *button = [self makeStartButton:CGRectMake(width/(2)-kMoleHeight*3/2, height - kMoleHeight*2, kMoleHeight*3, kMoleHeight)];
+    [button drawColor:[UIColor orangeColor]];
     
     [Moles addObject:button];
     
@@ -198,7 +211,6 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
                                           id:index++];
             newMole.delegate = self;
             [self.view addSubview:newMole];
-            [newMole setAlpha:0.0];
         
         
         [Moles addObject:newMole];
@@ -207,9 +219,8 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     self.moles = [[NSArray alloc] initWithArray:Moles ];
     
- //   for (BTStartButtonView *mole in Moles){
- //       [mole drawRed];
- //   }
+
+    
 }
 
 

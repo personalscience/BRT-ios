@@ -159,7 +159,7 @@
         
         double g=[self.results percentileOfResponse:thisResponse];
         
-        self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.0f mSec (%2.3f)%%",duration * 1000,g];
+        self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.0f mSec (%2.3f)%%",duration * 1000,g*100];
  
         self.alreadyResponded = YES;
         self.stimulusNumberLabel.textColor = [UIColor blackColor];
