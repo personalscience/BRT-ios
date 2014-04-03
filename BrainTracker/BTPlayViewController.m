@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
+
+
+
 #import "BTPlayViewController.h"
 #import "BTStimulusResponseView.h"
 
@@ -17,11 +20,18 @@
 @property (strong, nonatomic)  BTStimulusResponseView *StartButtonView;
 @property (weak, nonatomic) IBOutlet BTStimulusResponseView *tempFrame;
 
+@property (weak, nonatomic) IBOutlet UIProgressView *brightnessLevel;
+@property (weak, nonatomic) IBOutlet UILabel *brightnessLevelLabel;
+
 @end
 
 @implementation BTPlayViewController
 
-
+{
+    
+    CGFloat howBright;
+    
+}
 - (void) didReceiveTouchAtTime: (NSTimeInterval) time from:(uint)idNum {
     
     self.timeLabel.text = [[NSString alloc] initWithFormat:@"Touch Time:%f",time];
@@ -48,9 +58,17 @@
     
     self.timeLabel.text =[[NSString alloc] initWithFormat:@"Touch ended:%f",time];
     [self.StartButtonView drawGreen];
+    [self updateBrightessLabel];
+ 
     
 }
 
+- (void) updateBrightessLabel {
+    
+    howBright = [[UIScreen mainScreen] brightness];
+    self.brightnessLevelLabel.text = [[NSString alloc] initWithFormat:@"%0.2f",howBright];
+    [self.brightnessLevel setProgress:howBright];
+}
 
 - (void)viewDidLoad
 {
@@ -63,6 +81,8 @@
     [self.view addSubview:self.StartButtonView];
    // self.tempFrame = self.StartButtonView;
     self.prevTime = 0.0;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBrightessLabel) name:UIScreenBrightnessDidChangeNotification object:nil];
     
 }
 

@@ -31,8 +31,14 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 @implementation BTMoleVC
 {
     NSTimeInterval prevTime;
+    CGRect myFrame;
+    CGFloat height;
+    CGFloat width;
     
 }
+
+
+
 # pragma mark - Setters/Getters
 
 - (BTResultsTracker *) results {
@@ -106,6 +112,8 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
 #pragma mark handle touches
 
+
+
 - (BTStartView *) makeStartButton: (CGRect) frame {
     
     BTStartView *button = self.startButton = [[BTStartView alloc] initWithFrame:frame id:0];  // by convention, start button is always 0
@@ -157,37 +165,15 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
    
 }
 
-#pragma mark general
+#pragma mark lay out 
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
-- (void) viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    for (uint i=1;i<[self.moles count]; i++){
-        [self.moles[i] setAlpha:0.0];
-        [self.moles[i] animatePresence];
-    }
-    
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    [self doInitializationsIfNecessary];
-    
-    self.timeLabel.text = @"Press the orange button to start";
+- (void) layOutViewsInRows {
     
     NSMutableArray *Moles = [[NSMutableArray alloc] init];
     
-    CGRect myFrame = self.view.frame; // now I can calculate the size of the current view.
-    CGFloat height = myFrame.size.height;
-    CGFloat width = myFrame.size.width;
+//    CGRect myFrame = self.view.frame; // now I can calculate the size of the current view.
+//    CGFloat height = myFrame.size.height;
+//    CGFloat width = myFrame.size.width;
     
     BTStartView *button = [self makeStartButton:CGRectMake(width/(2)-kMoleHeight*3/2, height - kMoleHeight*2, kMoleHeight*3, kMoleHeight)];
     [button drawColor:[UIColor orangeColor]];
@@ -201,23 +187,124 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     for (int row=0;row<3;row++){
         for (int col =0;col<kMoleNumCols;col++){
-        
+            
             BTStimulusResponseView *newMole = [[BTStimulusResponseView alloc]
-                                          initWithFrame:CGRectMake(
-                                                                   (leftMargin)+col*(width/kMoleNumCols),
-                                                                    verticalSpacing+ row*(height/(kMOleNumRows*2)),
-                                                                   kMoleHeight,
-                                                                   kMoleHeight)
-                                          id:index++];
+                                               initWithFrame:CGRectMake(
+                                                                        (leftMargin)+col*(width/kMoleNumCols),
+                                                                        verticalSpacing+ row*(height/(kMOleNumRows*2)),
+                                                                        kMoleHeight,
+                                                                        kMoleHeight)
+                                               id:index++];
             newMole.delegate = self;
             [self.view addSubview:newMole];
-        
-        
-        [Moles addObject:newMole];
+            
+            
+            [Moles addObject:newMole];
         }
     }
     
     self.moles = [[NSArray alloc] initWithArray:Moles ];
+    
+    
+    
+}
+
+- (void) layOutViewsInArc {
+    
+    NSMutableArray *Moles = [[NSMutableArray alloc] init];
+    
+    CGFloat verticalCenter =width/2;
+    
+    BTStartView *button = [self makeStartButton:CGRectMake(kMoleHeight/2 + verticalCenter-kMoleHeight*3/2, height - kMoleHeight*2, kMoleHeight*3, kMoleHeight)];
+    [button drawColor:[UIColor orangeColor]];
+    
+    [Moles addObject:button];
+    
+    CGFloat kRuleHeight = height - height/3;
+    CGFloat kLineLen = sqrtf(powf(verticalCenter,2)+powf(height - kRuleHeight,2));
+    
+    CGFloat theta = atanf((verticalCenter)/(height - kRuleHeight));
+    
+    CGFloat thetaPiece = 2*theta/5;
+    int i = 0;
+    uint index = 1;
+    
+    while (i<6) {
+        CGFloat lenOpp = kLineLen * sinf(theta);  // lenght of the side opposite the theta angle
+        CGFloat lenAdj = kLineLen * cosf(theta);
+        CGFloat x = verticalCenter - lenOpp + kMoleHeight/2;
+        CGFloat y = height - lenAdj;
+        theta = theta - thetaPiece;
+        
+        BTStimulusResponseView *newMole = [[BTStimulusResponseView alloc]
+                                           initWithFrame:CGRectMake(
+                                                                    x-kMoleHeight/2,
+                                                                    y-kMoleHeight/2,
+                                                                    kMoleHeight,
+                                                                    kMoleHeight)
+                                           id:index++];
+        newMole.delegate = self;
+        [self.view addSubview:newMole];
+        
+        i=i+1;
+        [Moles addObject:newMole];
+        
+    }
+    
+    
+    
+    self.moles = [[NSArray alloc] initWithArray:Moles ];
+    
+}
+
+#pragma mark general
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+ 
+    
+    for (uint i=1;i<[self.moles count]; i++){
+        [self.moles[i] setAlpha:0.0];
+        [self.moles[i] animatePresence];
+    }
+    
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    myFrame = self.view.frame; // now I can calculate the size of the current view.
+    width = myFrame.size.height- kMoleHeight;
+    height = myFrame.size.width ;
+    [self layOutViewsInArc];
+}
+
+//- (void) didRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+//{
+//    myFrame = self.view.frame; // now I can calculate the size of the current view.
+//    height = myFrame.size.height;
+//    width = myFrame.size.width - kMoleHeight;
+//
+//}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    myFrame = self.view.frame; // now I can calculate the size of the current view.
+    height = myFrame.size.height;
+    width = myFrame.size.width - kMoleHeight;
+    
+    [self doInitializationsIfNecessary];
+    
+    self.timeLabel.text = @"Press the orange button to start";
+    [self layOutViewsInArc];
     
 
     
