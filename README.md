@@ -14,3 +14,18 @@ Note that you can delete individual results (on the results page) by left-swipin
 The Settings screen will let you populate the app with random values (10 at a time) if you want to test some of the other features (like the chart).
 
 
+Architecture
+============
+
+*BTStimulusResponseView*: superclass for drawing your stimuli or responses in a view.  Subclass BTStartView draws a special start button. Subclass BTResponseView has a delegate that can handle responses (e.g. when touched).
+
+    Subclass again with BTStimulusView if you want a stimulus that is not meant to be touched, or that will not be part of the response. For example, if you show something and expect the user to react quickly by pushing a different response key, show the stimulus as a BTStimulusView, not a BTResponseView (nor a BTStimulusResponseView)
+
+*BTResponse*: contains all information related to the response a user made to a stimulus.
+
+
+View Controllers
+================
+
+MoleView: viewer for the whack-a-mole UI
+WedgeView: viewer for the wedge UI

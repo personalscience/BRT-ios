@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define TOTAL_STIMULI 7
+#define TOTAL_STIMULI 8
 
 #import "BTResponse.h"
 

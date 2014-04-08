@@ -9,6 +9,7 @@
 #import "BTStimulusResponseView.h"
 
 
+
 @interface BTStimulusResponseView()
 
 @property (strong, nonatomic) UIColor *buttonColor;
@@ -21,7 +22,7 @@
 
 {
     CGPoint previousLocation;
-    uint idNum;
+  //  uint idNum;
 }
 
 
@@ -60,20 +61,6 @@
     
 }
 
-
-- (id) initWithFrame:(CGRect)frame id: (uint) num {
-    
-    self=[super initWithFrame:frame
-          ];
-    
-    idNum = num;
-    self.backgroundColor = nil; // makes background transparent
-    self.opaque = NO;
-//        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
- //    self.gestureRecognizers = @[pan];
-    return self;
-    
-}
 
 
 
@@ -116,15 +103,10 @@
 	self.center = newcenter;
 }
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    [self.delegate didReceiveTouchAtTime:[[touches anyObject] timestamp] from:idNum];
-    previousLocation = self.center;
-    
-}
+
 
 - (void) showLabels {
-    NSString *numLabelString = [[NSString alloc] initWithFormat:@"%d",idNum];
+    NSString *numLabelString = [[NSString alloc] initWithFormat:@"%d",[self.idNum intValue]];
     NSAttributedString *numLabel = [[NSAttributedString alloc] initWithString:numLabelString];
     
     
@@ -176,6 +158,27 @@
    
     
 }
+
+#pragma mark Initializers
+
+
+- (id) initWithFrame:(CGRect)frame forResponse: (BTResponse *) response {
+    
+    self=[super initWithFrame:frame
+          ];
+    
+    self.response = response;
+    
+    self.idNum = [[[NSNumberFormatter alloc] init] numberFromString:[response responseLabel]];
+                  
+    self.backgroundColor = nil; // makes background transparent
+    self.opaque = NO;
+    //        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    //    self.gestureRecognizers = @[pan];
+    return self;
+    
+}
+
 
 
 @end

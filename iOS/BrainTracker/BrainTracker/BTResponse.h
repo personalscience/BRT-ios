@@ -29,8 +29,10 @@
  A BTResponse contains a dict, response, with at least these keys:
  
  KEY_RESPONSE_TIME
+ KEY_RESPONSE_STRING
+ 
 
- A response should include additional information:
+ A response can also include additional information:
  * location
  
 */
@@ -46,9 +48,12 @@
 - (id) initWithString: (NSString *) initString;
 //
 
-- (void) setResponseTime: (NSTimeInterval) timeInSeconds;
+//- (void) setResponseTime: (NSTimeInterval) timeInSeconds;
 
-- (NSTimeInterval) responseTime;
-- (NSDictionary *) response;
+@property NSTimeInterval responseTime;
+@property (strong, nonatomic) NSDictionary * response;
+
+//- (NSTimeInterval) responseTime;
+//- (NSDictionary *) response;
 
 @end

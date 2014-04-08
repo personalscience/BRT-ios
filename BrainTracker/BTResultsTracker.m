@@ -19,22 +19,19 @@
 
 @implementation BTResultsTracker
 
-//@synthesize responses;
-
-
 
 // returns a percentile that represents how this response compares to all others that had the same responseString. Returning 0.5, for example, means this response is the exact median for all responses.
 
 - (double) percentileOfResponse: (BTResponse *) response {
-    NSString *responseString =response.response[KEY_RESPONSE_STRING];
-    NSNumber  *responseTime = response.response[KEY_RESPONSE_TIME];
+    NSString *responseString =response.response[kBTResponseStringKey];
+    NSNumber  *responseTime = response.response[kBTResponseTimeKey];
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTData"];
     
     // filter for everything in the database where attribute ResponseString = responseString
-    NSPredicate *matchesString = [NSPredicate predicateWithFormat:@"%K matches %@",@"responseString",responseString];
+    NSPredicate *matchesString = [NSPredicate predicateWithFormat:@"%K matches %@",kBTResponseStringKey,responseString];
     
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:KEY_RESPONSE_TIME ascending:YES]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTResponseTimeKey ascending:YES]];
     
     [request setPredicate:matchesString];
 
@@ -91,9 +88,9 @@
 - (void) saveResult: (BTResponse *) response {
     
   
-    NSString *responseString =response.response[KEY_RESPONSE_STRING];
-    NSDate *responseDate = response.response[KEY_RESPONSE_DATE];
-    NSNumber  *responseTime = response.response[KEY_RESPONSE_TIME];
+    NSString *responseString =response.response[kBTResponseStringKey];
+    NSDate *responseDate = response.response[kBTResponseDateKey];
+    NSNumber  *responseTime = response.response[kBTResponseTimeKey];
     
  //   [self.responses addObject:@{KEY_RESPONSE_STRING:responseString, KEY_RESPONSE_DATE:responseDate,KEY_RESPONSE_TIME:responseTime}];
 
@@ -103,26 +100,49 @@
         // think of this like a proxy for a response item in the database
         BTData *BTDataResponse =[NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:self.context];
         
- 
-//    NSManagedObject *newDbResponseRecord = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:self.context];
-//    [newDbResponseRecord setValue:responseString forKey:KEY_RESPONSE_STRING];
-//    [newDbResponseRecord setValue:responseTime forKey:KEY_RESPONSE_TIME];
-//    [newDbResponseRecord setValue:responseDate forKey:KEY_RESPONSE_DATE];
-        
         BTDataResponse.responseTime = responseTime;
         BTDataResponse.responseString = responseString;
         BTDataResponse.responseDate = responseDate;
         
     }
+    [self saveToDisk:responseString duration:[responseTime doubleValue] comment:@"empty comment here"];
+}
+
+
+
+-(NSString *)dataFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(
+                                                         NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:@"BrainTrackerResultsFile.csv"];
+}
+
+- (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
+    
+    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration,comment];
+    NSFileHandle *handle;
+    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
+    //say to handle where's the file fo write
+    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
+    //position handle cursor to the end of file
+    [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
     
 }
-//
-//- (BTResponse *) latestResponse { // returns latest response on file
-//    
-//    return [self.responses lastObject];
-//
-//}
 
+- (void) doInitializationsIfNecessary {
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]]) {
+        [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
+        NSLog(@"new results file created");
+        NSString *textToWrite = [[NSString alloc] initWithFormat:@"date,string,time,comment\n"];
+        NSFileHandle *handle;
+        handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
+        //say to handle where's the file fo write
+        //       [handle truncateFileAtOffset:[handle seekToEndOfFile]];
+        //position handle cursor to the end of file
+        [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+}
 
 
 - (NSManagedObjectContext *) managedObjectContext {
@@ -142,6 +162,7 @@
 /* First, get the managedObjectContext for this instance */
     
     self.context = [self managedObjectContext];
+    [self doInitializationsIfNecessary];
 
 
 

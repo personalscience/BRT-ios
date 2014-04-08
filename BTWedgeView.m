@@ -7,6 +7,7 @@
 //
 
 #import "BTWedgeView.h"
+#define TOTAL_STIMULI 8
 
 #define RESPONSE_POINT_RADIUS 35.0
 

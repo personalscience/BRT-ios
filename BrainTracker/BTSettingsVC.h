@@ -1,5 +1,5 @@
 //
-//  BTSecondViewController.h
+//  BTSettingsVC.h
 //  BrainTracker
 //
 //  Created by Richard Sprague on 3/5/14.
@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+extern NSString * const kBTResponseStringKey;
+extern NSString * const kBTMaxTrialsPerSessionKey;
 
 @interface BTSettingsVC : UIViewController
+
+
+
 
 @end

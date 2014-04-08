@@ -12,23 +12,20 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol TouchReturned <NSObject>
+#import "BTTouchReturnedProtocol.h" // defines the TouchReturned prototocol
 
-@optional
-- (void) didReceiveTouchAtTime: (NSTimeInterval) time from:(uint) idNum ;
-- (void) didStopTouchAtTime: (NSTimeInterval) time;
-
-@end
+#import "BTResponse.h"
 
 
 @interface BTStimulusResponseView : UIView
 
-- (id) initWithFrame:(CGRect)frame id: (uint) num;
+- (id) initWithFrame:(CGRect)frame forResponse: (BTResponse *) response;
 - (void) drawGreen;
 - (void) drawRed;
 - (void) drawColor: (UIColor *) newColor;
 - (void) animatePresence;
-@property (weak) id <TouchReturned>delegate;
+@property NSNumber * idNum;
+@property BTResponse *response;
 
 @end
 

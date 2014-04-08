@@ -11,4 +11,6 @@
 
 @interface BTResponseView :  BTStimulusResponseView
 
+@property (weak) id <BTTouchReturned>delegate;
+
 @end

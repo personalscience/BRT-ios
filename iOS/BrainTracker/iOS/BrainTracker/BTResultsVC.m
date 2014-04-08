@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) BTData *BTResponse;
 @property (weak, nonatomic) IBOutlet UILabel *countLable;
+@property (strong, nonatomic) NSManagedObjectContext *context;
 
 //@property (strong, nonatomic) NSArray *results;
 
@@ -21,6 +22,15 @@
 
 @implementation BTResultsVC
 
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    BTData *item =[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self.context deleteObject:item];
+    [self.resultsTableView reloadData];
+}
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return [[self.fetchedResultsController sections] count];  //1;
@@ -73,22 +83,21 @@
     return context;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void) updateUI {
     
     
-    NSManagedObjectContext *context = [self managedObjectContext];
     
-   // self.BTResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:context];
+    // self.BTResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:context];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTData"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"responseDate" ascending:NO],
                                      [NSSortDescriptor sortDescriptorWithKey: @"responseTime" ascending:YES]];
-                                      
-                                
- //   self.results = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
-    self.fetchedResultsController.delegate = self; 
+    
+    //   self.results = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController.delegate = self;
     
     NSError *error;
     bool success = [self.fetchedResultsController performFetch:&error];
@@ -99,6 +108,15 @@
     
     
     [self.resultsTableView reloadData];
+    
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    
+    //   NSManagedObjectContext *context = [self managedObjectContext];
+    self.context = [self managedObjectContext];
+    [self updateUI];
+ 
 }
 
 - (void)viewDidLoad

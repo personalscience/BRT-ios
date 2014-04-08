@@ -9,9 +9,9 @@
 #import "BTResponse.h"
 
 @interface BTResponse()
-@property (nonatomic,strong) NSMutableDictionary *response;
-
-@property (strong, nonatomic) NSString *responseString;
+//@property (nonatomic,strong) NSMutableDictionary *response;
+//
+//@property (strong, nonatomic) NSString *responseString;
 
 
 @end
@@ -22,9 +22,6 @@
 - (BOOL) matchesResponse: (BTResponse *) otherResponse {
     
     
-  //  NSString *valResponse = [otherResponse.response objectForKey:KEY_RESPONSE_STRING];
-    
-    
     if ([otherResponse.response[KEY_RESPONSE_STRING] isEqualToString:[self.response objectForKey:KEY_RESPONSE_STRING]])
         return YES;
     else return NO;
@@ -32,16 +29,16 @@
         
 }
 
-- (NSDictionary *) response {
-    if (!_response) {
-        NSLog(@"trying to get 'response' without a value");
-        return nil;
-    }
-    else {
-        return _response;
-    }
-    
-}
+//- (NSDictionary *) response {
+//    if (!_response) {
+//        NSLog(@"trying to get 'response' without a value");
+//        return nil;
+//    }
+//    else {
+//        return _response;
+//    }
+//    
+//}
 
 - (NSTimeInterval) responseTime {
     

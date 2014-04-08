@@ -41,6 +41,7 @@
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     [self.delegate didStopTouchAtTime:[[touches anyObject] timestamp]];
+    [self drawGreen];
 }
 
 

@@ -10,15 +10,15 @@
 
 
 #import "BTPlayViewController.h"
-#import "BTStimulusResponseView.h"
+#import "BTResponseView.h"
 
-@interface BTPlayViewController ()<TouchReturned>
+@interface BTPlayViewController ()<BTTouchReturned>
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *difLabel;
 @property NSTimeInterval prevTime;
-@property (strong, nonatomic)  BTStimulusResponseView *StartButtonView;
-@property (weak, nonatomic) IBOutlet BTStimulusResponseView *tempFrame;
+@property (strong, nonatomic)  BTResponseView *StartButtonView;
+@property (weak, nonatomic) IBOutlet BTResponseView *tempFrame;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *brightnessLevel;
 @property (weak, nonatomic) IBOutlet UILabel *brightnessLevelLabel;
@@ -74,8 +74,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-  
-    self.StartButtonView = [[BTStimulusResponseView alloc] initWithFrame:self.tempFrame.frame id:4];
+    BTResponse *response = [[BTResponse alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@4]];
+    
+    self.StartButtonView = [[BTResponseView alloc] initWithFrame:self.tempFrame.frame forResponse:response];
     self.StartButtonView.delegate = self;
     [self.tempFrame removeFromSuperview];
     [self.view addSubview:self.StartButtonView];

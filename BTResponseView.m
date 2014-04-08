@@ -10,6 +10,13 @@
 
 @implementation BTResponseView
 
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    [self.delegate didReceiveTouchAtTime:[[touches anyObject] timestamp] from:[self.idNum intValue]];
+ //   previousLocation = self.center;
+    
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

@@ -1,5 +1,5 @@
 //
-//  BTSecondViewController.m
+//  BTSettings.m
 //  BrainTracker
 //
 //  Created by Richard Sprague on 3/5/14.
@@ -55,7 +55,8 @@
     
     double margin = (500.0 + ((double) (arc4random() % 100)))/1000.0; // between 500 and 600 ms
     
-    [response setResponseTime:margin];
+//    [response setResponseTime:margin];
+    response.responseTime = margin;
     
     
     NSDate *randomDateSinceJan1 = [NSDate dateWithTimeInterval:[self randomDays] sinceDate:[self startDate]]; //

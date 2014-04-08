@@ -10,10 +10,11 @@
 #import "BTWedgeView.h"
 
 // import all classes for the BrainTracker model
-#import "BTStimulus.h"
 #import "BTResponse.h"
-#import "BTTimer.h"
+//#import "BTTimer.h"
 #import "BTResultsTracker.h"
+
+#define TOTAL_STIMULI 7
 
 @interface BTStartVC ()
 @property (strong, nonatomic) IBOutlet BTWedgeView *view;
@@ -27,7 +28,7 @@
 
 
 // used by Model
-@property (strong,nonatomic) BTStimulus *randomNumberStimulus;
+
 @property  uint stimulus;
 @property (strong,nonatomic) BTResponse *responseFromUser;
 @property (strong, nonatomic) BTResultsTracker *results;
@@ -36,30 +37,13 @@
 
 @property BOOL alreadyResponded; // makes sure you don't respond to the same stimulus more than once.
 
-@property (strong, nonatomic) BTTimer *roundTimer;  // a timer for this particular round of the test.
+//@property (strong, nonatomic) BTTimer *roundTimer;  // a timer for this particular round of the test.
 @end
 
 @implementation BTStartVC
-
--(NSString *)dataFilePath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(
-                                                         NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:@"BrainTrackerResultsFile.csv"];
+{
+    int randomNumberStimulus;
 }
-
-- (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
-    
-    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration,comment];
-    NSFileHandle *handle;
-    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
-    //say to handle where's the file fo write
-    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
-    //position handle cursor to the end of file
-    [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
-    
-}
-
 
 
 # pragma mark - Setters/Getters
@@ -74,23 +58,14 @@
     
 }
 
-- (BTTimer *) roundTimer {
-    
-    if (!_roundTimer) {_roundTimer = [[BTTimer alloc] init];}
-    return _roundTimer;
-    
-}
+//- (BTTimer *) roundTimer {
+//    
+//    if (!_roundTimer) {_roundTimer = [[BTTimer alloc] init];}
+//    return _roundTimer;
+//    
+//}
 
-- (void) setRandomNumberStimulus {
-    if (!self.randomNumberStimulus) self.randomNumberStimulus = [[BTStimulus alloc] init ];
-    
-    
-}
 
-- (BTStimulus *) getRandomNumberStimulus {
-    if (!self.randomNumberStimulus) {self.randomNumberStimulus = [[BTStimulus alloc] init];}
-    return self.randomNumberStimulus;
-}
 
 # pragma mark Touch-related
 
@@ -133,11 +108,12 @@
                          self.stimulusNumberLabel.text = @"WAIT";
                          self.stimulusNumberLabel.alpha = 1.0;}
                      completion:^(BOOL success){
-                         uint stim = [self.randomNumberStimulus newStimulus];
+                         randomNumberStimulus = arc4random() % TOTAL_STIMULI;
                          self.stimulusNumberLabel.textColor = [UIColor blackColor];
-                         self.stimulusNumberLabel.text = [[NSString alloc] initWithFormat:@"%d",stim];
+                         self.stimulusNumberLabel.text = [[NSString alloc] initWithFormat:@"%d",randomNumberStimulus];
                          self.startPressTime = time + animateDelay;
-                         [self.roundTimer startTimer];}
+                //         [self.roundTimer startTimer];
+                     }
      ];
     
     
@@ -147,8 +123,9 @@
     NSTimeInterval duration = time - self.startPressTime; 
     
     BTResponse *thisResponse = [[BTResponse alloc] initWithString:responseString];
+    BTResponse *thisStimulus = [[BTResponse alloc] initWithString:[[NSString alloc] initWithFormat:@"%d",randomNumberStimulus]];
     
-    if ([self.randomNumberStimulus matchesStimulus:thisResponse] & !self.alreadyResponded) {
+    if ([thisStimulus matchesResponse:thisResponse]& !self.alreadyResponded) {
         NSLog(@"success: response matches stimulus");
         //  [thisResponse setResponseTime:duration];  // means the same thing as below:
         thisResponse.responseTime = duration;
@@ -164,48 +141,15 @@
         self.alreadyResponded = YES;
         self.stimulusNumberLabel.textColor = [UIColor blackColor];
         self.stimulusNumberLabel.text = @"Start";
-        [self saveToDisk:responseString duration:duration comment:@"empty comment here"];
+
     }
     
     else NSLog(@"failure: response doesn't match stimulus");
 }
 
-/*
-- (void) setupWedges {
-    
-    NSMutableArray *wedges = [[NSMutableArray alloc] init];
-    
-    
-    
-    
-    for (uint i=0;i<self.numWedges;i++){
-        [wedges addObject:[self.view wedge:i]];
-    }
-    
-    [wedges addObject:[self.view circleAtCenterWithRadius:25.0]];
-    
-  //  self.wedges = [[NSArray alloc] initWithArray:wedges copyItems:YES];
-    
-}
- */
-
-- (void) doInitializationsIfNecessary {
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]]) {
-        [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
-        NSLog(@"new results file created");
-        NSString *textToWrite = [[NSString alloc] initWithFormat:@"date,string,time,comment\n"];
-        NSFileHandle *handle;
-        handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
-        //say to handle where's the file fo write
-        //       [handle truncateFileAtOffset:[handle seekToEndOfFile]];
-        //position handle cursor to the end of file
-        [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-}
 
 - (void) viewWillAppear:(BOOL)animated {
-    //[self.view setNeedsDisplay];
+    [self.view setNeedsDisplay];
         self.timeLabel.text = @"Score";
     
 }
@@ -216,7 +160,7 @@
     
   //  [self setupWedges];
     
-    self.randomNumberStimulus = [[BTStimulus alloc] init];
+    randomNumberStimulus = arc4random() % TOTAL_STIMULI;
     self.alreadyResponded = NO;
     self.stimulusNumberLabel.text = @"Start";
     self.numWedges = [BTWedgeView numWedges];
