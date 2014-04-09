@@ -32,6 +32,27 @@ NSString * const kBTResponseDateKey = @"responseDate";
         
 }
 
+// convoluted way of saying that the responseString is @0, which means that yes, this is a "stimulus" aka it's the start button.
+- (BOOL) isStimulus {
+//    
+//    NSString *id = self.response[kBTResponseStringKey];
+//    if(id){
+//        // yes, there's a responseStringKey in here
+//        if ([id isKindOfClass:[NSString class]]){
+//            // yes, it's a string
+//            NSNumber *num = [[[NSNumberFormatter alloc] init] numberFromString:id];
+//            if ([num compare:@0] == NSOrderedSame){
+//                // this response string = 0, so yes it's a Stimulus
+//                return YES;
+//            } else return NO;
+//        } else return NO;
+//    } else return NO;
+    
+    if ([self.idNum isEqualToNumber:@0]){
+        return YES;
+    } else return NO;
+}
+
 
 - (NSTimeInterval) responseTime {
     
@@ -51,7 +72,21 @@ NSString * const kBTResponseDateKey = @"responseDate";
     
 }
 
-
+- (NSNumber *) idNum {
+    
+    NSNumber *idNum = @0; // default id returned is 0.
+    
+    NSString *id = self.response[kBTResponseStringKey];
+    if(id){
+        // yes, there's a responseStringKey in here
+        if ([id isKindOfClass:[NSString class]]){
+            // yes, it's a string
+           idNum = [[[NSNumberFormatter alloc] init] numberFromString:id];
+        } else NSLog(@"bad ID for responseString %@",self.response.description);
+    }else NSLog(@"missing responseString %@",self.response.description);
+    
+    return idNum;
+}
 
 - (void) setResponseTime: (NSTimeInterval ) timeInSeconds {
     

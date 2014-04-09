@@ -61,6 +61,29 @@ static const CGFloat kMoleHeight = 50;
     
 }
 
+- (void) presentNewStimulusResponse {
+    
+    int randomMole = (arc4random() % ([self.moles count]-1))+1 ; // ignore the first mole
+    
+    for (uint i=1;i<[self.moles count]; i++){
+        [self.moles[i] setAlpha:0.0];
+    }
+    
+    BTResponseView *response = [self.moles objectAtIndex:randomMole];
+    response.alpha = 1.0;
+    
+}
+
+- (void) presentNewResponses {
+    
+    for (uint i=1;i<[self.moles count]; i++){
+        [self.moles[i] setAlpha:0.0];
+        //[self.moles[i] animatePresence];
+    }
+    
+
+}
+
 - (void) layOutViewsInArc {
     
    // [self makeStartButton];
@@ -95,7 +118,10 @@ static const CGFloat kMoleHeight = 50;
                                                             kMoleHeight,
                                                             kMoleHeight)
                                    forResponse:response];
-//        newMole.delegate = self;
+        [newMole drawGreen];
+        newMole.alpha=0.0;
+        
+        newMole.delegate = self.motherViewer;
         [self addSubview:newMole];
         
         i=i+1;

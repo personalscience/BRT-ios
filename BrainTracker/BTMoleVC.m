@@ -94,6 +94,35 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
 }
 
+- (void)didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
+    if ([response isStimulus]){
+        for (int i=1;i<=kMoleCount ;i++){
+            [[self.moles objectAtIndex:i] setAlpha:0.0];
+            
+        }
+    } else {
+        NSTimeInterval duration = time - prevTime;
+        
+        response.responseTime = duration;
+        
+        
+        
+        [self.results saveResult:response];
+        
+        double g=[self.results percentileOfResponse:response];
+        
+        self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.0f mSec (%2.3f)%%",duration * 1000,g*100];
+        
+        [self.startButton drawGreen];
+        [[self.moles objectAtIndex:[[response idNum] intValue]] setAlpha:0.0];
+        
+        // self.timeLabel.text = [[NSString alloc] initWithFormat:@"Time:%3.1f mSec item:%d",1000*(time - prevTime) ,idNum];
+    }
+    prevTime = time;
+    
+    
+}
+
 - (void) didReceiveTouchAtTime:(NSTimeInterval)time from:(uint)idNum{
     
     if (idNum == 0){

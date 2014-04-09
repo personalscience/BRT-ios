@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *trialViewPlaceHolder;
 @property (strong, nonatomic) BTMoleWhackViewer *trialView;
+@property (weak, nonatomic) IBOutlet UILabel *lastTrialStatus;
 
 @property (weak, nonatomic) IBOutlet UILabel *BTSessionScoreLabel;
 
@@ -49,44 +50,60 @@ NSString * const kBTMaxTrialsPerSessionKey;
 
 - (void) didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
     
+   
+    if([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedDescending){
+        NSLog(@"currentTrialNumber=%@ exceeds max allowed=%@",[currentTrialNumber description],[MaxTrialsPerSession description]);
+        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session Score = %0.3f",rollingResponsePercentile];
+    } else {
     
-}
+    if ([response isStimulus]){
+        
 
-
-- (void) didReceiveTouchAtTime:(NSTimeInterval)time from:(uint)idNum{
-    
-    if (idNum == 0){
-  
-        currentTrialNumber = [NSNumber numberWithInt:([currentTrialNumber intValue]+1)];
-        if(currentTrialNumber>MaxTrialsPerSession){
-            NSLog(@"currentTrialNumber=%@ exceeds max allowed=%@",[currentTrialNumber description],[MaxTrialsPerSession description]);
-        }
         [self displayTrialNumber];
+        currentTrialNumber = [NSNumber numberWithInt:([currentTrialNumber intValue]+1)];
+        [self.trialView presentNewResponses];
+      //  [self.trialView presentNewStimulusResponse];
         
     } else {
         
-        // get the all-time percentile for this response and cummulatively add it.
         
-        double responsePercentile = 1.0; // just a placeholder: need a real lookup function for this.
-         rollingResponsePercentile = responsePercentile + rollingResponsePercentile/[MaxTrialsPerSession doubleValue];
+        
+        response.responseTime = time-prevTime;
+        
+        // get the all-time percentile for this response and cummulatively add it.
+        [self.results saveResult:response];  // save the result first, or you risk crashing when you calculate percentileOfResponse
+        
+        double responsePercentile = [self.results percentileOfResponse:response]; 
+        rollingResponsePercentile = responsePercentile + rollingResponsePercentile/[MaxTrialsPerSession doubleValue];
         
         // add it from a rolling mean
-        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session %% = %0.3f",responsePercentile];
+        [self displayTrialNumber];
+        self.lastTrialStatus.text = [[NSString alloc] initWithFormat:@"Prev:%0.0fmSec (%0.2f%%)",(time-prevTime)*1000,responsePercentile*100];
         
-        NSTimeInterval duration = time ;
+        
     }
-    
-    
+    }
 }
 
 
+// this is only called when the Start Button is released.
+
 - (void) didStopTouchAtTime:(NSTimeInterval)time {
     
+  
 
-    if (currentTrialNumber == MaxTrialsPerSession) {
-              self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session %% = %0.3f",rollingResponsePercentile];
-    }
+    if ([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedSame) {
+              self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session Mean: %0.3f%%",rollingResponsePercentile*100];
+    } else {
+     
+        // increment the currentTrialNumber
+
     prevTime = time;
+    
+    // load up a randomly-selected mole
+    
+    [self.trialView presentNewStimulusResponse];
+    }
     
 }
 
@@ -106,7 +123,13 @@ NSString * const kBTMaxTrialsPerSessionKey;
 }
 
 - (void) displayTrialNumber {
+    
+    if ([currentTrialNumber intValue]==0){
+        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Begin"];
+    } else {
     self.BTSessionScoreLabel.text = [[NSString alloc]initWithFormat:@"Trial %d of %d",[currentTrialNumber intValue],[MaxTrialsPerSession intValue]];
+    }
+
     
 }
 - (void)viewDidLoad

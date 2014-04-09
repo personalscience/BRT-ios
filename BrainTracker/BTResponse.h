@@ -40,6 +40,7 @@ extern NSString * const kBTResponseDateKey;
 
 @interface BTResponse : NSObject
 - (BOOL) matchesResponse: (BTResponse *) response;
+- (BOOL) isStimulus;
 - (id) initWithString: (NSString *) initString;
 
 
@@ -47,6 +48,7 @@ extern NSString * const kBTResponseDateKey;
 @property NSTimeInterval responseTime;
 @property (strong, nonatomic) NSString *responseLabel;
 @property (strong, nonatomic) NSDictionary * response;
+@property (strong, nonatomic) NSNumber *idNum;
 
 
 

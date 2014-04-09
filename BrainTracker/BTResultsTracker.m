@@ -56,26 +56,28 @@
     
     // responseTimes now is an NSMutableArray with just the times in it.
     
+     NSExpression *expression = [NSExpression expressionForFunction:@"median:" arguments:@[[NSExpression expressionForConstantValue:responseTimes]]];
     
-    NSExpression *expression = [NSExpression expressionForFunction:@"median:" arguments:@[[NSExpression expressionForConstantValue:responseTimes]]];
-    
-   id value = [expression expressionValueWithObject:nil context:nil];
+    NSNumber *value;
+    if ([responseTimes count]>0){
+            value = [expression expressionValueWithObject:nil context:nil];
+    } else value = @0.0f;
     
     // this is the median value of all the items (i.e. response times) in the responseTimes array.
     
-    double MedianVal = [value doubleValue];
+  //  double MedianVal = [value doubleValue];
     
-    NSLog(@"responseTime=%0.3f",[responseTime doubleValue]);
+  //  NSLog(@"responseTime=%0.3f",[responseTime doubleValue]);
     
     uint g= 0;
     uint rc=(uint)[responseTimes count] ;
     
     for (uint i = 0; i<rc;i++){
         if ([responseTimes[i] doubleValue]>=[responseTime doubleValue]) {
-            NSLog(@"Count = %d, MedianVal=%f, rt[%d]=%0.3f",rc, MedianVal,i,[responseTimes[i] doubleValue]);
+  //          NSLog(@"Count = %d, MedianVal=%f, rt[%d]=%0.3f",rc, MedianVal,i,[responseTimes[i] doubleValue]);
             g=i;break;
         }
-        else {NSLog(@"i=%f",[responseTimes[i] doubleValue]);}
+  //      else {NSLog(@"i=%f",[responseTimes[i] doubleValue]);}
     } // after going through this loop, g = the number of sorted times in the array that are less than or equal to responseTime
     
     //double percent = 55.0;

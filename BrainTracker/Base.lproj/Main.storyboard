@@ -160,11 +160,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trial/Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sb-hl-c2g">
-                                <rect key="frame" x="167" y="24" width="133" height="21"/>
+                                <rect key="frame" x="86" y="24" width="214" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="133" id="g2x-XU-Qtr"/>
+                                    <constraint firstAttribute="height" constant="21" id="mTe-BP-QDb"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Press Orange Button to Start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFg-Zs-ZeT">
+                                <rect key="frame" x="86" y="53" width="214" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -172,19 +179,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9Sb-hl-c2g" firstAttribute="top" secondItem="WF5-M2-Zbb" secondAttribute="bottom" constant="4" id="1zb-u5-Ax3"/>
-                            <constraint firstItem="4Ha-Ou-zM5" firstAttribute="top" secondItem="9Sb-hl-c2g" secondAttribute="bottom" constant="58" id="42N-SZ-bNa"/>
                             <constraint firstItem="syt-qP-USy" firstAttribute="leading" secondItem="y6b-oH-lFY" secondAttribute="leading" constant="20" symbolic="YES" id="7M7-I8-pec"/>
                             <constraint firstItem="4Ha-Ou-zM5" firstAttribute="top" secondItem="syt-qP-USy" secondAttribute="bottom" constant="53" id="IfK-q9-f7R"/>
+                            <constraint firstItem="9Sb-hl-c2g" firstAttribute="leading" secondItem="syt-qP-USy" secondAttribute="trailing" constant="20" id="Qbj-01-OiL"/>
                             <constraint firstItem="4Ha-Ou-zM5" firstAttribute="centerX" secondItem="y6b-oH-lFY" secondAttribute="centerX" id="eGs-10-0Zx"/>
                             <constraint firstItem="4Ha-Ou-zM5" firstAttribute="top" secondItem="WF5-M2-Zbb" secondAttribute="bottom" constant="83" id="ktK-sw-9aC"/>
                             <constraint firstItem="jBh-Vc-cXM" firstAttribute="top" secondItem="4Ha-Ou-zM5" secondAttribute="bottom" constant="20" symbolic="YES" id="nKs-au-Xl3"/>
+                            <constraint firstAttribute="trailing" secondItem="9Sb-hl-c2g" secondAttribute="trailing" constant="20" symbolic="YES" id="qPS-bJ-5Yu"/>
+                            <constraint firstItem="9Sb-hl-c2g" firstAttribute="top" secondItem="WF5-M2-Zbb" secondAttribute="bottom" constant="4" id="vsU-5R-yBH"/>
                             <constraint firstItem="4Ha-Ou-zM5" firstAttribute="leading" secondItem="y6b-oH-lFY" secondAttribute="leading" id="wGU-9S-EGx"/>
-                            <constraint firstAttribute="trailing" secondItem="9Sb-hl-c2g" secondAttribute="trailing" constant="20" symbolic="YES" id="yRK-tN-re9"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="BTSessionScoreLabel" destination="9Sb-hl-c2g" id="YXE-zw-mCQ"/>
+                        <outlet property="lastTrialStatus" destination="DFg-Zs-ZeT" id="dso-3c-Aeh"/>
                         <outlet property="trialViewPlaceHolder" destination="4Ha-Ou-zM5" id="Lfl-QD-s9q"/>
                     </connections>
                 </viewController>
@@ -214,7 +222,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsj-9z-HB8">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsj-9z-HB8">
                                 <rect key="frame" x="20" y="20" width="35" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back">
@@ -228,8 +236,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uhr-fK-KEP" firstAttribute="top" secondItem="lwI-jf-NlB" secondAttribute="bottom" constant="209" id="4DZ-FJ-kNc"/>
+                            <constraint firstItem="Zsj-9z-HB8" firstAttribute="top" secondItem="F7e-3S-jI0" secondAttribute="top" constant="20" symbolic="YES" id="A6E-Gz-z4d"/>
                             <constraint firstItem="Nge-ds-Eiy" firstAttribute="top" secondItem="uhr-fK-KEP" secondAttribute="bottom" constant="230" id="DfT-os-Wr3"/>
                             <constraint firstAttribute="centerY" secondItem="uhr-fK-KEP" secondAttribute="centerY" constant="0.5" id="GOc-1d-1bp"/>
+                            <constraint firstItem="Zsj-9z-HB8" firstAttribute="leading" secondItem="F7e-3S-jI0" secondAttribute="leading" constant="20" symbolic="YES" id="SRZ-V2-2xN"/>
                             <constraint firstItem="uhr-fK-KEP" firstAttribute="centerX" secondItem="F7e-3S-jI0" secondAttribute="centerX" id="g0v-Y0-88I"/>
                         </constraints>
                     </view>
@@ -525,6 +535,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="okG-PD-fIc"/>
+        <segue reference="fxC-4n-Lc7"/>
     </inferredMetricsTieBreakers>
 </document>

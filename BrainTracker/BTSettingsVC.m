@@ -118,8 +118,9 @@ NSString * const kBTMaxTrialsPerSessionKey = @"trialsPerSession";
     
     if (!trialsPerSession){ // first time user
         [[NSUserDefaults standardUserDefaults] setObject:@32 forKey:kBTMaxTrialsPerSessionKey];
-        trialsPerSession = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
     }
+    trialsPerSession = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
+
     self.trialsPerSessionLabel.text=[[NSString alloc] initWithFormat:@"%d",[trialsPerSession intValue]];
     
 }

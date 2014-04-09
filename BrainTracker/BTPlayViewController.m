@@ -32,7 +32,7 @@
     CGFloat howBright;
     
 }
-- (void) didReceiveTouchAtTime: (NSTimeInterval) time from:(uint)idNum {
+- (void) didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
     
     self.timeLabel.text = [[NSString alloc] initWithFormat:@"Touch Time:%f",time];
     

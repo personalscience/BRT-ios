@@ -48,6 +48,7 @@
     }
     
     self.buttonColor = color;
+  //  self.alpha=1.0;
     
     [self setNeedsDisplay]; //update the new color right away
     
@@ -84,24 +85,24 @@
 }
 
 
-#pragma mark Touch Handling
-- (void)handlePan:(UIPanGestureRecognizer *)gestureRecognizer
-{
-	CGPoint translation = [gestureRecognizer translationInView:self.superview];
-	CGPoint newcenter = CGPointMake(previousLocation.x + translation.x, previousLocation.y + translation.y);
-	
-	// Bound movement into parent bounds
-	float halfx = CGRectGetMidX(self.bounds);
-	newcenter.x = MAX(halfx, newcenter.x);
-	newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
-	
-	float halfy = CGRectGetMidY(self.bounds);
-	newcenter.y = MAX(halfy, newcenter.y);
-	newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
-	
-	// Set new location
-	self.center = newcenter;
-}
+//#pragma mark Touch Handling
+//- (void)handlePan:(UIPanGestureRecognizer *)gestureRecognizer
+//{
+//	CGPoint translation = [gestureRecognizer translationInView:self.superview];
+//	CGPoint newcenter = CGPointMake(previousLocation.x + translation.x, previousLocation.y + translation.y);
+//	
+//	// Bound movement into parent bounds
+//	float halfx = CGRectGetMidX(self.bounds);
+//	newcenter.x = MAX(halfx, newcenter.x);
+//	newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
+//	
+//	float halfy = CGRectGetMidY(self.bounds);
+//	newcenter.y = MAX(halfy, newcenter.y);
+//	newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
+//	
+//	// Set new location
+//	self.center = newcenter;
+//}
 
 
 
@@ -161,6 +162,14 @@
 
 #pragma mark Initializers
 
+// the new button will contain a response. Note that a "response" could also be a stimulus.
+
+- (id) initWithFrame:(CGRect)frame {
+    NSLog(@"error: initializing BTStimulusResponseView without a response"); 
+    return [self initWithFrame:frame forResponse:NULL];
+   
+    
+}
 
 - (id) initWithFrame:(CGRect)frame forResponse: (BTResponse *) response {
     
