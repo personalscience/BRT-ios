@@ -41,14 +41,18 @@ extern NSString * const kBTResponseStringKey;
 extern NSString * const kBTResponseTimeKey;
 extern NSString * const kBTResponseDateKey;
 
+extern NSString * const kBTMaxTrialsPerSessionKey;
+
 #import <Foundation/Foundation.h>
 
 
 #import "BTResponse.h"
 
+
 @interface BTResultsTracker : NSObject
 
 - (void) saveResult: (BTResponse *) response;
+- (void) saveSession: (double) session;
 - (double) percentileOfResponse: (BTResponse *) response;
 
 

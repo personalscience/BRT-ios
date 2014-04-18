@@ -10,16 +10,16 @@
 
 @implementation BTStartView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-
-
-    return self;
-}
+//- (id)initWithFrame:(CGRect)frame
+//{
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//        // Initialization code
+//    }
+//
+//
+//    return self;
+//}
 
 - (UIBezierPath *) rectButton {
     
@@ -32,7 +32,9 @@
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    [self.delegate didReceiveTouchAtTime:[[touches anyObject] timestamp] from:0];
+ //   [self.delegate didReceiveTouchAtTime:[[touches anyObject] timestamp] from:0];
+    
+    [self.delegate didReceiveResponse:self.response atTime:[[touches anyObject] timestamp]];
     [self drawRed];
     
 }
@@ -41,6 +43,7 @@
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     [self.delegate didStopTouchAtTime:[[touches anyObject] timestamp]];
+    [self drawGreen];
 }
 
 

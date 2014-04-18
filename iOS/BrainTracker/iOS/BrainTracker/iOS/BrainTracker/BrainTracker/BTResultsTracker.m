@@ -27,7 +27,7 @@
 
 - (double) percentileOfResponse: (BTResponse *) response {
     NSString *responseString =response.response[KEY_RESPONSE_STRING];
- //   NSNumber  *responseTime = response.response[KEY_RESPONSE_TIME];
+    NSNumber  *responseTime = response.response[KEY_RESPONSE_TIME];
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTData"];
     
@@ -41,6 +41,7 @@
     
     NSError *error ;
     NSArray *results = [self.context executeFetchRequest:request error:&error  ];
+    // results is an NSArray of every response that matched this stimulus
     
     NSMutableArray *responseTimes = [[NSMutableArray alloc] init];
     for (BTData *result in results) {
@@ -50,15 +51,20 @@
         [responseTimes addObject:result.responseTime];
         
         
-        NSLog(@"result=%@,%f",result.responseString,rt);
+  //      NSLog(@"result=%@,%f",result.responseString,rt);
         
         //
         
     }
     
+    // responseTimes now is an NSMutableArray with just the times in it.
+    
+    
     NSExpression *expression = [NSExpression expressionForFunction:@"median:" arguments:@[[NSExpression expressionForConstantValue:responseTimes]]];
     
    id value = [expression expressionValueWithObject:nil context:nil];
+    
+    // this is the median value of all the items (i.e. response times) in the responseTimes array.
     
     double MedianVal = [value doubleValue];
     
@@ -66,9 +72,12 @@
     uint rc=(uint)[responseTimes count] ;
     
     for (uint i = 0; i<rc;i++){
-        if ([responseTimes[i] doubleValue]>=MedianVal) {NSLog(@"MedianVal=%f, g=%d",MedianVal,i); g=i;break;}
+        if (responseTimes[i]>=responseTime) {
+            NSLog(@"MedianVal=%f, g=%d",MedianVal,i);
+            g=i;break;
+        }
         else {NSLog(@"i=%f",[responseTimes[i] doubleValue]);}
-    }
+    } // after going through this loop, g = the number of sorted times in the array that are less than or equal to responseTime
     
     //double percent = 55.0;
     double percent = (double)g/(double)rc;

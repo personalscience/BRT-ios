@@ -7,12 +7,14 @@
 //
 // Sets up the moles and the start button. Responds to events by passing them to the VC.
 
+// 
+
 
 #import "BTMoleWhackViewer.h"
 #import "BTResponse.h"
 #import "BTStartView.h"
 
-static const CGFloat kMoleHeight = 50;
+static const CGFloat kMoleHeight = 50;  // size for the mole object you will try to whack
 //static const uint kMoleNumCols = 2;
 //static const uint kMOleNumRows = 3;
 //static const uint kMoleCount = kMOleNumRows * kMoleNumCols;
@@ -40,6 +42,7 @@ static const CGFloat kMoleHeight = 50;
     BTResponse *response = [[BTResponse alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@0]];
     BTStartView *button = self.startButton = [[BTStartView alloc] initWithFrame:frame forResponse:response];  // by convention, start button is always id=0
     self.startButton.delegate = self.motherViewer;
+ 
     [self addSubview:self.startButton];
     
     return button;
@@ -52,18 +55,27 @@ static const CGFloat kMoleHeight = 50;
         tempMoles = [[NSMutableArray alloc] init];
     }
     
-    CGFloat verticalCenter =width/2;
+    CGFloat verticalCenter = width/2;
+    
+    // make an oval-shaped object for the start button
     
     BTStartView *button = [self makeStartButton:CGRectMake(kMoleHeight/2 + verticalCenter-kMoleHeight*3/2, height - kMoleHeight*2, kMoleHeight*3, kMoleHeight)];
     [button drawColor:[UIColor orangeColor]];
+    
+    UILabel *newLabel = [[UILabel alloc] init];
+    newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"Press to Start"]];
+    button.label = newLabel;
+ 
     
     [tempMoles addObject:button];
     
 }
 
+
+
 - (void) presentNewStimulusResponse {
     
-    int randomMole = (arc4random() % ([self.moles count]-1))+1 ; // ignore the first mole
+    int randomMole = (arc4random() % ([self.moles count]-1))+1 ; // ignore the first mole (which is really just the start button)
     
     for (uint i=1;i<[self.moles count]; i++){
         [self.moles[i] setAlpha:0.0];
@@ -71,10 +83,17 @@ static const CGFloat kMoleHeight = 50;
     
     BTResponseView *response = [self.moles objectAtIndex:randomMole];
     response.alpha = 1.0;
+
+    UILabel *newLabel = [[UILabel alloc] init];
+    newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"%d",[response.idNum intValue]]];
+    response.label = newLabel;
+    [response setNeedsDisplay];
+    
+    
     
 }
 
-- (void) presentNewResponses {
+- (void) clearAllResponses {
     
     for (uint i=1;i<[self.moles count]; i++){
         [self.moles[i] setAlpha:0.0];
@@ -93,8 +112,8 @@ static const CGFloat kMoleHeight = 50;
     }
     CGFloat verticalCenter =width/2;
     
-    CGFloat kRuleHeight = height - height/2;
-    CGFloat kLineLen = sqrtf(powf(verticalCenter,2)+powf(height - kRuleHeight,2));
+    CGFloat kRuleHeight = height  * 1/3 ;  // vertical position in the view where the moles will appear
+    CGFloat kLineLen = sqrtf(powf(verticalCenter,2)+powf(height - kRuleHeight,2)); // length of the line from the start button to the mole.  [this isn't a constant.  the name begins with 'k' to remind me that it's constant on this particular calculation.
     
     CGFloat theta = atanf((verticalCenter)/(height - kRuleHeight));
     

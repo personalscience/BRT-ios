@@ -9,26 +9,27 @@
 //  The object can return its touched status through the TouchReturned protocol
 //  Subclass this to make a stimulus-specific object, or a response-specific object.
 
+// This viewer exist to show the contents of a stimulus or response.
+// You rarely use this class, but rather, you use its subclasses: BTResponseView or BTStartView
+
 
 #import <UIKit/UIKit.h>
 
-@protocol TouchReturned <NSObject>
+#import "BTTouchReturnedProtocol.h" // defines the TouchReturned prototocol
 
-@optional
-- (void) didReceiveTouchAtTime: (NSTimeInterval) time from:(uint) idNum ;
-- (void) didStopTouchAtTime: (NSTimeInterval) time;
-
-@end
+#import "BTResponse.h"
 
 
 @interface BTStimulusResponseView : UIView
 
-- (id) initWithFrame:(CGRect)frame id: (uint) num;
+- (id) initWithFrame:(CGRect)frame forResponse: (BTResponse *) response;
 - (void) drawGreen;
 - (void) drawRed;
 - (void) drawColor: (UIColor *) newColor;
 - (void) animatePresence;
-@property (weak) id <TouchReturned>delegate;
+- (void) showLabels;
+@property NSNumber * idNum;
+@property BTResponse *response;
 
 @end
 

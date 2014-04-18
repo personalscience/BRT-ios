@@ -14,9 +14,16 @@
     
    // [self.delegate didReceiveTouchAtTime:[[touches anyObject] timestamp] from:[self.idNum intValue]];
  //   previousLocation = self.center;
-    self.alpha=0.0;
+//    self.alpha=0.0;
+    [self drawRed];
     [self.delegate didReceiveResponse:self.response atTime:[[touches anyObject] timestamp]];
     
+}
+
+
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    [self drawGreen];
 }
 
 //- (id)initWithFrame:(CGRect)frame

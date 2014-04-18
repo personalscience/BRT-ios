@@ -8,6 +8,8 @@
 
 #import "BTResultsTracker.h"
 #import "BTData.h"
+#import "BTDataSession.h"
+
 
 @interface BTResultsTracker ()
 
@@ -86,6 +88,23 @@
     return percent;
 }
 
+// TODO: must make this a bona fide object to track and save everything about a session.
+// currently just saves the session score, but this
+- (void) saveSession: (double) session {
+    if (!self.context) {NSLog(@"no context found in BTResultsTracker.saveResult");}
+    else {
+        // think of this like a proxy for a response item in the database
+        BTDataSession *newSession =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataSession" inManagedObjectContext:self.context];
+        newSession.sessionDate = [NSDate date];
+        newSession.sessionRounds = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
+        newSession.sessionScore = [NSNumber numberWithDouble:session];
+        
+        [self saveToDisk:@"Session" duration:session comment:@"session comment"];
+        NSLog(@"saved session with results=%f",session);
+        
+    }
+    
+}
 
 - (void) saveResult: (BTResponse *) response {
     

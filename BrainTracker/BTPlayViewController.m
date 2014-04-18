@@ -29,25 +29,37 @@
 
 {
     
-    CGFloat howBright;
+    CGFloat howBright; // uses the screen brightness to guess at the ambient light 
     
 }
+
+// this method comes via the <BTTouchReturned> protocol. It means somebody touched an object created by BT
 - (void) didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
     
-    self.timeLabel.text = [[NSString alloc] initWithFormat:@"Touch Time:%f",time];
+    self.timeLabel.text = [[NSString alloc] initWithFormat:@"Touch Time:%0.2f",time];
     
 
     
-    self.difLabel.text = [[NSString alloc] initWithFormat:@"msec since last touch: %f",(time-self.prevTime)*1000];
+    self.difLabel.text = [[NSString alloc] initWithFormat:@"msec since last touch: %0.2f",(time-self.prevTime)*1000];
     
     self.prevTime = time;
     [self.StartButtonView drawRed];
     
+    UILabel *newLabel = [[UILabel alloc] init];
+    newLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"Again And Again%d",[@100 intValue]]];
+    self.StartButtonView.label = newLabel;
+    
+//    [self.StartButtonView showLabels ];
+    
 }
+
+
+// this method applies to the current view controller
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event  {
     
  //   NSTimeInterval time = [[touches anyObject] timestamp];
+    self.prevTime = [[touches anyObject] timestamp];
     
 
     
@@ -58,6 +70,7 @@
     
     self.timeLabel.text =[[NSString alloc] initWithFormat:@"Touch ended:%f",time];
     [self.StartButtonView drawGreen];
+    [self.StartButtonView setAlpha:1.0];
     [self updateBrightessLabel];
  
     
@@ -78,6 +91,14 @@
     
     self.StartButtonView = [[BTResponseView alloc] initWithFrame:self.tempFrame.frame forResponse:response];
     self.StartButtonView.delegate = self;
+    
+    UILabel *newLabel = [[UILabel alloc] init];
+    newLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"Start Now:%d",[@100 intValue]]];
+    
+    
+    self.StartButtonView.label = newLabel;
+    
+    
     [self.tempFrame removeFromSuperview];
     [self.view addSubview:self.StartButtonView];
    // self.tempFrame = self.StartButtonView;

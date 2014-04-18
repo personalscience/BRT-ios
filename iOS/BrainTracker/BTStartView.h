@@ -7,8 +7,8 @@
 //
 // Draws and handles the Start Button
 
-#import "BTStimulusResponseView.h"
+#import "BTResponseView.h"
 
-@interface BTStartView : BTStimulusResponseView
+@interface BTStartView : BTResponseView
 
 @end

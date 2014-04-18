@@ -9,7 +9,8 @@
 #import "BTMoleVC.h"
 #import "BTResultsTracker.h"
 //#import "BTResponse.h"
-#import "BTStimulusResponseView.h"
+//#import "BTStimulusResponseView.h"
+#import "BTResponseView.h"
 #import "BTStartView.h"
 
 const CGFloat kMoleHeight = 50;
@@ -18,7 +19,7 @@ const uint kMOleNumRows = 3;
 const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
 
-@interface BTMoleVC ()<TouchReturned>
+@interface BTMoleVC ()<BTTouchReturned>
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong,nonatomic) BTStartView *startButton;
@@ -51,40 +52,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
 }
 
-# pragma mark File Handling
--(NSString *)dataFilePath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(
-                                                         NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:@"BrainTrackerResultsFile.csv"];
-}
 
-- (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
-    
-    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration,comment];
-    NSFileHandle *handle;
-    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
-    //say to handle where's the file fo write
-    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
-    //position handle cursor to the end of file
-    [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
-    
-}
-
-- (void) doInitializationsIfNecessary {
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]]) {
-        [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
-        NSLog(@"new results file created");
-        NSString *textToWrite = [[NSString alloc] initWithFormat:@"date,string,time,comment\n"];
-        NSFileHandle *handle;
-        handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
-        //say to handle where's the file fo write
-        //       [handle truncateFileAtOffset:[handle seekToEndOfFile]];
-        //position handle cursor to the end of file
-        [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-}
 
 # pragma mark not needed
 
@@ -116,12 +84,42 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
 - (BTStartView *) makeStartButton: (CGRect) frame {
     
-    BTStartView *button = self.startButton = [[BTStartView alloc] initWithFrame:frame id:0];  // by convention, start button is always 0
-    //[self.startButton drawGreen];
+    
+    BTResponse *response = [[BTResponse alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@0]]; // by convention, start button is always id=0
+    BTStartView *button = self.startButton = [[BTStartView alloc] initWithFrame:frame forResponse:response ];
     self.startButton.delegate = self;
     [self.view addSubview:self.startButton];
     
     return button;
+    
+}
+
+- (void)didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
+    if ([response isStimulus]){
+        for (int i=1;i<=kMoleCount ;i++){
+            [[self.moles objectAtIndex:i] setAlpha:0.0];
+            
+        }
+    } else {
+        NSTimeInterval duration = time - prevTime;
+        
+        response.responseTime = duration;
+        
+        
+        
+        [self.results saveResult:response];
+        
+        double g=[self.results percentileOfResponse:response];
+        
+        self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.0f mSec (%2.3f)%%",duration * 1000,g*100];
+        
+        [self.startButton drawGreen];
+        [[self.moles objectAtIndex:[[response idNum] intValue]] setAlpha:0.0];
+        
+        // self.timeLabel.text = [[NSString alloc] initWithFormat:@"Time:%3.1f mSec item:%d",1000*(time - prevTime) ,idNum];
+    }
+    prevTime = time;
+    
     
 }
 
@@ -158,7 +156,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     int randomMole = arc4random() % kMoleCount + 1; // ignore the first mole
     
-    BTStimulusResponseView *response = [self.moles objectAtIndex:randomMole];
+    BTResponseView *response = [self.moles objectAtIndex:randomMole];
     response.alpha = 1.0;
     
         prevTime = time;
@@ -188,13 +186,15 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     for (int row=0;row<3;row++){
         for (int col =0;col<kMoleNumCols;col++){
             
-            BTStimulusResponseView *newMole = [[BTStimulusResponseView alloc]
+            BTResponse *response = [[BTResponse alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:[NSNumber numberWithInt:index++]]]; // by convention, start button is always id=0
+            
+            BTResponseView *newMole = [[BTResponseView alloc]
                                                initWithFrame:CGRectMake(
                                                                         (leftMargin)+col*(width/kMoleNumCols),
                                                                         verticalSpacing+ row*(height/(kMOleNumRows*2)),
                                                                         kMoleHeight,
                                                                         kMoleHeight)
-                                               id:index++];
+                                               forResponse:response];
             newMole.delegate = self;
             [self.view addSubview:newMole];
             
@@ -220,7 +220,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     [Moles addObject:button];
     
-    CGFloat kRuleHeight = height - height/3;
+    CGFloat kRuleHeight = height - height/2;
     CGFloat kLineLen = sqrtf(powf(verticalCenter,2)+powf(height - kRuleHeight,2));
     
     CGFloat theta = atanf((verticalCenter)/(height - kRuleHeight));
@@ -235,14 +235,15 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         CGFloat x = verticalCenter - lenOpp + kMoleHeight/2;
         CGFloat y = height - lenAdj;
         theta = theta - thetaPiece;
+         BTResponse *response = [[BTResponse alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:[NSNumber numberWithInt:index++]]]; // by convention, start button is always id=0
         
-        BTStimulusResponseView *newMole = [[BTStimulusResponseView alloc]
+        BTResponseView *newMole = [[BTResponseView alloc]
                                            initWithFrame:CGRectMake(
                                                                     x-kMoleHeight/2,
                                                                     y-kMoleHeight/2,
                                                                     kMoleHeight,
                                                                     kMoleHeight)
-                                           id:index++];
+                                           forResponse:response];
         newMole.delegate = self;
         [self.view addSubview:newMole];
         
@@ -276,21 +277,40 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
 }
 
+//- (void) viewWillAppear:(BOOL)animated {
+//    
+//    [super viewWillAppear:animated];
+//    
+//    
+//    
+//    for (uint i=1;i<[self.moles count]; i++){
+//        [self.moles[i] setAlpha:0.0];
+//        //[self.moles[i] animatePresence];
+//    }
+//    
+//}
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     myFrame = self.view.frame; // now I can calculate the size of the current view.
     width = myFrame.size.height- kMoleHeight;
     height = myFrame.size.width ;
+    for (BTResponseView *mole in self.moles){
+        [mole setAlpha:0.0];
+    }
     [self layOutViewsInArc];
 }
 
-//- (void) didRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-//{
-//    myFrame = self.view.frame; // now I can calculate the size of the current view.
-//    height = myFrame.size.height;
-//    width = myFrame.size.width - kMoleHeight;
-//
-//}
+- (void) didRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    myFrame = self.view.frame; // now I can calculate the size of the current view.
+    height = myFrame.size.height;
+    width = myFrame.size.width - kMoleHeight;
+    for (BTResponseView *mole in self.moles){
+        [mole setAlpha:0.0];
+    }
+    [self layOutViewsInArc];
+
+}
 
 - (void)viewDidLoad
 {
@@ -301,7 +321,6 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     height = myFrame.size.height;
     width = myFrame.size.width - kMoleHeight;
     
-    [self doInitializationsIfNecessary];
     
     self.timeLabel.text = @"Press the orange button to start";
     [self layOutViewsInArc];

@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BTStimulus.h"
-#import "Wedge.h"
+
 
 @interface BTWedgeView : UIView
 

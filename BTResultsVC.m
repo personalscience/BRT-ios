@@ -6,30 +6,107 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 #import "BTData.h"
+#import "BTDataSession.h"
 #import "BTResultsVC.h"
 #import "BTResultsTracker.h"
 
 @interface BTResultsVC ()<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *resultsTableView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) BTData *BTResponse;
-@property (weak, nonatomic) IBOutlet UILabel *countLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (strong, nonatomic) NSManagedObjectContext *context;
+
+@property (strong, nonatomic) BTDataSession *session;
+
+@property (weak, nonatomic) IBOutlet UILabel *sessionsOrResponsesLabel;
+
+@property (weak, nonatomic) IBOutlet UISwitch *sessionsOrResponsesSwitch;
 
 //@property (strong, nonatomic) NSArray *results;
 
 @end
 
 @implementation BTResultsVC
+{
+    bool sessionsNotResponses; // if true, then show sessions, not Responses [and vice versa]
+}
 
+- (IBAction)sessionsOrResponsesSwitchDidChange:(id)sender {
+    
+    sessionsNotResponses = !sessionsNotResponses;
+    [self updateSessionsOrResponsesLabel];
+    [self updateUI];
+    
+}
+
+// returns an item from the database and checks that it's valid
+- (id) itemAtIndexPath: (NSIndexPath *) indexPath {
+     id item = (sessionsNotResponses) ?  (BTDataSession *)[self.fetchedResultsController objectAtIndexPath:indexPath] : [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSAssert(([item isKindOfClass:[BTData class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class");
+
+    
+    if ([item isKindOfClass:[BTData class]]) { return (BTData *) item;
+    } else { return (BTDataSession *) item; }
+    
+
+    
+}
+
+
+- (NSDate *) dateOfItem: (id) item {
+    
+    BTData *itemAsResponse;
+    BTDataSession *itemAsSession;
+    
+    NSDate *returnItem;
+    
+     NSAssert(([item isKindOfClass:[BTData class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (dateOfItem)");
+    
+    
+    
+    if ([item isKindOfClass:[BTDataSession class]]) {
+        itemAsSession=item;
+        returnItem= itemAsSession.sessionDate;}
+    else if ([item isKindOfClass:[BTData class]]){
+        itemAsResponse = item;
+        returnItem= itemAsResponse.responseDate;
+    }
+        
+    return returnItem;
+}
+
+
+- (NSTimeInterval) timeOfItem: (id) item {
+    BTData *itemAsResponse;
+    BTDataSession *itemAsSession;
+    
+    NSAssert(([item isKindOfClass:[BTData class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (timeOfItem)");
+    
+    NSTimeInterval returnItem = 0.0;
+    
+    if ([item isKindOfClass:[BTData class]]) {
+        itemAsResponse=item;
+        returnItem = (NSTimeInterval)[itemAsResponse.responseTime doubleValue];
+    }    else if ([item isKindOfClass:[BTDataSession class]]){
+        itemAsSession = item;
+        returnItem =  (NSTimeInterval)[itemAsSession.sessionScore doubleValue];
+    }
+    
+
+    return returnItem;
+}
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 
 {
-    BTData *item =[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self.context deleteObject:item];
+  
+
+    [self.context deleteObject:[self itemAtIndexPath:indexPath]];
     [self.resultsTableView reloadData];
+    
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
@@ -51,14 +128,17 @@
     
     // Configure the cell...
     
-    BTData *item  = [self.fetchedResultsController objectAtIndexPath:indexPath]; //[self.results objectAtIndex:indexPath.row];
+ //   BTData *item  = [self.fetchedResultsController objectAtIndexPath:indexPath]; //[self.results objectAtIndex:indexPath.row];
+    
+    BTDataSession *item = [self itemAtIndexPath:indexPath];
+    
+    NSTimeInterval resultTime = [self timeOfItem:item];
+    NSDate *resultDate = [self dateOfItem:item] ;
     
     
-    NSTimeInterval responseTime = [item.responseTime doubleValue]; //[[item valueForKey:KEY_RESPONSE_TIME] doubleValue]; //[self.BTResponse.responseTime doubleValue]; //
-    NSString *responseDate = [NSDateFormatter localizedStringFromDate:item.responseDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]; //[NSDateFormatter localizedStringFromDate:self.BTResponse.responseDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]; 
     
-    cell.textLabel.text = [[NSString alloc] initWithFormat:@"%3.2f",responseTime];
-    cell.detailTextLabel.text = responseDate;//
+    cell.textLabel.text = [self timeText:(double)resultTime];
+    cell.detailTextLabel.text = [self dateText:resultDate];
     
     return cell;
 }
@@ -83,16 +163,59 @@
     return context;
 }
 
-- (void) updateUI {
+
+
+- (NSString *) dateText: (NSDate *) dateToShow {
+      NSString *dateString = [NSDateFormatter localizedStringFromDate:dateToShow dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle];
+    return dateString;
     
+}
+
+// returns text representing the number timeToShow
+- (NSString *) timeText: (double) timeToShow {
     
+    NSString *timeString = [[NSString alloc]  initWithFormat:@"%3.2f",timeToShow];
+    return timeString;
     
-    // self.BTResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:context];
+}
+- (NSFetchRequest *) fetchResponses {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTData"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"responseDate" ascending:NO],
                                      [NSSortDescriptor sortDescriptorWithKey: @"responseTime" ascending:YES]];
     
+    return fetchRequest;
+    
+}
+
+- (NSFetchRequest *) fetchSessions {
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTDataSession"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"sessionDate" ascending:NO],
+                                     [NSSortDescriptor sortDescriptorWithKey: @"sessionScore" ascending:YES]];
+    
+    return fetchRequest;
+    
+}
+
+- (void) updateSessionsOrResponsesLabel {
+    
+    self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Responses";
+    
+}
+
+- (NSFetchRequest *) fetchSessionsOrResponses {
+    
+    if (sessionsNotResponses) { return [self fetchSessions];
+    }
+    else return [self fetchResponses];
+    
+}
+
+- (void) updateUI {
+    
+    
+    NSFetchRequest *fetchRequest = [self fetchSessionsOrResponses];
     
     //   self.results = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
@@ -104,7 +227,7 @@
     
     if (!success) {NSLog(@"no results from Fetch: %@",error.description);}
     
-    self.countLable.text = [[NSString alloc] initWithFormat:@"count=%lu",(unsigned long)[[[self.fetchedResultsController sections] objectAtIndex:0] numberOfObjects]];
+    self.countLabel.text = [[NSString alloc] initWithFormat:@"count=%lu",(unsigned long)[[[self.fetchedResultsController sections] objectAtIndex:0] numberOfObjects]];
     
     
     [self.resultsTableView reloadData];
@@ -115,7 +238,10 @@
     
     //   NSManagedObjectContext *context = [self managedObjectContext];
     self.context = [self managedObjectContext];
-    [self updateUI];
+
+    [self updateSessionsOrResponsesLabel];
+
+        [self updateUI];
  
 }
 
@@ -124,7 +250,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 
-
+    sessionsNotResponses = YES;
     
 }
 

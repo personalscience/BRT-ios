@@ -26,6 +26,7 @@
     return self;
 }
 
+/*
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     // Promote the touched view
@@ -35,6 +36,7 @@
     previousLocation = self.center;
 }
 
+*/
 - (void)handlePan:(UIPanGestureRecognizer *)gestureRecognizer
 {
 	CGPoint translation = [gestureRecognizer translationInView:self.superview];
@@ -52,6 +54,7 @@
 	// Set new location
 	self.center = newcenter;
 }
+
 
 - (id)initWithFrame:(CGRect)frame
 {

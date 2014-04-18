@@ -27,7 +27,10 @@
 - (void) drawRed;
 - (void) drawColor: (UIColor *) newColor;
 - (void) animatePresence;
-@property NSNumber * idNum;
+//- (void) showLabels;
+
+@property (strong, nonatomic) NSNumber * idNum;
+@property (strong , nonatomic) UILabel * label;
 @property BTResponse *response;
 
 @end

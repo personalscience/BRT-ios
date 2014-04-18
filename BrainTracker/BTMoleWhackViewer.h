@@ -14,7 +14,8 @@
 - (void) makeStartButton ;
 
 - (void) presentNewStimulusResponse;
-- (void) presentNewResponses;
+
+- (void) clearAllResponses;
 
 @property (strong, nonatomic) id<BTTouchReturned> motherViewer; // the VC in which this viewer is currently embedded.
 @end

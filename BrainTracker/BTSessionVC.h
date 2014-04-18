@@ -26,4 +26,6 @@
 
 @interface BTSessionVC : UIViewController
 
+@property (strong, nonatomic) UIViewController *lastVC;  // the VC from which you came
+@property double sessionResults;
 @end

@@ -37,6 +37,10 @@
 
 #define KEY_FOR_RESPONSES @"BTResponses"
 
+extern NSString * const kBTResponseStringKey;
+extern NSString * const kBTResponseTimeKey;
+extern NSString * const kBTResponseDateKey;
+
 #import <Foundation/Foundation.h>
 
 
@@ -44,13 +48,9 @@
 
 @interface BTResultsTracker : NSObject
 
-//@property (strong, nonatomic) NSMutableArray *responses;
-
 - (void) saveResult: (BTResponse *) response;
 - (double) percentileOfResponse: (BTResponse *) response;
 
-
-//- (BTResponse *) latestResponse;
 
 
 @end

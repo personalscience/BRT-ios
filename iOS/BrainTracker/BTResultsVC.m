@@ -83,20 +83,28 @@
     return context;
 }
 
+- (NSFetchRequest *) fetchResponses {
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTData"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"responseDate" ascending:NO],
+                                     [NSSortDescriptor sortDescriptorWithKey: @"responseTime" ascending:YES]];
+    
+    return fetchRequest;
+    
+}
+
 - (void) updateUI {
     
     
     
     // self.BTResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:context];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTData"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"responseDate" ascending:NO],
-                                     [NSSortDescriptor sortDescriptorWithKey: @"responseTime" ascending:YES]];
-    
+    NSFetchRequest *responsesFetchRequest = [self fetchResponses];
+
     
     //   self.results = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:responsesFetchRequest managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController.delegate = self;
     
     NSError *error;

@@ -12,8 +12,8 @@
 
 @property (strong, nonatomic) NSDate *startTime;
 
-//- (NSTimeInterval *) secondsSinceStart;
-- (NSTimeInterval) elapsedTime;
+
+//- (NSTimeInterval) elapsedTime;
 - (NSDate *) startTimer;
 
 

@@ -9,6 +9,7 @@
 #import "BTStimulusResponseView.h"
 
 
+
 @interface BTStimulusResponseView()
 
 @property (strong, nonatomic) UIColor *buttonColor;
@@ -21,7 +22,7 @@
 
 {
     CGPoint previousLocation;
-    uint idNum;
+  //  uint idNum;
 }
 
 
@@ -47,6 +48,7 @@
     }
     
     self.buttonColor = color;
+  //  self.alpha=1.0;
     
     [self setNeedsDisplay]; //update the new color right away
     
@@ -60,20 +62,6 @@
     
 }
 
-
-- (id) initWithFrame:(CGRect)frame id: (uint) num {
-    
-    self=[super initWithFrame:frame
-          ];
-    
-    idNum = num;
-    self.backgroundColor = nil; // makes background transparent
-    self.opaque = NO;
-//        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
- //    self.gestureRecognizers = @[pan];
-    return self;
-    
-}
 
 
 
@@ -97,38 +85,34 @@
 }
 
 
-#pragma mark Touch Handling
-- (void)handlePan:(UIPanGestureRecognizer *)gestureRecognizer
-{
-	CGPoint translation = [gestureRecognizer translationInView:self.superview];
-	CGPoint newcenter = CGPointMake(previousLocation.x + translation.x, previousLocation.y + translation.y);
-	
-	// Bound movement into parent bounds
-	float halfx = CGRectGetMidX(self.bounds);
-	newcenter.x = MAX(halfx, newcenter.x);
-	newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
-	
-	float halfy = CGRectGetMidY(self.bounds);
-	newcenter.y = MAX(halfy, newcenter.y);
-	newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
-	
-	// Set new location
-	self.center = newcenter;
-}
+//#pragma mark Touch Handling
+//- (void)handlePan:(UIPanGestureRecognizer *)gestureRecognizer
+//{
+//	CGPoint translation = [gestureRecognizer translationInView:self.superview];
+//	CGPoint newcenter = CGPointMake(previousLocation.x + translation.x, previousLocation.y + translation.y);
+//	
+//	// Bound movement into parent bounds
+//	float halfx = CGRectGetMidX(self.bounds);
+//	newcenter.x = MAX(halfx, newcenter.x);
+//	newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
+//	
+//	float halfy = CGRectGetMidY(self.bounds);
+//	newcenter.y = MAX(halfy, newcenter.y);
+//	newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
+//	
+//	// Set new location
+//	self.center = newcenter;
+//}
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    [self.delegate didReceiveTouchAtTime:[[touches anyObject] timestamp] from:idNum];
-    previousLocation = self.center;
-    
-}
+
 
 - (void) showLabels {
-    NSString *numLabelString = [[NSString alloc] initWithFormat:@"%d",idNum];
+    NSString *numLabelString = [[NSString alloc] initWithFormat:@"%d",[self.idNum intValue]];
     NSAttributedString *numLabel = [[NSAttributedString alloc] initWithString:numLabelString];
     
     
     [numLabel drawAtPoint:(CGPoint){floor(self.bounds.size.width/2-5),floor(self.bounds.size.height/2-5)}];
+    [self setNeedsDisplay];
     
 }
 
@@ -176,6 +160,35 @@
    
     
 }
+
+#pragma mark Initializers
+
+// the new button will contain a response. Note that a "response" could also be a stimulus.
+
+- (id) initWithFrame:(CGRect)frame {
+    NSLog(@"error: initializing BTStimulusResponseView without a response"); 
+    return [self initWithFrame:frame forResponse:NULL];
+   
+    
+}
+
+- (id) initWithFrame:(CGRect)frame forResponse: (BTResponse *) response {
+    
+    self=[super initWithFrame:frame
+          ];
+    
+    self.response = response;
+    
+    self.idNum = [[[NSNumberFormatter alloc] init] numberFromString:[response responseLabel]];
+                  
+    self.backgroundColor = nil; // makes background transparent
+    self.opaque = NO;
+    //        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    //    self.gestureRecognizers = @[pan];
+    return self;
+    
+}
+
 
 
 @end

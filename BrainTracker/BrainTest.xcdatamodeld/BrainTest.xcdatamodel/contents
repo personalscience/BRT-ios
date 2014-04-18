@@ -2,12 +2,22 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="BTData" representedClassName="BTData" syncable="YES">
         <attribute name="responseDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="responseLocation" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="responseSession" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="responseString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="responseTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="responseTravel" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="whichSession" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BTDataSession" inverseName="whichResponse" inverseEntity="BTDataSession" syncable="YES"/>
     </entity>
-    <entity name="Session" syncable="YES"/>
+    <entity name="BTDataSession" representedClassName="BTDataSession" syncable="YES">
+        <attribute name="sessionComment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sessionDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="sessionRounds" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="sessionScore" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="whichResponse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BTData" inverseName="whichSession" inverseEntity="BTData" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="BTData" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="Session" positionX="0" positionY="27" width="128" height="45"/>
+        <element name="BTData" positionX="-234" positionY="45" width="128" height="148"/>
+        <element name="BTDataSession" positionX="9" positionY="63" width="128" height="118"/>
     </elements>
 </model>

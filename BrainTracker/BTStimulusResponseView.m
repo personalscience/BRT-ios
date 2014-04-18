@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic) UIColor *buttonColor;
 
+//@property (strong,nonatomic) NSAttributedString *labelForView;
+
 @end
 
 
@@ -77,7 +79,7 @@
 	[color setFill];
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:self.bounds];
     [path fill];
-	
+    [self showLabels];
 	
 	UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
@@ -106,12 +108,30 @@
 
 
 
-- (void) showLabels {
+- (NSAttributedString*) attributedStringOfIdNum {
+    
     NSString *numLabelString = [[NSString alloc] initWithFormat:@"%d",[self.idNum intValue]];
-    NSAttributedString *numLabel = [[NSAttributedString alloc] initWithString:numLabelString];
+    NSMutableAttributedString *numLabel = [[NSMutableAttributedString alloc] initWithString:numLabelString];
     
     
-    [numLabel drawAtPoint:(CGPoint){floor(self.bounds.size.width/2-5),floor(self.bounds.size.height/2-5)}];
+    return numLabel;
+}
+
+// show a label on this object, precisely positioned at the center.
+- (void) showLabels {
+    
+    if (self.label) {
+
+    
+    float centerX = self.bounds.size.width/2 + self.bounds.origin.x;
+    float centerY = self.bounds.size.height/2 + self.bounds.origin.y;
+        CGSize stringSize = CGSizeMake(self.label.attributedText.size.width, self.label.attributedText.size.height);
+
+        
+          [self.label.attributedText drawInRect:CGRectMake(centerX-stringSize.width/2, centerY-stringSize.height/2, centerX+stringSize.width/2, centerY+stringSize.height/2)];
+ //   NSLog(@"drawing %@ at %@",numLabel, NSStringFromCGRect(self.frame));
+    } else NSLog(@"no label here");
+
     
 }
 
@@ -148,15 +168,16 @@
 {
     
 
-    self.backgroundColor = nil;
-    self.opaque = NO;
+//    self.backgroundColor = nil;
+ //   self.opaque = NO;
 
     
     UIImageView *circleImage = [[UIImageView alloc] initWithImage:[self createImage]];
-    
-    [self addSubview:circleImage];
-    
-   
+  
+   [self addSubview:circleImage];
+
+
+    [self showLabels];
     
 }
 

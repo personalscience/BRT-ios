@@ -16,6 +16,8 @@
 		FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA618CBE5C900409CA5 /* SharedDocumentHandler.m */; };
 		FE5B4CAB18CBE60A00409CA5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */; };
 		FE5B4CAD18CBEE0C00409CA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */; };
+		FE7A475618F5CD1700BDC95D /* BTDataSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7A475518F5CD1700BDC95D /* BTDataSession.m */; };
+		FE7A475918F5CD1700BDC95D /* BTData.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7A475818F5CD1700BDC95D /* BTData.m */; };
 		FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8BB5EB18E7DB50004A7F19 /* BTStartView.m */; };
 		FE9148CA18C7CE8B00A694B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9148C918C7CE8B00A694B5 /* Foundation.framework */; };
 		FE9148CC18C7CE8B00A694B5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9148CB18C7CE8B00A694B5 /* CoreGraphics.framework */; };
@@ -43,7 +45,6 @@
 		FEBA978418EF4EE7007E8245 /* BTMoleWhackViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */; };
 		FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */; };
 		FEBEC08418E5F32B00CED03B /* BTMoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC08318E5F32B00CED03B /* BTMoleView.m */; };
-		FED2524018CE30A100EEA247 /* BTData.m in Sources */ = {isa = PBXBuildFile; fileRef = FED2523F18CE30A100EEA247 /* BTData.m */; };
 		FED57F8E18CF737200B91DEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED57F8D18CF737200B91DEA /* QuartzCore.framework */; };
 		FED57F9118CF757C00B91DEA /* BTChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FED57F9018CF757C00B91DEA /* BTChartVC.m */; };
 		FEF7296818E9279E0094B30D /* BTResultsTrackerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7296718E9279E0094B30D /* BTResultsTrackerTestCase.m */; };
@@ -76,6 +77,10 @@
 		FE5B4CA918CBE60A00409CA5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FE7A475418F5CD1700BDC95D /* BTDataSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataSession.h; sourceTree = "<group>"; };
+		FE7A475518F5CD1700BDC95D /* BTDataSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDataSession.m; sourceTree = "<group>"; };
+		FE7A475718F5CD1700BDC95D /* BTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTData.h; sourceTree = "<group>"; };
+		FE7A475818F5CD1700BDC95D /* BTData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTData.m; sourceTree = "<group>"; };
 		FE8BB5EA18E7DB50004A7F19 /* BTStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTStartView.h; sourceTree = "<group>"; };
 		FE8BB5EB18E7DB50004A7F19 /* BTStartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTStartView.m; sourceTree = "<group>"; };
 		FE9148C618C7CE8B00A694B5 /* BrainTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrainTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,8 +202,6 @@
 		FEBEC08218E5F32B00CED03B /* BTMoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleView.h; sourceTree = "<group>"; };
 		FEBEC08318E5F32B00CED03B /* BTMoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleView.m; sourceTree = "<group>"; };
 		FEBED29818F1A56B00CF28DC /* BTTouchReturnedProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BTTouchReturnedProtocol.h; path = BrainTracker/BTTouchReturnedProtocol.h; sourceTree = "<group>"; };
-		FED2523E18CE30A100EEA247 /* BTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTData.h; sourceTree = "<group>"; };
-		FED2523F18CE30A100EEA247 /* BTData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTData.m; sourceTree = "<group>"; };
 		FED57F8D18CF737200B91DEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FED57F8F18CF757C00B91DEA /* BTChartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTChartVC.h; sourceTree = "<group>"; };
 		FED57F9018CF757C00B91DEA /* BTChartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTChartVC.m; sourceTree = "<group>"; };
@@ -261,8 +264,10 @@
 			isa = PBXGroup;
 			children = (
 				FE5B4CA218CBE03900409CA5 /* BrainTest.xcdatamodeld */,
-				FED2523E18CE30A100EEA247 /* BTData.h */,
-				FED2523F18CE30A100EEA247 /* BTData.m */,
+				FE7A475718F5CD1700BDC95D /* BTData.h */,
+				FE7A475818F5CD1700BDC95D /* BTData.m */,
+				FE7A475418F5CD1700BDC95D /* BTDataSession.h */,
+				FE7A475518F5CD1700BDC95D /* BTDataSession.m */,
 				FE5B4CA918CBE60A00409CA5 /* CoreDataTableViewController.h */,
 				FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */,
 				FE5B4CA518CBE5C900409CA5 /* SharedDocumentHandler.h */,
@@ -614,6 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE7A475618F5CD1700BDC95D /* BTDataSession.m in Sources */,
 				FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */,
 				FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */,
 				FE9148E318C7CE8B00A694B5 /* BTSettingsVC.m in Sources */,
@@ -621,11 +627,11 @@
 				FEFDCA0B18DD513E0083F7EF /* BTWedgeView.m in Sources */,
 				FEBA977618ECED03007E8245 /* BTHomeVC.m in Sources */,
 				FEA1F3B918F21B87002060CC /* BTStimulus.m in Sources */,
+				FE7A475918F5CD1700BDC95D /* BTData.m in Sources */,
 				FEFDCA1518DDD0E10083F7EF /* BTStartVC.m in Sources */,
 				FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */,
 				FE5B4CAB18CBE60A00409CA5 /* CoreDataTableViewController.m in Sources */,
 				FEBA978418EF4EE7007E8245 /* BTMoleWhackViewer.m in Sources */,
-				FED2524018CE30A100EEA247 /* BTData.m in Sources */,
 				FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */,
 				FE91491218C7D36500A694B5 /* BTResponseView.m in Sources */,
 				FE91490C18C7D05A00A694B5 /* BTResultsTracker.m in Sources */,
@@ -775,8 +781,8 @@
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=*]" = "788CF713-BB5C-475F-87BA-31B7B792F8D2";
+				PROVISIONING_PROFILE = "474B0677-1464-40FE-BE67-9662F55382A9";
+				"PROVISIONING_PROFILE[sdk=*]" = "C18AD7A2-D20C-46AE-9DFC-89B01AC7D9E2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -799,7 +805,7 @@
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1BD8302D-35D8-4F9E-82C5-A39241FD7951";
+				PROVISIONING_PROFILE = "C18AD7A2-D20C-46AE-9DFC-89B01AC7D9E2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

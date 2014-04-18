@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BTStimulusResponseView.h"
 
-@interface BTResponseView : UIView
+@interface BTResponseView :  BTStimulusResponseView
 
 @end

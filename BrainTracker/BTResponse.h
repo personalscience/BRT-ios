@@ -24,6 +24,8 @@
  A BTResponse may include additional information:
  * location
  
+ It can also be used to store Session information [perhaps the class should be renamed, or refactored as a category]
+ 
  but it always contains a dict, response, with at least the following three keys:
  
 */
@@ -50,6 +52,10 @@ extern NSString * const kBTResponseDateKey;
 @property (strong, nonatomic) NSDictionary * response;
 @property (strong, nonatomic) NSNumber *idNum;
 
+@property (nonatomic, retain) NSDate * sessionDate;
+@property (nonatomic, retain) NSString * sessionComment;
+@property (nonatomic, retain) NSNumber * sessionScore;
+@property (nonatomic, retain) NSNumber * sessionRounds;
 
 
 @end

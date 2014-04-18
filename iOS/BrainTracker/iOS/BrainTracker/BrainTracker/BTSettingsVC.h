@@ -1,5 +1,5 @@
 //
-//  BTSecondViewController.h
+//  BTSettings.h
 //  BrainTracker
 //
 //  Created by Richard Sprague on 3/5/14.

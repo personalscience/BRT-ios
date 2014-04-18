@@ -277,18 +277,18 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    
-    
-    for (uint i=1;i<[self.moles count]; i++){
-        [self.moles[i] setAlpha:0.0];
-        //[self.moles[i] animatePresence];
-    }
-    
-}
+//- (void) viewWillAppear:(BOOL)animated {
+//    
+//    [super viewWillAppear:animated];
+//    
+//    
+//    
+//    for (uint i=1;i<[self.moles count]; i++){
+//        [self.moles[i] setAlpha:0.0];
+//        //[self.moles[i] animatePresence];
+//    }
+//    
+//}
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     myFrame = self.view.frame; // now I can calculate the size of the current view.
