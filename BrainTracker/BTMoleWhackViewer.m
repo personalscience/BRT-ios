@@ -49,6 +49,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     
 }
 
+
 - (void) makeStartButton {
     
     if (!tempMoles) {
@@ -61,6 +62,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     
     BTStartView *button = [self makeStartButton:CGRectMake(kMoleHeight/2 + verticalCenter-kMoleHeight*3/2, height - kMoleHeight*2, kMoleHeight*3, kMoleHeight)];
     [button drawColor:[UIColor orangeColor]];
+    button.alpha = 1.0;
     
     UILabel *newLabel = [[UILabel alloc] init];
     newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"Press to Start"]];
@@ -71,22 +73,38 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     
 }
 
+- (void) changeStartButtonLabelTo: (NSString *) newLabel{
+    
+    if(!self.moles){
+        NSAssert(!self.moles,@"Trying to change mole button label but there are no moles");
+        
+    } else {
+        UILabel *aLabel = [[UILabel alloc] init];
+        aLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithString:newLabel]];
+        [self.moles[0] setLabel:aLabel];
+        [self.moles[0] setNeedsDisplay];
+    }
+    
+}
 
 
 - (void) presentNewStimulusResponse {
     
     int randomMole = (arc4random() % ([self.moles count]-1))+1 ; // ignore the first mole (which is really just the start button)
     
-    for (uint i=1;i<[self.moles count]; i++){
+  /*  for (uint i=1;i<[self.moles count]; i++){
         [self.moles[i] setAlpha:0.0];
     }
+   */
+    [self clearAllResponsesExcept:randomMole];
     
     BTResponseView *response = [self.moles objectAtIndex:randomMole];
-    response.alpha = 1.0;
+    //response.alpha = 1.0;
 
-    UILabel *newLabel = [[UILabel alloc] init];
-    newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"%d",[response.idNum intValue]]];
-    response.label = newLabel;
+//    UILabel *newLabel = [[UILabel alloc] init];
+//    newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"%d",[response.idNum intValue]]];
+//    response.label = newLabel;
+    [self changeStartButtonLabelTo:@""];
     [response setNeedsDisplay];
     
     
@@ -97,10 +115,25 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     
     for (uint i=1;i<[self.moles count]; i++){
         [self.moles[i] setAlpha:0.0];
-        //[self.moles[i] animatePresence];
+       // [self.moles[i] animatePresenceWithBlink];
     }
     
 
+}
+
+
+- (void) clearAllResponsesExcept: (uint) targetNumber {
+    
+    for (uint i=1;i<[self.moles count]; i++){
+        //[self.moles[i] setAlpha:0.0];
+        if (i!=targetNumber){[self.moles[i] animatePresenceWithBlink];}
+        else [self.moles[i] animatePresenceAndStay];
+            
+        
+        
+    }
+    
+    
 }
 
 - (void) layOutViewsInArc {
@@ -110,6 +143,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     if (!tempMoles) {
         tempMoles = [[NSMutableArray alloc] init];
     }
+    
     CGFloat verticalCenter =width/2;
     
     CGFloat kRuleHeight = height  * 1/3 ;  // vertical position in the view where the moles will appear
@@ -138,19 +172,18 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
                                                             kMoleHeight)
                                    forResponse:response];
         [newMole drawGreen];
-        newMole.alpha=0.0;
+      //  newMole.alpha=0.0;
         
         newMole.delegate = self.motherViewer;
         [self addSubview:newMole];
         
         i=i+1;
         [tempMoles addObject:newMole];
-        
     }
+        self.moles = [[NSArray alloc] initWithArray:tempMoles ];
+   
+       
     
-    
-    
-    self.moles = [[NSArray alloc] initWithArray:tempMoles ];
     
 }
 
@@ -170,8 +203,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
 }
 
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+
 - (void)drawRect:(CGRect)rect
 {  myFrame = self.frame; // now I can calculate the size of the current view.
     height = myFrame.size.height;

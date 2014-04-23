@@ -130,14 +130,16 @@
         
           [self.label.attributedText drawInRect:CGRectMake(centerX-stringSize.width/2, centerY-stringSize.height/2, centerX+stringSize.width/2, centerY+stringSize.height/2)];
  //   NSLog(@"drawing %@ at %@",numLabel, NSStringFromCGRect(self.frame));
-    } else NSLog(@"no label here");
+    } // else NSLog(@"no label here");
 
     
 }
 
 #pragma mark External Instance Methods
 
-- (void) animatePresence {
+
+// the view goes from fully-on (i.e. alpha=1.0) to completely disappeared (alpha=0.0) in 3 seconds.
+- (void) animatePresenceWithBlink {
     
    
     [UIView animateWithDuration:3.0 animations:^{
@@ -148,7 +150,16 @@
     
 }
 
-
+- (void) animatePresenceAndStay {
+    
+    
+    [UIView animateWithDuration:3.0 animations:^{
+        [self setAlpha:1.0];
+    } completion:^(BOOL finished) {
+        [self setAlpha:1.0];
+    }];
+    
+}
 
 - (void) drawGreen {
     [self setColor:[UIColor greenColor]];
@@ -203,6 +214,7 @@
                   
     self.backgroundColor = nil; // makes background transparent
     self.opaque = NO;
+    self.alpha = 1.0; 
     //        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     //    self.gestureRecognizers = @[pan];
     return self;

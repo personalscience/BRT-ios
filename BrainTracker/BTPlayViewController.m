@@ -19,6 +19,7 @@
 @property NSTimeInterval prevTime;
 @property (strong, nonatomic)  BTResponseView *StartButtonView;
 @property (weak, nonatomic) IBOutlet BTResponseView *tempFrame;
+@property (weak, nonatomic) IBOutlet UILabel *watchMeLabel;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *brightnessLevel;
 @property (weak, nonatomic) IBOutlet UILabel *brightnessLevelLabel;
@@ -33,14 +34,26 @@
     
 }
 
+- (void) flipWatchMeLabel {
+    
+    self.watchMeLabel.text = ([self.watchMeLabel.text isEqualToString:@"Watch Me"])? @"Keep Watching": @"Watch Me";
+    
+    
+}
+
+
+- (void) changeWatchMeLabelTo: (NSString *) newLabel {
+    
+    self.watchMeLabel.text = newLabel;
+}
 // this method comes via the <BTTouchReturned> protocol. It means somebody touched an object created by BT
 - (void) didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
     
     self.timeLabel.text = [[NSString alloc] initWithFormat:@"Touch Time:%0.2f",time];
-    
+    [self changeWatchMeLabelTo:@"received response"];
 
     
-    self.difLabel.text = [[NSString alloc] initWithFormat:@"msec since last touch: %0.2f",(time-self.prevTime)*1000];
+    self.difLabel.text = [[NSString alloc] initWithFormat:@"mSec since last touch: %0.2f",(time-self.prevTime)*1000];
     
     self.prevTime = time;
     [self.StartButtonView drawRed];
@@ -49,7 +62,10 @@
     newLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"Again And Again%d",[@100 intValue]]];
     self.StartButtonView.label = newLabel;
     
-//    [self.StartButtonView showLabels ];
+
+   // [self.view setNeedsDisplay];
+    
+
     
 }
 
@@ -60,7 +76,7 @@
     
  //   NSTimeInterval time = [[touches anyObject] timestamp];
     self.prevTime = [[touches anyObject] timestamp];
-    
+    [self flipWatchMeLabel];
 
     
 }
@@ -81,6 +97,29 @@
     howBright = [[UIScreen mainScreen] brightness];
     self.brightnessLevelLabel.text = [[NSString alloc] initWithFormat:@"%0.2f",howBright];
     [self.brightnessLevel setProgress:howBright];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    
+    NSTimeInterval animateDelay = 5.0; // + arc4random(); // wait up to 3 s
+    
+    [UIView animateWithDuration:animateDelay // + arc4random() // wait up to 3 sec
+                          delay:0.0
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         self.watchMeLabel.backgroundColor = [UIColor redColor];
+                         // self.stimulusNumberLabel.alpha = 1.0;
+                     }
+                     completion:^(BOOL success){
+                         
+                         
+                         self.watchMeLabel.backgroundColor = [UIColor yellowColor];
+                         self.watchMeLabel.text = @"finished";
+                         
+                         //  self.startPressTime = time + animateDelay;
+                         //         [self.roundTimer startTimer];
+                     }
+     ];
 }
 
 - (void)viewDidLoad

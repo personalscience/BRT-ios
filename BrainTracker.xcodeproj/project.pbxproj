@@ -195,8 +195,8 @@
 		FEBA977518ECED03007E8245 /* BTHomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTHomeVC.m; path = ../BTHomeVC.m; sourceTree = "<group>"; };
 		FEBA977C18EF4A6C007E8245 /* BTSessionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSessionVC.h; sourceTree = "<group>"; };
 		FEBA977D18EF4A6C007E8245 /* BTSessionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSessionVC.m; sourceTree = "<group>"; };
-		FEBA978218EF4EE7007E8245 /* BTMoleWhackViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleWhackViewer.h; sourceTree = "<group>"; };
-		FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleWhackViewer.m; sourceTree = "<group>"; };
+		FEBA978218EF4EE7007E8245 /* BTMoleWhackViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTMoleWhackViewer.h; path = BrainTracker/BTMoleWhackViewer.h; sourceTree = "<group>"; };
+		FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMoleWhackViewer.m; path = BrainTracker/BTMoleWhackViewer.m; sourceTree = "<group>"; };
 		FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleVC.h; sourceTree = "<group>"; };
 		FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleVC.m; sourceTree = "<group>"; };
 		FEBEC08218E5F32B00CED03B /* BTMoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleView.h; sourceTree = "<group>"; };
@@ -377,6 +377,8 @@
 				FE3A780F18E0A6850049F45E /* BTStimulusResponseView.h */,
 				FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */,
 				FEBA977B18EE5639007E8245 /* BTStimulusResponseViewSubclasses */,
+				FEBA978218EF4EE7007E8245 /* BTMoleWhackViewer.h */,
+				FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */,
 				FEBEC08218E5F32B00CED03B /* BTMoleView.h */,
 				FEBEC08318E5F32B00CED03B /* BTMoleView.m */,
 				FEFDCA0918DD513E0083F7EF /* BTWedgeView.h */,
@@ -489,8 +491,6 @@
 				FEFDCA1418DDD0E10083F7EF /* BTStartVC.m */,
 				FE5B4C9F18CA86A900409CA5 /* BTResultsVC.h */,
 				FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */,
-				FEBA978218EF4EE7007E8245 /* BTMoleWhackViewer.h */,
-				FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */,
 				FEBA977C18EF4A6C007E8245 /* BTSessionVC.h */,
 				FEBA977D18EF4A6C007E8245 /* BTSessionVC.m */,
 				FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */,

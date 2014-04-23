@@ -23,7 +23,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong,nonatomic) BTStartView *startButton;
-@property (strong, nonatomic) NSArray *moles;
+@property (strong, nonatomic) NSArray *moles;  // an array of BTResponseview
 
 @property (strong, nonatomic) BTResultsTracker *results;
 
@@ -246,7 +246,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
                                            forResponse:response];
         newMole.delegate = self;
         [self.view addSubview:newMole];
-        
+        newMole.alpha = 0.0;
         i=i+1;
         [Moles addObject:newMole];
         
@@ -272,7 +272,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     for (uint i=1;i<[self.moles count]; i++){
         [self.moles[i] setAlpha:0.0];
-        [self.moles[i] animatePresence];
+        [self.moles[i] animatePresenceWithBlink];
     }
     
 }

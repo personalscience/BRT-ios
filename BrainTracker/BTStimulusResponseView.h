@@ -26,7 +26,8 @@
 - (void) drawGreen;
 - (void) drawRed;
 - (void) drawColor: (UIColor *) newColor;
-- (void) animatePresence;
+- (void) animatePresenceWithBlink;
+- (void) animatePresenceAndStay;
 //- (void) showLabels;
 
 @property (strong, nonatomic) NSNumber * idNum;

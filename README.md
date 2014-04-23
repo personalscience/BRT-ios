@@ -27,5 +27,6 @@ Architecture
 View Controllers
 ================
 
+BTSessionVC: kicks off a series of trials based on Mole UI.
 MoleView: viewer for the whack-a-mole UI
 WedgeView: viewer for the wedge UI

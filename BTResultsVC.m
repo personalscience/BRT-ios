@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *resultsTableView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
+
+@property (weak, nonatomic) IBOutlet UILabel *sessionsOrSecondsLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 
@@ -105,7 +108,8 @@
   
 
     [self.context deleteObject:[self itemAtIndexPath:indexPath]];
-    [self.resultsTableView reloadData];
+  //  [self.resultsTableView reloadData];
+    [self updateUI];
     
 }
 
@@ -137,7 +141,7 @@
     
     
     
-    cell.textLabel.text = [self timeText:(double)resultTime];
+    cell.textLabel.text = [self timeText:(double)resultTime*100];
     cell.detailTextLabel.text = [self dateText:resultDate];
     
     return cell;
@@ -201,6 +205,7 @@
 - (void) updateSessionsOrResponsesLabel {
     
     self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Responses";
+    self.sessionsOrSecondsLabel.text = (sessionsNotResponses) ?@"Percentile" : @"mSec";
     
 }
 

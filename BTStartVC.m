@@ -17,7 +17,12 @@
 #define TOTAL_STIMULI 7
 
 @interface BTStartVC ()
-@property (strong, nonatomic) IBOutlet BTWedgeView *view;
+
+
+@property (strong, nonatomic) IBOutlet BTWedgeView *view;  // created as an outlet in Storyboard,
+//it's actually the view for this VC.
+
+
 
 @property  NSTimeInterval startPressTime;
 @property uint numWedges;
