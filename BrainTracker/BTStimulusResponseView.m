@@ -142,21 +142,30 @@
 - (void) animatePresenceWithBlink {
     
    
-    [UIView animateWithDuration:3.0 animations:^{
+    [UIView animateWithDuration:2.0 animations:^{
         [self setAlpha:1.0];
+        self.transform = CGAffineTransformMakeScale(0.0, 0.0);
+
     } completion:^(BOOL finished) {
         [self setAlpha:0.0];
+        self.transform = CGAffineTransformIdentity;
+    
     }];
     
 }
 
 - (void) animatePresenceAndStay {
     
-    
-    [UIView animateWithDuration:3.0 animations:^{
+    [UIView animateWithDuration:2.0 animations:^{
         [self setAlpha:1.0];
+        self.transform = CGAffineTransformMakeScale(0.0, 0.0);
+
     } completion:^(BOOL finished) {
         [self setAlpha:1.0];
+        self.transform = CGAffineTransformIdentity;
+        [self drawRed];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"finishedAnimationForMoleDisappearance" object:self];
+
     }];
     
 }

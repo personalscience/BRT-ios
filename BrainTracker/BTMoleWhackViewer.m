@@ -65,7 +65,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     button.alpha = 1.0;
     
     UILabel *newLabel = [[UILabel alloc] init];
-    newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"Press to Start"]];
+    newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"Press and Hold"]];
     button.label = newLabel;
  
     
@@ -172,7 +172,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
                                                             kMoleHeight)
                                    forResponse:response];
         [newMole drawGreen];
-      //  newMole.alpha=0.0;
+        newMole.alpha=0.0;
         
         newMole.delegate = self.motherViewer;
         [self addSubview:newMole];
