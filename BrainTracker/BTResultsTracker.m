@@ -33,7 +33,7 @@
     // filter for everything in the database where attribute ResponseString = responseString
     NSPredicate *matchesString = [NSPredicate predicateWithFormat:@"%K matches %@",kBTResponseStringKey,responseString];
     
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTResponseTimeKey ascending:YES]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTResponseTimeKey ascending:NO]];
     
     [request setPredicate:matchesString];
 
@@ -75,7 +75,7 @@
     uint rc=(uint)[responseTimes count] ;
     
     for (uint i = 0; i<rc;i++){
-        if ([responseTimes[i] doubleValue]>=[responseTime doubleValue]) {
+        if ([responseTimes[i] doubleValue]<=[responseTime doubleValue]) {
   //          NSLog(@"Count = %d, MedianVal=%f, rt[%d]=%0.3f",rc, MedianVal,i,[responseTimes[i] doubleValue]);
             g=i;break;
         }

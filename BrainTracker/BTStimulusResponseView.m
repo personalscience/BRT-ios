@@ -141,30 +141,31 @@
 // the view goes from fully-on (i.e. alpha=1.0) to completely disappeared (alpha=0.0) in 3 seconds.
 - (void) animatePresenceWithBlink {
     
-   
+           self.transform = CGAffineTransformMakeScale(0.0, 0.0);
     [UIView animateWithDuration:2.0 animations:^{
         [self setAlpha:1.0];
-        self.transform = CGAffineTransformMakeScale(0.0, 0.0);
+        self.transform = CGAffineTransformIdentity;
 
     } completion:^(BOOL finished) {
         [self setAlpha:0.0];
         self.transform = CGAffineTransformIdentity;
-    
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"finishedAnimationForMoleDisappearance" object:self];
     }];
     
 }
 
 - (void) animatePresenceAndStay {
     
+            self.transform = CGAffineTransformMakeScale(0.0, 0.0);
     [UIView animateWithDuration:2.0 animations:^{
         [self setAlpha:1.0];
-        self.transform = CGAffineTransformMakeScale(0.0, 0.0);
+      self.transform = CGAffineTransformIdentity;
 
     } completion:^(BOOL finished) {
         [self setAlpha:1.0];
         self.transform = CGAffineTransformIdentity;
         [self drawRed];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"finishedAnimationForMoleDisappearance" object:self];
+
 
     }];
     

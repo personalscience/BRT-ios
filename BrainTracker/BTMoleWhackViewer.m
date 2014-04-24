@@ -96,10 +96,12 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
         [self.moles[i] setAlpha:0.0];
     }
    */
-    [self clearAllResponsesExcept:randomMole];
+   // [self clearAllResponsesExcept:randomMole];
+    [self clearAllResponses];
     
     BTResponseView *response = [self.moles objectAtIndex:randomMole];
-    //response.alpha = 1.0;
+    [self.moles[randomMole] drawRed];
+    response.alpha = 1.0;
 
 //    UILabel *newLabel = [[UILabel alloc] init];
 //    newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"%d",[response.idNum intValue]]];
@@ -115,26 +117,34 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     
     for (uint i=1;i<[self.moles count]; i++){
         [self.moles[i] setAlpha:0.0];
+        [self.moles[i] drawGreen];
        // [self.moles[i] animatePresenceWithBlink];
     }
     
 
 }
 
-
-- (void) clearAllResponsesExcept: (uint) targetNumber {
-    
+- (void) presentForeperiod {
     for (uint i=1;i<[self.moles count]; i++){
-        //[self.moles[i] setAlpha:0.0];
-        if (i!=targetNumber){[self.moles[i] animatePresenceWithBlink];}
-        else [self.moles[i] animatePresenceAndStay];
-            
-        
-        
+        [self.moles[i] animatePresenceWithBlink];
     }
     
     
 }
+
+//- (void) clearAllResponsesExcept: (uint) targetNumber {
+//    
+//    for (uint i=1;i<[self.moles count]; i++){
+//        //[self.moles[i] setAlpha:0.0];
+//        if (i!=targetNumber){[self.moles[i] animatePresenceWithBlink];}
+//        else [self.moles[i] animatePresenceAndStay];
+//            
+//        
+//        
+//    }
+//    
+//    
+//}
 
 - (void) layOutViewsInArc {
     

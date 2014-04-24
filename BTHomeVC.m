@@ -19,7 +19,7 @@
 
 - (IBAction) unwindToMainMenu: (UIStoryboardSegue*)sender {
     
-    self.latestSessionResultLabel.text = [[NSString alloc] initWithFormat:@"Last Session Mean: %0.2f",self.nextView.sessionResults];
+    self.latestSessionResultLabel.text = [[NSString alloc] initWithFormat:@"Last Session Mean: %0.0f%%",self.nextView.sessionResults*100];
     
 }
 

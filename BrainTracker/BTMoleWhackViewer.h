@@ -16,6 +16,9 @@
 - (void) makeStartButton ;
 
 - (void) presentNewStimulusResponse;
+
+- (void) presentForeperiod;
+
 - (void) changeStartButtonLabelTo: (NSString*) newLabel;
 
 
