@@ -21,6 +21,14 @@
 
 @implementation BTResultsTracker
 
+- (BOOL) isUnderCutOff: (NSTimeInterval)  responseLatency {
+    if (responseLatency <= kBTLatencyCutOffValue)
+        
+        return YES;
+    else return NO;
+    
+}
+
 
 // returns a percentile that represents how this response compares to all others that had the same responseString. Returning 0.5, for example, means this response is the exact median for all responses.
 
@@ -140,7 +148,7 @@
 
 - (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
     
-    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration*100,comment];
+    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration*1000,comment];
     NSFileHandle *handle;
     handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
     //say to handle where's the file fo write
@@ -184,6 +192,8 @@
     
     self.context = [self managedObjectContext];
     [self doInitializationsIfNecessary];
+    
+    if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=10.5;} // initialization:  this should be deleted in final version
 
 
 

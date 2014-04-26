@@ -28,4 +28,9 @@
 
 @property (strong, nonatomic) UIViewController *lastVC;  // the VC from which you came
 @property double sessionResults;
+
+extern bool  kBTPrecisionControl;
+extern NSString * const kBTMaxTrialsPerSessionKey;
+extern NSString * const kBTPrecisionControlKey;
+
 @end

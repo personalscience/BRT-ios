@@ -13,6 +13,5 @@ extern NSString * const kBTMaxTrialsPerSessionKey;
 @interface BTSettingsVC : UIViewController
 
 
-
-
+extern bool kBTPrecisionControl;
 @end

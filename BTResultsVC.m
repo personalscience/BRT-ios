@@ -43,6 +43,7 @@
     
 }
 
+#pragma mark Table Handling
 // returns an item from the database and checks that it's valid
 - (id) itemAtIndexPath: (NSIndexPath *) indexPath {
      id item = (sessionsNotResponses) ?  (BTDataSession *)[self.fetchedResultsController objectAtIndexPath:indexPath] : [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -141,7 +142,7 @@
     
     
     
-    cell.textLabel.text = [self timeText:(double)resultTime*100];
+    cell.textLabel.text = [self cellTextFromDouble:(double)resultTime];
     cell.detailTextLabel.text = [self dateText:resultDate];
     
     return cell;
@@ -176,10 +177,10 @@
 }
 
 // returns text representing the number timeToShow
-- (NSString *) timeText: (double) timeToShow {
+- (NSString *) cellTextFromDouble: (double) doubleToShow {
     
-    NSString *timeString = [[NSString alloc]  initWithFormat:@"%3.2f",timeToShow];
-    return timeString;
+    NSString *cellString = (sessionsNotResponses)? [[NSString alloc]  initWithFormat:@"%3.1f%%",doubleToShow*100]: [[NSString alloc]  initWithFormat:@"%3.2f",doubleToShow*1000] ;
+    return cellString;
     
 }
 - (NSFetchRequest *) fetchResponses {
@@ -205,7 +206,7 @@
 - (void) updateSessionsOrResponsesLabel {
     
     self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Responses";
-    self.sessionsOrSecondsLabel.text = (sessionsNotResponses) ?@"Percentile" : @"mSec";
+    self.sessionsOrSecondsLabel.text = (sessionsNotResponses) ?@"Percentile" : @"ms";
     
 }
 

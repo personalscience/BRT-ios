@@ -56,7 +56,7 @@ NSString * const kBTResponseDateKey = @"responseDate";
 
 - (NSTimeInterval) responseTime {
     
-    NSNumber * rt = [self valueForKey:kBTResponseTimeKey];
+    NSNumber * rt = [self.response valueForKey:kBTResponseTimeKey];
     
     if (!rt){
         NSLog(@"Error: responseTime not defined");

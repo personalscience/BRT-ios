@@ -10,7 +10,7 @@
 #import "BTMoleWhackViewer.h"
 #import "BTResultsTracker.h"
 
-@interface BTSessionVC ()<BTTouchReturned>
+@interface BTSessionVC ()<BTTouchReturned, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *trialViewPlaceHolder;
 @property (strong, nonatomic) BTMoleWhackViewer *trialView;
@@ -28,7 +28,9 @@ const uint kMOleNumRows = 3;
 const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 */
 
-NSString * const kBTMaxTrialsPerSessionKey;
+ bool kBTPrecisionControl;
+
+
 
 @implementation BTSessionVC
 {
@@ -39,8 +41,10 @@ NSString * const kBTMaxTrialsPerSessionKey;
     
     bool finishedForeperiod;
     bool trialIsCancelled;
+    bool precisionControl;
     
     NSNotification *didFinishForeperiod;
+
 }
 
 - (BTResultsTracker *) results {
@@ -52,6 +56,19 @@ NSString * const kBTMaxTrialsPerSessionKey;
     return _results;
     
 }
+
+
+- (void) displayTrialNumber {
+    
+    if ([currentTrialNumber intValue]==0){
+        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Begin %d Trials",[MaxTrialsPerSession intValue]];
+    } else {
+        self.BTSessionScoreLabel.text = [[NSString alloc]initWithFormat:@"Press to Start Trial %d of %d",[currentTrialNumber intValue],[MaxTrialsPerSession intValue]];
+    }
+    
+    
+}
+
 
 - (BOOL) incrementTrialNumber {
     bool overMax = NO;
@@ -66,6 +83,70 @@ NSString * const kBTMaxTrialsPerSessionKey;
     return overMax;
     
 }
+
+
+- (void) processResponse: (BTResponse *) response {
+    // get the all-time percentile for this response and cummulatively add it.
+    [self.results saveResult:response];  // save the result first, or you risk crashing when you calculate percentileOfResponse
+    
+    double responsePercentile = [self.results percentileOfResponse:response];
+    rollingResponsePercentile = rollingResponsePercentile + responsePercentile/[MaxTrialsPerSession doubleValue];
+    NSLog(@" percentile = %0.3f RP=%0.3f",responsePercentile, rollingResponsePercentile);
+    self.sessionResults = rollingResponsePercentile ;
+   
+    // add it from a rolling mean
+    [self displayTrialNumber];
+    self.lastTrialStatus.backgroundColor = nil;
+    
+    NSString *latencyText =[[NSString alloc] initWithFormat:@"%0.0fmSec (%0.0f%%)",(response.responseTime)*1000,responsePercentile*100];
+    self.lastTrialStatus.text =latencyText;
+    
+    
+    if (precisionControl){
+    
+    UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:[[NSString alloc] initWithFormat:@"KEEP: %@?",latencyText] delegate:self cancelButtonTitle:@"Keep" destructiveButtonTitle:@"Delete" otherButtonTitles:nil] ;
+    
+    [alert showInView:self.view];
+    } else [self makeNextTrial];
+
+    
+}
+
+- (void) makeNextTrial {
+    if ([self incrementTrialNumber]) { // true if you're over the MaxTrials, so post notification and exit
+        [self.results saveSession:self.sessionResults];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"displayResponsePercentile" object:self];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {  // you're not over the Max trials, so no need to do anything special, but note that the currentTrialNumber is now incremented
+        [self displayTrialNumber];
+        [self.trialView changeStartButtonLabelTo:@"Press and Hold"];
+        
+    }
+    
+}
+
+-(void) actionSheet: (UIActionSheet*) actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    NSLog(@"you pressed %d",(int)buttonIndex);
+    
+    if (buttonIndex == 1){
+        [self makeNextTrial];
+    
+        
+    }
+    else { NSLog(@"Nothing happens: we're not keeping this result");
+        
+    }
+}
+
+- (void) actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    
+
+    
+}
+#pragma mark Touch Handling
+
 - (void) didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
     
    
@@ -84,7 +165,7 @@ NSString * const kBTMaxTrialsPerSessionKey;
             [self.trialView changeStartButtonLabelTo:@"WAIT"];
             self.lastTrialStatus.text = @"WAIT";
   //          self.lastTrialStatus.backgroundColor = [UIColor redColor];
-            
+           
             [self.trialView presentForeperiod];
             
             
@@ -100,30 +181,24 @@ NSString * const kBTMaxTrialsPerSessionKey;
                 
                 response.responseTime = time-prevTime; // subtract for the animation time.
                 
-                // get the all-time percentile for this response and cummulatively add it.
-                [self.results saveResult:response];  // save the result first, or you risk crashing when you calculate percentileOfResponse
+                if ([self.results isUnderCutOff:time-prevTime]) {
+                    
+                    [self processResponse:response];
+                    
+
+
+                } else {
+                    NSLog(@"%0.2f is over cutoff",time-prevTime);
+                    self.lastTrialStatus.text=@"Too Long";
+                }
                 
-                double responsePercentile = [self.results percentileOfResponse:response];
-                rollingResponsePercentile = rollingResponsePercentile + responsePercentile/[MaxTrialsPerSession doubleValue];
-                NSLog(@" percentile = %0.3f RP=%0.3f",responsePercentile, rollingResponsePercentile);
-                self.sessionResults = rollingResponsePercentile ;
                 
-                // add it from a rolling mean
-                [self displayTrialNumber];
-                self.lastTrialStatus.backgroundColor = nil;
-                self.lastTrialStatus.text = [[NSString alloc] initWithFormat:@"%0.0fmSec (%0.0f%%)",(time-prevTime)*1000,responsePercentile*100];
+                
+
                 
                 [self.trialView clearAllResponses]; // wipe the response key so you can't press it again
                 
-                if ([self incrementTrialNumber]) { // true if you're over the MaxTrials, so post notification and exit
-                    [self.results saveSession:self.sessionResults];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"displayResponsePercentile" object:self];
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                } else {  // you're not over the Max trials, so no need to do anything special, but note that the currentTrialNumber is now incremented
-                    [self displayTrialNumber];
-                    [self.trialView changeStartButtonLabelTo:@"Press and Hold"];
-                    
-                }
+
                 
             } else {
                 // foreperiod is not over!
@@ -151,8 +226,10 @@ NSString * const kBTMaxTrialsPerSessionKey;
     finishedForeperiod = true;
         trialIsCancelled = false;
         [self.trialView presentNewStimulusResponse];
+        prevTime = [[NSProcessInfo processInfo] systemUptime];
 
     }
+  //       [[NSNotificationCenter defaultCenter] removeObserver:self  name:@"finishedAnimationForMoleDisappearance" object:nil];
     
   //  self.lastTrialStatus.backgroundColor = [UIColor greenColor];
 }
@@ -168,7 +245,7 @@ NSString * const kBTMaxTrialsPerSessionKey;
         
         NSLog(@"Shouldn't happen: over MaxTrials on didStopTouchAtTime.  Check the code to find out why");
         
-        self.sessionResults = rollingResponsePercentile * 100 ;
+        self.sessionResults = rollingResponsePercentile * 1000 ;
         self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session Mean: %0.3f%%",self.sessionResults];
        
         
@@ -179,7 +256,7 @@ NSString * const kBTMaxTrialsPerSessionKey;
     } else {
         
         if (finishedForeperiod) {
-        prevTime = time;  // begin the clock that measures how long it takes to press the Response button
+     //   prevTime = time;  // begin the clock that measures how long it takes to press the Response button
            //[self.trialView presentNewStimulusResponse];
             trialIsCancelled = false;
         // load up a randomly-selected mole
@@ -197,8 +274,7 @@ NSString * const kBTMaxTrialsPerSessionKey;
     
 }
 
-
-
+#pragma mark View Methods
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
@@ -212,16 +288,7 @@ NSString * const kBTMaxTrialsPerSessionKey;
    
 }
 
-- (void) displayTrialNumber {
-    
-    if ([currentTrialNumber intValue]==0){
-        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Begin %d Trials",[MaxTrialsPerSession intValue]];
-    } else {
-    self.BTSessionScoreLabel.text = [[NSString alloc]initWithFormat:@"Press to Start Trial %d of %d",[currentTrialNumber intValue],[MaxTrialsPerSession intValue]];
-    }
 
-    
-}
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
@@ -233,6 +300,7 @@ NSString * const kBTMaxTrialsPerSessionKey;
     
     finishedForeperiod = false;
     trialIsCancelled = false;
+    if( kBTPrecisionControl) { precisionControl =  YES;} else precisionControl = NO;
     
 }
 - (void)viewDidLoad
@@ -259,8 +327,12 @@ NSString * const kBTMaxTrialsPerSessionKey;
     [self.view addSubview:self.trialView];
     [self.trialView makeStartButton];
     [self displayTrialNumber];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishForeperiod) name:@"finishedAnimationForMoleDisappearance" object:nil];
+
+
+  //  if( kBTPrecisionControl) { precisionControl =  YES;}
+
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishForeperiod) name:@"finishedAnimationForMoleDisappearance" object:nil];
 }
 
 

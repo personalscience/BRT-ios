@@ -37,11 +37,18 @@
 
 #define KEY_FOR_RESPONSES @"BTResponses"
 
+// values set in BTResponse.m
+
 extern NSString * const kBTResponseStringKey;
 extern NSString * const kBTResponseTimeKey;
 extern NSString * const kBTResponseDateKey;
 
 extern NSString * const kBTMaxTrialsPerSessionKey;
+
+extern NSTimeInterval kBTLatencyCutOffValue;
+
+
+
 
 #import <Foundation/Foundation.h>
 
@@ -54,6 +61,7 @@ extern NSString * const kBTMaxTrialsPerSessionKey;
 - (void) saveResult: (BTResponse *) response;
 - (void) saveSession: (double) session;
 - (double) percentileOfResponse: (BTResponse *) response;
+- (BOOL) isUnderCutOff: (NSTimeInterval)  responseLatency;
 
 
 

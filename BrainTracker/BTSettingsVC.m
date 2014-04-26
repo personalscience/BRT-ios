@@ -11,17 +11,26 @@
 #import "BTResponse.h"
 
 @interface BTSettingsVC ()
+@property (weak, nonatomic) IBOutlet UITextField *latencyCutOffTextField;
 
+@property (weak, nonatomic) IBOutlet UISwitch *precisionControlSwitch;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (weak, nonatomic) IBOutlet UIStepper *trialsPerSessionStepper;
 @property (weak, nonatomic) IBOutlet UILabel *trialsPerSessionLabel;
 @end
 
 NSString * const kBTMaxTrialsPerSessionKey = @"trialsPerSession";
+NSString * const kBTPrecisionControlKey = @"precisionControl"; // if you want to review every result before saving it
 
+NSTimeInterval kBTLatencyCutOffValue;
+
+    bool kBTPrecisionControl;
 @implementation BTSettingsVC
 {
     NSNumber *trialsPerSession;
+    
+
+
 }
 
 - (IBAction)pressedTrialsPerSessionStepper:(id)sender {
@@ -39,6 +48,31 @@ NSString * const kBTMaxTrialsPerSessionKey = @"trialsPerSession";
     
    
 }
+- (IBAction)flippedPrecisionControl:(id)sender {
+    
+    kBTPrecisionControl = !kBTPrecisionControl; //self.precisionControlSwitch.state;
+}
+
+- (IBAction) enteredTextForLatencyCutoff:(id)sender {
+    
+    if ([sender isKindOfClass:[UITextField class]]){
+        NSString *fieldString = self.latencyCutOffTextField.text;
+        NSScanner *myScanner = [NSScanner scannerWithString:fieldString];
+        double myDouble;
+        if ([myScanner scanDouble:&myDouble] & [myScanner isAtEnd]){
+            
+            NSLog(@"You entered %f but rest of location is %d",myDouble, (int)[myScanner scanLocation]);
+        }
+        else {NSLog(@"you entered a non-number %@",fieldString);}
+        kBTLatencyCutOffValue = myDouble/1000;
+        NSLog(@"Latency Cutoff = %0.3f",kBTLatencyCutOffValue);
+        [sender resignFirstResponder];
+    }
+    
+    else NSLog(@"not a class");
+}
+
+
 
 #pragma mark Test Methods for Filling the Database
 
