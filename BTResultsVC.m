@@ -10,10 +10,15 @@
 #import "BTResultsVC.h"
 #import "BTResultsTracker.h"
 
+#define TARGETLABELTAG 102
+#define TIMELABELTAG 101
+#define DATELABELTAG 103
+
 @interface BTResultsVC ()<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *resultsTableView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
+@property (weak, nonatomic) IBOutlet UILabel *targetOrRoundsLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *sessionsOrSecondsLabel;
 
@@ -58,6 +63,28 @@
     
 }
 
+
+- (NSString *) targetOfItem: (id) item {
+    BTData *itemAsResponse;
+    BTDataSession *itemAsSession;
+    
+    NSString *returnItem;
+    
+    NSAssert(([item isKindOfClass:[BTData class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (dateOfItem)");
+    
+    
+    
+    if ([item isKindOfClass:[BTDataSession class]]) {
+        itemAsSession=item;
+        returnItem= [itemAsSession.sessionRounds stringValue];}
+    else if ([item isKindOfClass:[BTData class]]){
+        itemAsResponse = item;
+        returnItem= itemAsResponse.responseString;
+    }
+    
+    return returnItem;
+    
+}
 
 - (NSDate *) dateOfItem: (id) item {
     
@@ -140,12 +167,16 @@
     NSTimeInterval resultTime = [self timeOfItem:item];
     NSDate *resultDate = [self dateOfItem:item] ;
     
+    UILabel *cellScoreLabel = (UILabel *)[cell.contentView viewWithTag:TARGETLABELTAG];
+     UILabel *cellTimeLabel = (UILabel *)[cell.contentView viewWithTag:TIMELABELTAG];
+    UILabel *cellDateLabel = (UILabel *)[cell.contentView viewWithTag:DATELABELTAG];
+
+  //  cell.textLabel.text = [self cellTextFromDouble:(double)resultTime];
+  //  cell.detailTextLabel.text = [self dateText:resultDate];
     
-    
-    cell.textLabel.text = [self cellTextFromDouble:(double)resultTime];
-    cell.detailTextLabel.text = [self dateText:resultDate];
-    
-    return cell;
+    cellScoreLabel.text = [self targetOfItem:item];
+    cellTimeLabel.text = [self cellTextFromDouble:(double)resultTime];
+    cellDateLabel.text = [self dateText:resultDate];     return cell;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -207,6 +238,7 @@
     
     self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Responses";
     self.sessionsOrSecondsLabel.text = (sessionsNotResponses) ?@"Percentile" : @"ms";
+    self.targetOrRoundsLabel.text =(sessionsNotResponses) ?@"Rounds" : @"Target";
     
 }
 

@@ -15,8 +15,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BTTouchReturnedProtocol.h" // defines the TouchReturned prototocol
-
+#import "BTTouchReturnedProtocol.h" // a protocol for how a delegate can respond to touches on this UIView.
 #import "BTResponse.h"
 
 
@@ -34,5 +33,7 @@
 @property (strong , nonatomic) UILabel * label;
 @property BTResponse *response;
 
+
+@property (weak) id <BTTouchReturned>delegate;
 @end
 

@@ -149,7 +149,9 @@
     } completion:^(BOOL finished) {
         [self setAlpha:0.0];
         self.transform = CGAffineTransformIdentity;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"finishedAnimationForMoleDisappearance" object:self];
+        
+        [self.delegate didFinishForeperiod];
+        
     }];
     
 }

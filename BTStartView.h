@@ -9,6 +9,6 @@
 
 #import "BTResponseView.h"
 
-@interface BTStartView : BTResponseView
+@interface BTStartView : BTStimulusResponseView;
 
 @end

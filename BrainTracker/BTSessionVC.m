@@ -41,6 +41,11 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     bool finishedForeperiod;
     bool trialIsCancelled;
+    bool pressedStartButtonOnce;
+    
+    bool runTheTrial;
+    uint foreperiodCount;
+    
     bool precisionControl;
     
     NSNotification *didFinishForeperiod;
@@ -91,7 +96,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     double responsePercentile = [self.results percentileOfResponse:response];
     rollingResponsePercentile = rollingResponsePercentile + responsePercentile/[MaxTrialsPerSession doubleValue];
-    NSLog(@" percentile = %0.3f RP=%0.3f",responsePercentile, rollingResponsePercentile);
+ //   NSLog(@" percentile = %0.3f RP=%0.3f",responsePercentile, rollingResponsePercentile);
     self.sessionResults = rollingResponsePercentile ;
    
     // add it from a rolling mean
@@ -145,6 +150,156 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
     
 }
+
+
+// two possibilities:
+// you pressed when Foreperiod is not yet finished
+// You pressed when you had already cancelled and you want to restart
+// this method handles two circumstances:
+// 1. You want to begin a trial
+//  a. Foreperiod is over: start a new trial
+//  b. Foreperiod is not over: ignore the touch
+// 2. You want to cancel a trial that is already in progress
+
+- (void) didPressStartButtonAtTime:(NSTimeInterval)time {
+    
+    
+    if (runTheTrial) {//((!trialIsCancelled & !finishedForeperiod)| (trialIsCancelled & finishedForeperiod)){
+            //start from scratch, because you're just beginning this trial
+            // trialIsCancelled = false;
+            // finishedForeperiod = false;
+        NSLog(@"Start Button: runThetrial is true");
+     
+            [self displayTrialNumber];
+            [self.trialView clearAllResponses];
+            [self.trialView changeStartButtonLabelTo:@"WAIT"];
+            self.lastTrialStatus.text = @"WAIT";
+            //          self.lastTrialStatus.backgroundColor = [UIColor redColor];
+            foreperiodCount = 0;
+        trialIsCancelled=false;
+            [self.trialView presentForeperiod];
+        
+    }
+
+}
+
+- (bool) isFinalForeperiod {
+    
+    foreperiodCount++;
+    if (foreperiodCount>5) {
+        NSLog(@"final foreperiod")  ;
+        return true;
+    } else return false;
+    
+}
+
+// When you're here, it means the user better be trying to hit the response target.
+- (void) didFinishForeperiod {
+    finishedForeperiod = false;
+    runTheTrial = false;
+
+    
+    if (trialIsCancelled) { // forePeriod ends prematurely when user lets up on start button
+
+      //  trialIsCancelled = false; // reset trialIsCancelled because foreperiod is over
+       // [self.trialView clearAllResponses];
+       // foreperiodCount--;
+        NSLog(@"finishedForeperiod = true, TrialisCancelled=True, foreperiodCount=%d",foreperiodCount );
+        
+        if ([self isFinalForeperiod]) {
+            NSLog(@"final with cancelled");
+            finishedForeperiod = true;
+            runTheTrial = true;
+            foreperiodCount= 0;
+            self.lastTrialStatus.text = @"GO";
+            
+          //  [self.trialView presentNewStimulusResponse];
+           // prevTime = [[NSProcessInfo processInfo] systemUptime];
+        }
+        
+    } else {NSLog(@"finishedForeperiod = true, TrialisCancelled=false, foreperiodCount=%d",foreperiodCount);
+        if ([self isFinalForeperiod]) {
+            NSLog(@"final");
+            finishedForeperiod = true;
+            runTheTrial = true;
+            foreperiodCount= 0;
+        
+        self.lastTrialStatus.text = @"GO";
+
+        [self.trialView presentNewStimulusResponse];
+        prevTime = [[NSProcessInfo processInfo] systemUptime];
+        }
+        
+    }
+     
+
+    
+}
+
+
+// this is only called when the Start Button is released.
+
+- (void) didStopTouchAtTime:(NSTimeInterval)time {
+    
+    
+    
+    if ([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedDescending) { //i.e. you're over MaxTrials
+        
+        NSLog(@"Shouldn't happen: over MaxTrials on didStopTouchAtTime.  Check the code to find out why");
+        
+        self.sessionResults = rollingResponsePercentile * 1000 ;
+        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session Mean: %0.3f%%",self.sessionResults];
+        
+        
+        // need code here to go back to unwindSegue
+        //
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"displayResponsePercentile" object:self];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        NSLog(@"stopTouch: foreperiodCount=%d",foreperiodCount);
+        
+        if (!finishedForeperiod ) {  // foreperiod is not over, so cancel the current trial
+            runTheTrial = false;
+            self.lastTrialStatus.text = @"Cancelled trial";
+            [self.trialView clearAllResponses];
+            NSLog(@"finishedForeperiod=False");
+            if (trialIsCancelled) {
+                
+                NSLog(@"...trialIsCancelled=true");
+            }
+            else {
+                NSLog(@"...trialIsCancelled=false");
+                
+                NSLog(@"...but setting it to true");
+                trialIsCancelled = true;
+                
+            }
+          
+            [self.trialView changeStartButtonLabelTo:@"Start Again"];
+            
+        } else { // foreperiod is finished, so you must be releasing this button after having hit start when the trial had already been cancelled
+           // NSLog(@"finished foreperiod and released start button");
+            runTheTrial = true;
+            trialIsCancelled = true;
+           // foreperiodCount = 0;
+            if (trialIsCancelled) NSLog(@"trialIsCancelled=true"); else NSLog(@"trialIsCancelled=false");
+     
+      //  trialIsCancelled = true;
+      /*      self.lastTrialStatus.text = @"GO";
+            if (!trialIsCancelled) {
+            [self.trialView presentNewStimulusResponse];
+                prevTime = [[NSProcessInfo processInfo] systemUptime];}
+            trialIsCancelled = false;
+       */
+            
+        }
+        
+        
+        
+    }
+    
+}
+
 #pragma mark Touch Handling
 
 - (void) didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
@@ -153,32 +308,15 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     if([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedDescending){  // this should never be true, because it should have been caught elsewhere
         NSLog(@"currentTrialNumber=%@ exceeds max allowed=%@",[currentTrialNumber description],[MaxTrialsPerSession description]);
         self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session Score = %0.0f",rollingResponsePercentile];
-    } else {
+    } else {  // a Response key has been pressed...
+            // the foreperiod is over by the
+        //time we get here
+           // if (finishedForeperiod){
         
-        if ([response isStimulus]){ // i.e. you're hitting the 'start' button. Nothing happens the trial number display is updated
-            
-            finishedForeperiod = false;
-            trialIsCancelled = false;
-            
-            [self displayTrialNumber];
-            [self.trialView clearAllResponses];
-            [self.trialView changeStartButtonLabelTo:@"WAIT"];
-            self.lastTrialStatus.text = @"WAIT";
-  //          self.lastTrialStatus.backgroundColor = [UIColor redColor];
-           
-            [self.trialView presentForeperiod];
-            
-            
-            // don't bother incrementing the trial number just yet -- that can wait till you hit a response button
-            // Don't do anything else.  The next action will happen when the Stimulus/Start button is released
-            
-            // Note: adding an animation here to get a delay before showing the next stimulus won't work.
-     
-            
-        } else {  // a Response key has been pressed...
-            
-            if (finishedForeperiod){
-                
+        finishedForeperiod = false;
+        trialIsCancelled = false;
+        runTheTrial = true;
+        
                 response.responseTime = time-prevTime; // subtract for the animation time.
                 
                 if ([self.results isUnderCutOff:time-prevTime]) {
@@ -200,79 +338,13 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
                 
 
                 
-            } else {
-                // foreperiod is not over!
-                self.BTSessionScoreLabel.text = @"Press Start to redo cancelled trial";
-                finishedForeperiod = true;
-                
-            }
-        } // end: a response key was pressed
-    } // end: response was a stimulus
-}
-
-
-// an NSNotification will call this method when the animation for a foreperiod is complete.
-// When you're here, it means the user better be trying to hit the response target.
-- (void) didFinishForeperiod {
-    
-    if (trialIsCancelled) { // forePeriod ends prematurely when user lets up on start button
-      //  finishedForePeriod = true;
-      //  trialIsCancelled = false;
-        [self.trialView clearAllResponses];
         
-    } else {
-    
-    self.lastTrialStatus.text = @"GO";
-    finishedForeperiod = true;
-        trialIsCancelled = false;
-        [self.trialView presentNewStimulusResponse];
-        prevTime = [[NSProcessInfo processInfo] systemUptime];
-
     }
-  //       [[NSNotificationCenter defaultCenter] removeObserver:self  name:@"finishedAnimationForMoleDisappearance" object:nil];
-    
-  //  self.lastTrialStatus.backgroundColor = [UIColor greenColor];
 }
 
 
-// this is only called when the Start Button is released.
 
-- (void) didStopTouchAtTime:(NSTimeInterval)time {
-    
-  
 
-    if ([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedDescending) { //i.e. you're over MaxTrials
-        
-        NSLog(@"Shouldn't happen: over MaxTrials on didStopTouchAtTime.  Check the code to find out why");
-        
-        self.sessionResults = rollingResponsePercentile * 1000 ;
-        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session Mean: %0.3f%%",self.sessionResults];
-       
-        
-        // need code here to go back to unwindSegue
-        //
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"displayResponsePercentile" object:self];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        
-        if (finishedForeperiod) {
-     //   prevTime = time;  // begin the clock that measures how long it takes to press the Response button
-           //[self.trialView presentNewStimulusResponse];
-            trialIsCancelled = false;
-        // load up a randomly-selected mole
-        } else {
-            self.lastTrialStatus.text = @"Cancelled trial";
-            [self.trialView clearAllResponses];
-            trialIsCancelled = true;
-            [self.trialView changeStartButtonLabelTo:@"Start Again"];
-
-        }
-
-        
-    
-    }
-    
-}
 
 #pragma mark View Methods
 
@@ -300,6 +372,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     finishedForeperiod = false;
     trialIsCancelled = false;
+    runTheTrial = true;
     if( kBTPrecisionControl) { precisionControl =  YES;} else precisionControl = NO;
     
 }
@@ -327,11 +400,8 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     [self.view addSubview:self.trialView];
     [self.trialView makeStartButton];
     [self displayTrialNumber];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishForeperiod) name:@"finishedAnimationForMoleDisappearance" object:nil];
 
-
-  //  if( kBTPrecisionControl) { precisionControl =  YES;}
-
+    
     
 }
 

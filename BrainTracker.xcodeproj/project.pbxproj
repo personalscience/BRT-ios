@@ -16,6 +16,7 @@
 		FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA618CBE5C900409CA5 /* SharedDocumentHandler.m */; };
 		FE5B4CAB18CBE60A00409CA5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */; };
 		FE5B4CAD18CBEE0C00409CA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */; };
+		FE5B8DC6190C574700DA47E0 /* BTResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B8DC5190C574700DA47E0 /* BTResultsTableViewCell.m */; };
 		FE7A475618F5CD1700BDC95D /* BTDataSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7A475518F5CD1700BDC95D /* BTDataSession.m */; };
 		FE7A475918F5CD1700BDC95D /* BTData.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7A475818F5CD1700BDC95D /* BTData.m */; };
 		FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8BB5EB18E7DB50004A7F19 /* BTStartView.m */; };
@@ -77,6 +78,8 @@
 		FE5B4CA918CBE60A00409CA5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FE5B8DC4190C574700DA47E0 /* BTResultsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTResultsTableViewCell.h; sourceTree = "<group>"; };
+		FE5B8DC5190C574700DA47E0 /* BTResultsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTResultsTableViewCell.m; sourceTree = "<group>"; };
 		FE7A475418F5CD1700BDC95D /* BTDataSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataSession.h; sourceTree = "<group>"; };
 		FE7A475518F5CD1700BDC95D /* BTDataSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDataSession.m; sourceTree = "<group>"; };
 		FE7A475718F5CD1700BDC95D /* BTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTData.h; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 				FEBEC08318E5F32B00CED03B /* BTMoleView.m */,
 				FEFDCA0918DD513E0083F7EF /* BTWedgeView.h */,
 				FEFDCA0A18DD513E0083F7EF /* BTWedgeView.m */,
+				FE5B8DC4190C574700DA47E0 /* BTResultsTableViewCell.h */,
+				FE5B8DC5190C574700DA47E0 /* BTResultsTableViewCell.m */,
 			);
 			name = View;
 			path = ..;
@@ -637,6 +642,7 @@
 				FE91490C18C7D05A00A694B5 /* BTResultsTracker.m in Sources */,
 				FED57F9118CF757C00B91DEA /* BTChartVC.m in Sources */,
 				FEBEC08418E5F32B00CED03B /* BTMoleView.m in Sources */,
+				FE5B8DC6190C574700DA47E0 /* BTResultsTableViewCell.m in Sources */,
 				FE9148DA18C7CE8B00A694B5 /* BTAppDelegate.m in Sources */,
 				FE9148D618C7CE8B00A694B5 /* main.m in Sources */,
 				FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */,

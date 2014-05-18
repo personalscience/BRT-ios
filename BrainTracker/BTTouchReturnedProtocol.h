@@ -17,6 +17,10 @@
 
 - (void) didReceiveResponse: (BTResponse *) response atTime: (NSTimeInterval) time;
 
+- (void) didPressStartButtonAtTime: (NSTimeInterval) time;
+- (void) didFinishForeperiod;
+
+
 
 
 @end

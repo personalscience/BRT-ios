@@ -10,6 +10,7 @@
 
 @implementation BTStartView
 
+
 //- (id)initWithFrame:(CGRect)frame
 //{
 //    self = [super initWithFrame:frame];
@@ -34,15 +35,21 @@
     
  //   [self.delegate didReceiveTouchAtTime:[[touches anyObject] timestamp] from:0];
     
-    [self.delegate didReceiveResponse:self.response atTime:[[touches anyObject] timestamp]];
+//    [self.delegate didReceiveResponse:self.response atTime:[[touches anyObject] timestamp]];
+    
+    
+    [self.delegate didPressStartButtonAtTime:[[touches anyObject] timestamp]];
     [self drawRed];
+
     
 }
+
 
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     [self.delegate didStopTouchAtTime:[[touches anyObject] timestamp]];
+
     [self drawGreen];
 }
 
