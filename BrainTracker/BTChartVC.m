@@ -7,7 +7,7 @@
 //
 
 #import "BTChartVC.h"
-#import "BTData.h"
+#import "BTDataSession.h"
 
 @interface BTChartVC () <NSFetchedResultsControllerDelegate>
 
@@ -35,21 +35,22 @@
 
 - (NSDate *) startDate {
     
-    NSString *Jan1ThisYear = @"01-Jan-2014";
-    NSDateFormatter *Jan1Formatted = [[NSDateFormatter alloc] init];
-    Jan1Formatted.dateFormat = @"dd-MMM-yyyy";
-    NSDate *Jan1date = [Jan1Formatted dateFromString:Jan1ThisYear];
+    NSString *Apr1ThisYear = @"01-Apr-2014";
+    NSDateFormatter *Apr1Formatted = [[NSDateFormatter alloc] init];
+    Apr1Formatted.dateFormat = @"dd-MMM-yyyy";
+    NSDate *Mar1date = [Apr1Formatted dateFromString:Apr1ThisYear];
 
     
-    return Jan1date;
+    return Mar1date;
 }
 
+// this method is not currently used. to increase the length of the y-axis, adjust the number of weeks in the calculation in plotSpace under ViewDidLoad() below
 - (NSDate *) toDate {
-    NSString *Jun1ThisYear =@"01-Jun-2014";
-    NSDateFormatter *Jun1Formatted = [[NSDateFormatter alloc] init];
-    Jun1Formatted.dateFormat = @"dd-MMM-yyyy";
-    NSDate *Jun1date = [Jun1Formatted dateFromString:Jun1ThisYear];
-    return Jun1date;
+    NSString *Aug1ThisYear =@"01-Aug-2014";
+    NSDateFormatter *Aug1Formatted = [[NSDateFormatter alloc] init];
+    Aug1Formatted.dateFormat = @"dd-MMM-yyyy";
+    NSDate *Aug1date = [Aug1Formatted dateFromString:Aug1ThisYear];
+    return Aug1date;
     
 }
 
@@ -76,17 +77,17 @@
     
         NSArray *fetchedObjects = self.fetchedResultsController.fetchedObjects;
     
-    BTData *myObject = fetchedObjects[idx];
+    BTDataSession *myObject = fetchedObjects[idx];
     
  //  BTData *item  = [self.fetchedResultsController objectAtIndexPath:idx];
     
-    NSDate *responseDate = myObject.responseDate;
+    NSDate *sessionDate = myObject.sessionDate;
     
-    NSTimeInterval timeInt = [responseDate timeIntervalSinceDate:[self startDate]];
+    NSTimeInterval timeInt = [sessionDate timeIntervalSinceDate:[self startDate]];
     //int numDays = idx*oneDay;
     
-    NSNumber *responseTime = myObject.responseTime;
-    double rt = [responseTime doubleValue] * 1000;
+    NSNumber *sessionScore = myObject.sessionScore;
+    double rt = [sessionScore doubleValue] * 100;
     
     NSNumber *numRT = [NSNumber numberWithInt:(int)rt];
     
@@ -114,9 +115,9 @@
     
     // self.BTResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:context];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTData"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"responseDate" ascending:NO],
-                                     [NSSortDescriptor sortDescriptorWithKey: @"responseTime" ascending:YES]];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTDataSession"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"sessionDate" ascending:NO],
+                                     [NSSortDescriptor sortDescriptorWithKey: @"sessionScore" ascending:YES]];
     
     
     //   self.results = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -161,9 +162,9 @@
     
     //axisSet.
     
-    axisSet.yAxis.majorIntervalLength = CPTDecimalFromFloat(500);
+    axisSet.yAxis.majorIntervalLength = CPTDecimalFromFloat(100);
     axisSet.yAxis.minorTicksPerInterval = 10;
-    axisSet.yAxis.title = @"msec";
+    axisSet.yAxis.title = @"Percentile";
     axisSet.yAxis.titleOffset = 50;
   //  axisSet.xAxis.title = @"date";
     axisSet.xAxis.majorIntervalLength = CPTDecimalFromFloat(oneWeek*4);
@@ -188,8 +189,8 @@
     
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) self.graph.defaultPlotSpace;
     
-    [plotSpace setXRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-8*oneWeek) length:CPTDecimalFromFloat(30*oneWeek)]];
-    [plotSpace setYRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-400) length:CPTDecimalFromFloat(2300)]];
+    [plotSpace setXRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-2*oneWeek) length:CPTDecimalFromFloat(25*oneWeek)]];
+    [plotSpace setYRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-20) length:CPTDecimalFromFloat(120)]];
     
     CPTScatterPlot *plot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
   //  plot.dataLineStyle = nil;

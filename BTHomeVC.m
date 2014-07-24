@@ -12,16 +12,28 @@
 @interface BTHomeVC ()
 @property (weak, nonatomic) IBOutlet UILabel *latestSessionResultLabel;
 @property (strong, nonatomic) BTSessionVC *nextView;
+@property (weak, nonatomic) IBOutlet UITextField *sessionDescriptionTextField;
 
 @end
 
 @implementation BTHomeVC
+
+{
+    NSString *sessionDescription;
+}
 
 - (IBAction) unwindToMainMenu: (UIStoryboardSegue*)sender {
     
     self.latestSessionResultLabel.text = [[NSString alloc] initWithFormat:@"Last Session Mean: %0.0f%%",self.nextView.sessionResults*100];
     
 }
+- (IBAction)sessionDescriptionDidExit:(id)sender {
+    sessionDescription = self.sessionDescriptionTextField.text;
+    
+    [sender resignFirstResponder];
+}
+
+
 
 - (void)viewDidLoad
 {
@@ -50,6 +62,7 @@
         BTSessionVC *session = [[BTSessionVC alloc] init];
         
         session.lastVC = self;
+        self.nextView.sessionComments = [[NSString alloc] initWithString:self.sessionDescriptionTextField.text];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unwindToMainMenu:) name:@"displayResponsePercentile" object:nil];
     

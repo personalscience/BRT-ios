@@ -46,6 +46,7 @@
 		FEBA978418EF4EE7007E8245 /* BTMoleWhackViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */; };
 		FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */; };
 		FEBEC08418E5F32B00CED03B /* BTMoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC08318E5F32B00CED03B /* BTMoleView.m */; };
+		FEBEE28719317B040056A5B2 /* BTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEE28619317B040056A5B2 /* BTSession.m */; };
 		FED57F8E18CF737200B91DEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED57F8D18CF737200B91DEA /* QuartzCore.framework */; };
 		FED57F9118CF757C00B91DEA /* BTChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FED57F9018CF757C00B91DEA /* BTChartVC.m */; };
 		FEF7296818E9279E0094B30D /* BTResultsTrackerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7296718E9279E0094B30D /* BTResultsTrackerTestCase.m */; };
@@ -205,6 +206,8 @@
 		FEBEC08218E5F32B00CED03B /* BTMoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleView.h; sourceTree = "<group>"; };
 		FEBEC08318E5F32B00CED03B /* BTMoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleView.m; sourceTree = "<group>"; };
 		FEBED29818F1A56B00CF28DC /* BTTouchReturnedProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BTTouchReturnedProtocol.h; path = BrainTracker/BTTouchReturnedProtocol.h; sourceTree = "<group>"; };
+		FEBEE28519317B040056A5B2 /* BTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSession.h; sourceTree = "<group>"; };
+		FEBEE28619317B040056A5B2 /* BTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSession.m; sourceTree = "<group>"; };
 		FED57F8D18CF737200B91DEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FED57F8F18CF757C00B91DEA /* BTChartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTChartVC.h; sourceTree = "<group>"; };
 		FED57F9018CF757C00B91DEA /* BTChartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTChartVC.m; sourceTree = "<group>"; };
@@ -369,6 +372,8 @@
 				FEA1F3B818F21B87002060CC /* BTStimulus.m */,
 				FE91490A18C7D05A00A694B5 /* BTResultsTracker.h */,
 				FE91490B18C7D05A00A694B5 /* BTResultsTracker.m */,
+				FEBEE28519317B040056A5B2 /* BTSession.h */,
+				FEBEE28619317B040056A5B2 /* BTSession.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -626,6 +631,7 @@
 			files = (
 				FE7A475618F5CD1700BDC95D /* BTDataSession.m in Sources */,
 				FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */,
+				FEBEE28719317B040056A5B2 /* BTSession.m in Sources */,
 				FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */,
 				FE9148E318C7CE8B00A694B5 /* BTSettingsVC.m in Sources */,
 				FEBA977E18EF4A6C007E8245 /* BTSessionVC.m in Sources */,
@@ -732,6 +738,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				"PROVISIONING_PROFILE[sdk=*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -788,8 +795,8 @@
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "474B0677-1464-40FE-BE67-9662F55382A9";
-				"PROVISIONING_PROFILE[sdk=*]" = "C18AD7A2-D20C-46AE-9DFC-89B01AC7D9E2";
+				PROVISIONING_PROFILE = "74F5A046-14E0-4E1F-BE4D-D4EE90D27D48";
+				"PROVISIONING_PROFILE[sdk=*]" = "74F5A046-14E0-4E1F-BE4D-D4EE90D27D48";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -813,7 +820,7 @@
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C18AD7A2-D20C-46AE-9DFC-89B01AC7D9E2";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

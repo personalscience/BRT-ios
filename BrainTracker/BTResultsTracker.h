@@ -54,12 +54,12 @@ extern NSTimeInterval kBTLatencyCutOffValue;
 
 
 #import "BTResponse.h"
-
+#import "BTSession.h"
 
 @interface BTResultsTracker : NSObject
 
 - (void) saveResult: (BTResponse *) response;
-- (void) saveSession: (double) session;
+- (void) saveSession: (BTSession *) session;
 - (double) percentileOfResponse: (BTResponse *) response;
 - (BOOL) isUnderCutOff: (NSTimeInterval)  responseLatency;
 

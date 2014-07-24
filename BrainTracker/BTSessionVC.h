@@ -29,8 +29,11 @@
 @property (strong, nonatomic) UIViewController *lastVC;  // the VC from which you came
 @property double sessionResults;
 
+@property NSString *sessionComments;
+
 extern bool  kBTPrecisionControl;
 extern NSString * const kBTMaxTrialsPerSessionKey;
 extern NSString * const kBTPrecisionControlKey;
+extern NSString * const kBTLatencyCutOffValueKey;
 
 @end

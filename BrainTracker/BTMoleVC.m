@@ -80,6 +80,10 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
 #pragma mark handle touches
 
+- (void)didFinishForeperiod {
+    
+    NSLog(@"finished foreperiod in BTMoleVC");
+}
 
 
 - (BTStartView *) makeStartButton: (CGRect) frame {
@@ -94,6 +98,11 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
 }
 
+- (void)didPressStartButtonAtTime:(NSTimeInterval)time {
+    
+    
+    
+}
 - (void)didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
     if ([response isStimulus]){
         for (int i=1;i<=kMoleCount ;i++){

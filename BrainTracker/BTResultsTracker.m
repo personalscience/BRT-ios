@@ -11,6 +11,7 @@
 #import "BTDataSession.h"
 
 
+
 @interface BTResultsTracker ()
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
@@ -98,17 +99,17 @@
 
 // TODO: must make this a bona fide object to track and save everything about a session.
 // currently just saves the session score, but this
-- (void) saveSession: (double) session {
+- (void) saveSession: (BTSession *) session {
     if (!self.context) {NSLog(@"no context found in BTResultsTracker.saveResult");}
     else {
-        // think of this like a proxy for a response item in the database
+        // think of this like a proxy for a session item in the database
         BTDataSession *newSession =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataSession" inManagedObjectContext:self.context];
         newSession.sessionDate = [NSDate date];
         newSession.sessionRounds = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
-        newSession.sessionScore = [NSNumber numberWithDouble:session];
+        newSession.sessionScore = session.sessionScore;
         
-        [self saveToDisk:@"Session" duration:session comment:@"session comment"];
-        NSLog(@"saved session with results=%f",session);
+        [self saveToDisk:@"Session" duration:[session.sessionScore doubleValue] comment:session.sessionComment];
+        NSLog(@"saved session with results=%f",[session.sessionScore doubleValue]);
         
     }
     
@@ -134,7 +135,7 @@
         BTDataResponse.responseDate = responseDate;
         
     }
-    [self saveToDisk:responseString duration:[responseTime doubleValue] comment:@"empty comment here"];
+    [self saveToDisk:responseString duration:[responseTime doubleValue]*1000 comment:[[NSString alloc] initWithFormat: @"Target Response=%@",responseString]];
 }
 
 
@@ -148,7 +149,7 @@
 
 - (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
     
-    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration*1000,comment];
+    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration,comment];
     NSFileHandle *handle;
     handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
     //say to handle where's the file fo write
@@ -193,7 +194,7 @@
     self.context = [self managedObjectContext];
     [self doInitializationsIfNecessary];
     
-    if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=10.5;} // initialization:  this should be deleted in final version
+    if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=0.550;} // initialization:  this should be deleted in final version
 
 
 

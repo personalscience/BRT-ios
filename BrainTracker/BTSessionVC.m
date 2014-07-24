@@ -9,8 +9,12 @@
 #import "BTSessionVC.h"
 #import "BTMoleWhackViewer.h"
 #import "BTResultsTracker.h"
+#import "BTSession.h"
 
 @interface BTSessionVC ()<BTTouchReturned, UIActionSheetDelegate>
+
+// Whatever view you create in Storyboard gets instantiated into trialViewPlaceHolder
+// That placeholder is replaced with, in this case, BTMoleWhackViewer.
 
 @property (weak, nonatomic) IBOutlet UIView *trialViewPlaceHolder;
 @property (strong, nonatomic) BTMoleWhackViewer *trialView;
@@ -36,6 +40,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 {
     NSNumber *MaxTrialsPerSession;
     NSNumber *currentTrialNumber;
+    NSNumber *latencyCutOffValue;
     double rollingResponsePercentile; // add all the percentiles until
     NSTimeInterval prevTime;
     
@@ -119,7 +124,12 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
 - (void) makeNextTrial {
     if ([self incrementTrialNumber]) { // true if you're over the MaxTrials, so post notification and exit
-        [self.results saveSession:self.sessionResults];
+        BTSession *newSession = [[BTSession alloc] init];
+        newSession.sessionComment = self.sessionComments;
+    
+        newSession.sessionScore = [NSNumber numberWithDouble:self.sessionResults];
+        
+        [self.results saveSession:newSession];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"displayResponsePercentile" object:self];
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {  // you're not over the Max trials, so no need to do anything special, but note that the currentTrialNumber is now incremented
@@ -187,7 +197,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     foreperiodCount++;
     if (foreperiodCount>5) {
-        NSLog(@"final foreperiod")  ;
+    //    NSLog(@"final foreperiod")  ;
         return true;
     } else return false;
     
@@ -204,7 +214,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
       //  trialIsCancelled = false; // reset trialIsCancelled because foreperiod is over
        // [self.trialView clearAllResponses];
        // foreperiodCount--;
-        NSLog(@"finishedForeperiod = true, TrialisCancelled=True, foreperiodCount=%d",foreperiodCount );
+  //      NSLog(@"finishedForeperiod = true, TrialisCancelled=True, foreperiodCount=%d",foreperiodCount );
         
         if ([self isFinalForeperiod]) {
             NSLog(@"final with cancelled");
@@ -217,7 +227,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
            // prevTime = [[NSProcessInfo processInfo] systemUptime];
         }
         
-    } else {NSLog(@"finishedForeperiod = true, TrialisCancelled=false, foreperiodCount=%d",foreperiodCount);
+    } else { //NSLog(@"finishedForeperiod = true, TrialisCancelled=false, foreperiodCount=%d",foreperiodCount);
         if ([self isFinalForeperiod]) {
             NSLog(@"final");
             finishedForeperiod = true;
@@ -247,7 +257,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         
         NSLog(@"Shouldn't happen: over MaxTrials on didStopTouchAtTime.  Check the code to find out why");
         
-        self.sessionResults = rollingResponsePercentile * 1000 ;
+        self.sessionResults = rollingResponsePercentile * 100 ;
         self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session Mean: %0.3f%%",self.sessionResults];
         
         
@@ -282,7 +292,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
             runTheTrial = true;
             trialIsCancelled = true;
            // foreperiodCount = 0;
-            if (trialIsCancelled) NSLog(@"trialIsCancelled=true"); else NSLog(@"trialIsCancelled=false");
+          //  if (trialIsCancelled) NSLog(@"trialIsCancelled=true"); else NSLog(@"trialIsCancelled=false");
      
       //  trialIsCancelled = true;
       /*      self.lastTrialStatus.text = @"GO";
@@ -368,6 +378,9 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 - (void) viewWillAppear:(BOOL)animated {
     
     [self.trialView clearAllResponses];
+   latencyCutOffValue =[[NSUserDefaults standardUserDefaults] objectForKey:kBTLatencyCutOffValueKey];
+    
+    if (!latencyCutOffValue) {NSLog(@"no latency cuttoff value");}
     
     
     finishedForeperiod = false;
@@ -382,6 +395,8 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     // Do any additional setup after loading the view.
     
     MaxTrialsPerSession = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
+   
+    
     currentTrialNumber = @1;
     rollingResponsePercentile= 0.0f;
 

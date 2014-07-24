@@ -21,6 +21,7 @@
 
 NSString * const kBTMaxTrialsPerSessionKey = @"trialsPerSession";
 NSString * const kBTPrecisionControlKey = @"precisionControl"; // if you want to review every result before saving it
+NSString * const kBTLatencyCutOffValueKey = @"latencyCutOffValue";
 
 NSTimeInterval kBTLatencyCutOffValue;
 
