@@ -5,6 +5,7 @@
 //  Created by Richard Sprague on 3/11/14.
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
+// ViewWillAppear pulls results of all sessions into NSFetchedResultsController
 
 #import "BTChartVC.h"
 #import "BTDataSession.h"

@@ -33,6 +33,8 @@
 
 // returns a percentile that represents how this response compares to all others that had the same responseString. Returning 0.5, for example, means this response is the exact median for all responses.
 
+// TODO: should be: look at last n (e.g. 100) latencies for this particular stimulus. Return where this response fits, as a percentile of those previous n latencies.
+
 - (double) percentileOfResponse: (BTResponse *) response {
     NSString *responseString =response.response[kBTResponseStringKey];
     NSNumber  *responseTime = response.response[kBTResponseTimeKey];
@@ -114,6 +116,8 @@
     }
     
 }
+
+# pragma mark Disk Save
 
 - (void) saveResult: (BTResponse *) response {
     

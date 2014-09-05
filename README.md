@@ -17,21 +17,34 @@ The Settings screen will let you populate the app with random values (10 at a ti
 Architecture
 ============
 
-*BTStimulusResponseView*: superclass for drawing your stimuli or responses in a view.  Subclass BTStartView draws a special start button. Subclass BTResponseView has a delegate that can handle responses (e.g. when touched).
+**BTStimulusResponseView**: superclass for drawing your stimuli or responses in a view.  Subclass BTStartView draws a special start button. Subclass BTResponseView has a delegate that can handle responses (e.g. when touched).
 
-    Subclass again with BTStimulusView if you want a stimulus that is not meant to be touched, or that will not be part of the response. For example, if you show something and expect the user to react quickly by pushing a different response key, show the stimulus as a BTStimulusView, not a BTResponseView (nor a BTStimulusResponseView)
+Subclass again with BTStimulusView if you want a stimulus that is not meant to be touched, or that will not be part of the response. For example, if you show something and expect the user to react quickly by pushing a different response key, show the stimulus as a BTStimulusView, not a BTResponseView (nor a BTStimulusResponseView)
 
-*BTResponse*: contains all information related to the response a user made to a stimulus.
+**BTResponse**: contains all information related to the response a user made to a stimulus.
+
+**BTResultsTracker**: Instantiated once per user of the app, with contents saved in a CoreData database, and to disk. 
 
 
 View Controllers
 ================
 
-BTSessionVC: kicks off a series of trials based on Mole UI.
-MoleView: viewer for the whack-a-mole UI
-WedgeView: viewer for the wedge UI
+*  **BTHomeVC**: the main screen, for simple instructions and the initial start button.
 
-BTStartVC: Wedges UI
+*  **BTSessionVC**: kicks off a series of trials based on Mole UI.
+*  MoleView: viewer for the whack-a-mole UI
+*  WedgeView: viewer for the wedge UI
 
-BTSessionVC: an all-purpose VC for controlling a view of your session. Embed a view (e.g. BTMoleView or BTMoleWhackViewer or BTWedgeView) to display the type of trial you like. 
+*  BTStartVC: Wedges UI
+
+*  BTSessionVC: an all-purpose VC for controlling a view of your session. Embed a view (e.g. BTMoleView or BTMoleWhackViewer or BTWedgeView) to display the type of trial you like.
+
+Database
+========
+Results are stored in a database using CoreData. There are two entities:
+* **BTData**: keeps the individual trial results
+* **BTDataSession**: final results for a particular session, computed and saved once after each session.
+
+Plotting uses the field "SessionScore" in BTDataSession for drawing the results of each session.
+
 

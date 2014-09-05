@@ -13,8 +13,6 @@
 		FE5B4C9E18CA831300409CA5 /* config30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9D18CA831300409CA5 /* config30x30.png */; };
 		FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */; };
 		FE5B4CA418CBE03900409CA5 /* BrainTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA218CBE03900409CA5 /* BrainTest.xcdatamodeld */; };
-		FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA618CBE5C900409CA5 /* SharedDocumentHandler.m */; };
-		FE5B4CAB18CBE60A00409CA5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */; };
 		FE5B4CAD18CBEE0C00409CA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */; };
 		FE5B8DC6190C574700DA47E0 /* BTResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B8DC5190C574700DA47E0 /* BTResultsTableViewCell.m */; };
 		FE7A475618F5CD1700BDC95D /* BTDataSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7A475518F5CD1700BDC95D /* BTDataSession.m */; };
@@ -74,10 +72,6 @@
 		FE5B4C9F18CA86A900409CA5 /* BTResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTResultsVC.h; path = ../BTResultsVC.h; sourceTree = "<group>"; };
 		FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTResultsVC.m; path = ../BTResultsVC.m; sourceTree = "<group>"; };
 		FE5B4CA318CBE03900409CA5 /* BrainTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BrainTest.xcdatamodel; sourceTree = "<group>"; };
-		FE5B4CA518CBE5C900409CA5 /* SharedDocumentHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedDocumentHandler.h; sourceTree = "<group>"; };
-		FE5B4CA618CBE5C900409CA5 /* SharedDocumentHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedDocumentHandler.m; sourceTree = "<group>"; };
-		FE5B4CA918CBE60A00409CA5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
-		FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FE5B8DC4190C574700DA47E0 /* BTResultsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTResultsTableViewCell.h; sourceTree = "<group>"; };
 		FE5B8DC5190C574700DA47E0 /* BTResultsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTResultsTableViewCell.m; sourceTree = "<group>"; };
@@ -246,6 +240,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE37D22B19875F850062F769 /* Old Files */ = {
+			isa = PBXGroup;
+			children = (
+				FEFDCA1318DDD0E10083F7EF /* BTStartVC.h */,
+				FEFDCA1418DDD0E10083F7EF /* BTStartVC.m */,
+			);
+			name = "Old Files";
+			sourceTree = "<group>";
+		};
 		FE3A781218E0A6960049F45E /* PlayTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,10 +277,6 @@
 				FE7A475818F5CD1700BDC95D /* BTData.m */,
 				FE7A475418F5CD1700BDC95D /* BTDataSession.h */,
 				FE7A475518F5CD1700BDC95D /* BTDataSession.m */,
-				FE5B4CA918CBE60A00409CA5 /* CoreDataTableViewController.h */,
-				FE5B4CAA18CBE60A00409CA5 /* CoreDataTableViewController.m */,
-				FE5B4CA518CBE5C900409CA5 /* SharedDocumentHandler.h */,
-				FE5B4CA618CBE5C900409CA5 /* SharedDocumentHandler.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -335,6 +334,7 @@
 		FE9148D018C7CE8B00A694B5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FE37D22B19875F850062F769 /* Old Files */,
 				FE9148D818C7CE8B00A694B5 /* BTAppDelegate.h */,
 				FE9148D918C7CE8B00A694B5 /* BTAppDelegate.m */,
 				FE9148D118C7CE8B00A694B5 /* BrainTracker-Info.plist */,
@@ -497,8 +497,6 @@
 			children = (
 				FEBA977418ECED03007E8245 /* BTHomeVC.h */,
 				FEBA977518ECED03007E8245 /* BTHomeVC.m */,
-				FEFDCA1318DDD0E10083F7EF /* BTStartVC.h */,
-				FEFDCA1418DDD0E10083F7EF /* BTStartVC.m */,
 				FE5B4C9F18CA86A900409CA5 /* BTResultsVC.h */,
 				FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */,
 				FEBA977C18EF4A6C007E8245 /* BTSessionVC.h */,
@@ -632,7 +630,6 @@
 				FE7A475618F5CD1700BDC95D /* BTDataSession.m in Sources */,
 				FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */,
 				FEBEE28719317B040056A5B2 /* BTSession.m in Sources */,
-				FE5B4CA718CBE5C900409CA5 /* SharedDocumentHandler.m in Sources */,
 				FE9148E318C7CE8B00A694B5 /* BTSettingsVC.m in Sources */,
 				FEBA977E18EF4A6C007E8245 /* BTSessionVC.m in Sources */,
 				FEFDCA0B18DD513E0083F7EF /* BTWedgeView.m in Sources */,
@@ -641,7 +638,6 @@
 				FE7A475918F5CD1700BDC95D /* BTData.m in Sources */,
 				FEFDCA1518DDD0E10083F7EF /* BTStartVC.m in Sources */,
 				FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */,
-				FE5B4CAB18CBE60A00409CA5 /* CoreDataTableViewController.m in Sources */,
 				FEBA978418EF4EE7007E8245 /* BTMoleWhackViewer.m in Sources */,
 				FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */,
 				FE91491218C7D36500A694B5 /* BTResponseView.m in Sources */,
@@ -736,7 +732,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				"PROVISIONING_PROFILE[sdk=*]" = "";
 				SDKROOT = iphoneos;
@@ -770,7 +766,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

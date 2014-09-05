@@ -39,6 +39,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //conveniently pre-select the text in the description field, because you'll want to change it immediately.
+    
+    [self.sessionDescriptionTextField setSelectedTextRange:[self.sessionDescriptionTextField textRangeFromPosition:self.sessionDescriptionTextField.beginningOfDocument toPosition:self.sessionDescriptionTextField.endOfDocument]];
 }
 
 - (void)didReceiveMemoryWarning
