@@ -30,6 +30,7 @@ View Controllers
 ================
 
 *  **BTHomeVC**: the main screen, for simple instructions and the initial start button.
+*  **BTResultsVC**: display the trial and session results in a table
 
 *  **BTSessionVC**: kicks off a series of trials based on Mole UI.
 *  MoleView: viewer for the whack-a-mole UI

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CorePlot-CocoaTouch.h"
+//#import "CorePlot-CocoaTouch.h"
+//
+//@interface BTChartVC : UIViewController <CPTPlotDataSource, UIActionSheetDelegate>
 
-@interface BTChartVC : UIViewController <CPTPlotDataSource, UIActionSheetDelegate>
-
-@end
+//@end

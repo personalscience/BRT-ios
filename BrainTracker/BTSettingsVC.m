@@ -9,6 +9,7 @@
 #import "BTSettingsVC.h"
 #import "BTData.h"
 #import "BTResponse.h"
+#import "BTDataSession.h"
 
 @interface BTSettingsVC ()
 @property (weak, nonatomic) IBOutlet UITextField *latencyCutOffTextField;
@@ -130,10 +131,27 @@ NSTimeInterval kBTLatencyCutOffValue;
     
 }
 
+
+
 - (IBAction)pressFillDatabase:(id)sender {
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]]) {
+        // no file exists, so just alert the user and ignore
+        
+        NSLog(@"No results file exists ");
+        
+    } else { // assume it's a valid CSV file and parse it
+    
+        [self readFromDisk];
+        
+    }
+    
+    
+    /* to fill the database with values, uncomment this code
     for (uint i = 0;i<10;i++) {
         [self fillOneItemInDatabase];
     }
+     */
 }
 
 
@@ -159,6 +177,113 @@ NSTimeInterval kBTLatencyCutOffValue;
     self.trialsPerSessionLabel.text=[[NSString alloc] initWithFormat:@"%d",[trialsPerSession intValue]];
     
 }
+
+#pragma mark Read/write from disk
+
+
+
+- (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
+    
+    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration,comment];
+    NSFileHandle *handle;
+    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
+    //say to handle where's the file fo write
+    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
+    //position handle cursor to the end of file
+    [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
+    
+}
+
+- (void) readFromDisk {
+    
+    
+    
+    NSError *error;
+    
+    NSString *fileContents = [[NSString alloc] initWithContentsOfFile:[self dataFilePath] encoding:NSASCIIStringEncoding error:&error];
+    
+    if(error) {NSLog(@"couldn't get components of file");
+    }else {
+        
+        
+ 
+    NSArray *allLinesInFile = [fileContents componentsSeparatedByString:@"\r"];
+        NSString *csvFileHeader = allLinesInFile[0];
+        
+        NSRange rangeForFile = NSMakeRange(1,[allLinesInFile count]-2);
+        
+        NSArray *linesInFile = [allLinesInFile subarrayWithRange:rangeForFile];
+        
+        NSAssert(rangeForFile.length>1,@"CSV file is not greater than one line");
+    
+    for (NSString *eachLineInFile in linesInFile){
+        NSArray *valuesInLine = [eachLineInFile componentsSeparatedByString:@","];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+        
+        NSDate *valueDate = [dateFormatter dateFromString:valuesInLine[0]]; //@"2014-09-05 19:28:40 +0000"]; // //];  //[NSDate date]; //[dateFormatter dateFromString:valuesInLine[0]];  //[dateFormatter dateFromString:valuesInLine[0]];
+      
+        NSString *valueString = valuesInLine[1];
+     
+        NSNumber *valueLatency = [[[NSNumberFormatter alloc] init] numberFromString:valuesInLine[2]];
+        NSNumber *valueLatencyMsec = [NSNumber numberWithDouble:([valueLatency doubleValue] / 1000)] ;
+        
+        
+        
+
+        NSString *valueComment = valuesInLine[3];
+ 
+        
+        if ([valueString isEqualToString:@"Session"]) {
+            NSLog(@"Session Results = %@",valueLatency);
+            NSLog(@"comment=%@",valueComment);
+            BTDataSession *newSession =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataSession" inManagedObjectContext:self.context];
+            
+            newSession.sessionDate = valueDate;
+            newSession.sessionRounds = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
+            newSession.sessionScore = valueLatency;
+            newSession.sessionComment = [[NSString alloc] initWithFormat:@"%@ (new)",valueComment];
+            
+        } else {
+            NSLog(@"date=%@",valueDate);
+            NSLog(@"string=%@",valueString);
+            NSLog(@"latency=%f",[valueLatencyMsec doubleValue]);
+            
+            BTData *BTDataResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:self.context];
+            
+            BTDataResponse.responseTime = valueLatencyMsec;
+            BTDataResponse.responseString = valueString;
+            BTDataResponse.responseDate = valueDate;
+            
+        }
+//        
+//        
+//        for (NSString *oneCSVValue in valuesInLine) {
+//            
+//      
+//            NSLog(@"(%@)",oneCSVValue);
+//            
+//    }
+        NSLog(@"\n");
+        
+        
+    }}
+    
+}
+
+
+-(NSString *)dataFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(
+                                                         NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:@"BrainTrackerResultsFile.csv"];
+}
+
+
+#pragma mark General
+
+
 
 - (void)viewDidLoad
 {

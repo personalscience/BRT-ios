@@ -153,7 +153,7 @@
 
 - (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
     
-    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\n",[NSDate date], inputString,duration,comment];
+    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\r",[NSDate date], inputString,duration,comment];
     NSFileHandle *handle;
     handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
     //say to handle where's the file fo write
@@ -168,7 +168,7 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]]) {
         [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
         NSLog(@"new results file created");
-        NSString *textToWrite = [[NSString alloc] initWithFormat:@"date,string,latency (mSec),comment\n"];
+        NSString *textToWrite = [[NSString alloc] initWithFormat:@"date,string,latency (mSec),comment\r"];
         NSFileHandle *handle;
         handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
         //say to handle where's the file fo write

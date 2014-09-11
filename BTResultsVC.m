@@ -269,13 +269,16 @@
     
     
     [self.resultsTableView reloadData];
+    NSLog(@"reloading results data");
     
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     
     //   NSManagedObjectContext *context = [self managedObjectContext];
-    self.context = [self managedObjectContext];
+    if (!self.context){self.context = [self managedObjectContext];
+        
+    }
 
     [self updateSessionsOrResponsesLabel];
 
@@ -287,8 +290,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
+    if (!self.context){self.context = [self managedObjectContext];
+        
+    }
     sessionsNotResponses = YES;
+    
+   [self updateUI];
     
 }
 
