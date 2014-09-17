@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-extern NSString * const kBTResponseStringKey;
+extern NSString * const kBTtrialResponseStringKey;
 extern NSString * const kBTMaxTrialsPerSessionKey;
 
 @interface BTSettingsVC : UIViewController

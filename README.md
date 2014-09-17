@@ -42,10 +42,32 @@ View Controllers
 
 Database
 ========
-Results are stored in a database using CoreData. There are two entities:
-* **BTData**: keeps the individual trial results
+Results are stored in *BTDataStore* using CoreData. There are two entities:
+* **BTDataTrial**: keeps the individual trial results
 * **BTDataSession**: final results for a particular session, computed and saved once after each session.
 
+Attributes:
+
+Trial
+
+    * _stimulus_ == problem (e.g. "showed ball number 6”)
+    * _response_ == actual.answer (e.g. "tapped the wrong location”, “hit ball number 6”)
+    * _latency_ == latency.msec (difference in time between when the stimulus was presented and when the response was received)
+    * _timestamp_ == when  (the time at which the stimulus was presented)
+    * _session_ == condition (unique identifier that applies to all trials in a particular session)
+    * _foreperiod)_ (how long between warning the user and first presentation of the stimulus)
+    * _whichSession_: one-to-one pointer to a session to which this trial belongs.
+
+Session
+
+    * whichTrial: one-to-many pointer to set of trials associated with this session
+    * sessionRounds: number of rounds expected for this session
+    * sessionID: (unique identifier that applies to all trials in this session)
+    * SessionDate: a timestamp applied when the session is finished. 
+
+
+
 Plotting uses the field "SessionScore" in BTDataSession for drawing the results of each session.
+
 
 

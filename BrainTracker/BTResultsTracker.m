@@ -7,7 +7,7 @@
 //
 
 #import "BTResultsTracker.h"
-#import "BTData.h"
+#import "BTDataTrial.h"
 #import "BTDataSession.h"
 
 
@@ -36,15 +36,15 @@
 // TODO: should be: look at last n (e.g. 100) latencies for this particular stimulus. Return where this response fits, as a percentile of those previous n latencies.
 
 - (double) percentileOfResponse: (BTResponse *) response {
-    NSString *responseString =response.response[kBTResponseStringKey];
-    NSNumber  *responseTime = response.response[kBTResponseTimeKey];
+    NSString *responseString =response.response[kBTtrialResponseStringKey];
+    NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTData"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataTrial"];
     
     // filter for everything in the database where attribute ResponseString = responseString
-    NSPredicate *matchesString = [NSPredicate predicateWithFormat:@"%K matches %@",kBTResponseStringKey,responseString];
+    NSPredicate *matchesString = [NSPredicate predicateWithFormat:@"%K matches %@",kBTtrialResponseStringKey,responseString];
     
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTResponseTimeKey ascending:NO]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialLatencyKey ascending:NO]];
     
     [request setPredicate:matchesString];
 
@@ -54,11 +54,11 @@
     // results is an NSArray of every response that matched this stimulus
     
     NSMutableArray *responseTimes = [[NSMutableArray alloc] init];
-    for (BTData *result in results) {
+    for (BTDataTrial *result in results) {
         
         
  //       NSTimeInterval rt = [result.responseTime doubleValue];
-        [responseTimes addObject:result.responseTime];
+        [responseTimes addObject:result.trialLatency];
         
         
   //      NSLog(@"result=%@,%f",result.responseString,rt);
@@ -122,9 +122,9 @@
 - (void) saveResult: (BTResponse *) response {
     
   
-    NSString *responseString =response.response[kBTResponseStringKey];
-    NSDate *responseDate = response.response[kBTResponseDateKey];
-    NSNumber  *responseTime = response.response[kBTResponseTimeKey];
+    NSString *responseString =response.response[kBTtrialResponseStringKey];
+    NSDate *responseDate = response.response[kBTtrialTimestampKey];
+    NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
     
  //   [self.responses addObject:@{KEY_RESPONSE_STRING:responseString, KEY_RESPONSE_DATE:responseDate,KEY_RESPONSE_TIME:responseTime}];
 
@@ -132,11 +132,11 @@
     if (!self.context) {NSLog(@"no context found in BTResultsTracker.saveResult");}
     else {
         // think of this like a proxy for a response item in the database
-        BTData *BTDataResponse =[NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:self.context];
+        BTDataTrial *BTDataResponse =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataTrial" inManagedObjectContext:self.context];
         
-        BTDataResponse.responseTime = responseTime;
-        BTDataResponse.responseString = responseString;
-        BTDataResponse.responseDate = responseDate;
+        BTDataResponse.trialLatency = responseTime;
+        BTDataResponse.trialResponseString = responseString;
+        BTDataResponse.trialTimeStamp = responseDate;
         
     }
     [self saveToDisk:responseString duration:[responseTime doubleValue]*1000 comment:[[NSString alloc] initWithFormat: @"Target Response=%@",responseString]];

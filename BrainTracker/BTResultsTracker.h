@@ -39,9 +39,9 @@
 
 // values set in BTResponse.m
 
-extern NSString * const kBTResponseStringKey;
-extern NSString * const kBTResponseTimeKey;
-extern NSString * const kBTResponseDateKey;
+extern NSString * const kBTtrialResponseStringKey;
+extern NSString * const kBTtrialLatencyKey;
+extern NSString * const kBTtrialTimestampKey;
 
 extern NSString * const kBTMaxTrialsPerSessionKey;
 

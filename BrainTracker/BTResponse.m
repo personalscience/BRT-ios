@@ -14,9 +14,9 @@
 
 @end
 
-NSString * const kBTResponseStringKey = @"responseString";
-NSString * const kBTResponseTimeKey = @"responseTime";
-NSString * const kBTResponseDateKey = @"responseDate";
+NSString * const kBTtrialResponseStringKey = @"trialResponseString";
+NSString * const kBTtrialLatencyKey = @"trialLatency";
+NSString * const kBTtrialTimestampKey = @"trialTimeStamp";
 
 
 @implementation BTResponse
@@ -25,7 +25,7 @@ NSString * const kBTResponseDateKey = @"responseDate";
 - (BOOL) matchesResponse: (BTResponse *) otherResponse {
     
     
-    if ([otherResponse.response[kBTResponseStringKey] isEqualToString:[self.response objectForKey:kBTResponseStringKey]])
+    if ([otherResponse.response[kBTtrialResponseStringKey] isEqualToString:[self.response objectForKey:kBTtrialResponseStringKey]])
         return YES;
     else return NO;
         
@@ -35,7 +35,7 @@ NSString * const kBTResponseDateKey = @"responseDate";
 // convoluted way of saying that the responseString is @0, which means that yes, this is a "stimulus" aka it's the start button.
 - (BOOL) isStimulus {
 //    
-//    NSString *id = self.response[kBTResponseStringKey];
+//    NSString *id = self.response[kBTtrialResponseStringKey];
 //    if(id){
 //        // yes, there's a responseStringKey in here
 //        if ([id isKindOfClass:[NSString class]]){
@@ -54,12 +54,12 @@ NSString * const kBTResponseDateKey = @"responseDate";
 }
 
 
-- (NSTimeInterval) responseTime {
+- (NSTimeInterval) responseLatency {
     
-    NSNumber * rt = [self.response valueForKey:kBTResponseTimeKey];
+    NSNumber * rt = [self.response valueForKey:kBTtrialLatencyKey];
     
     if (!rt){
-        NSLog(@"Error: responseTime not defined");
+        NSLog(@"Error: responseLatency not defined");
         return 0.0;
     } else
     return [rt doubleValue];
@@ -67,7 +67,7 @@ NSString * const kBTResponseDateKey = @"responseDate";
 
 - (NSString *) responseLabel {
     
-    NSString *idLabel = [self.response objectForKey:kBTResponseStringKey];
+    NSString *idLabel = [self.response objectForKey:kBTtrialResponseStringKey];
     return idLabel;
     
 }
@@ -76,7 +76,7 @@ NSString * const kBTResponseDateKey = @"responseDate";
     
     NSNumber *idNum = @0; // default id returned is 0.
     
-    NSString *id = self.response[kBTResponseStringKey];
+    NSString *id = self.response[kBTtrialResponseStringKey];
     if(id){
         // yes, there's a responseStringKey in here
         if ([id isKindOfClass:[NSString class]]){
@@ -88,12 +88,12 @@ NSString * const kBTResponseDateKey = @"responseDate";
     return idNum;
 }
 
-- (void) setResponseTime: (NSTimeInterval ) timeInSeconds {
+- (void) setResponseLatency: (NSTimeInterval ) timeInSeconds {
     
 
     
-    [self.response setValue:[NSNumber numberWithDouble:timeInSeconds] forKey:kBTResponseTimeKey];
-    [self.response setValue:[NSDate date] forKey:kBTResponseDateKey];
+    [self.response setValue:[NSNumber numberWithDouble:timeInSeconds] forKey:kBTtrialLatencyKey];
+    [self.response setValue:[NSDate date] forKey:kBTtrialTimestampKey];
 }
 
 
@@ -103,7 +103,7 @@ NSString * const kBTResponseDateKey = @"responseDate";
     self = [super init];
     
     
-        _response = [[NSMutableDictionary alloc] initWithObjectsAndKeys:initString,kBTResponseStringKey, nil];
+        _response = [[NSMutableDictionary alloc] initWithObjectsAndKeys:initString,kBTtrialResponseStringKey, nil];
     
     
     return  self;

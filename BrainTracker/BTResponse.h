@@ -30,9 +30,9 @@
  
 */
 
-extern NSString * const kBTResponseStringKey; // or more precisely, the responseLabel
-extern NSString * const kBTResponseTimeKey;
-extern NSString * const kBTResponseDateKey;
+extern NSString * const kBTtrialResponseStringKey; // or more precisely, the responseLabel
+extern NSString * const kBTtrialLatencyKey;
+extern NSString * const kBTtrialTimestampKey;
 
 //#define KEY_RESPONSE_TIME @"responseTime"
 //#define KEY_RESPONSE_STRING @"responseString"
@@ -47,15 +47,15 @@ extern NSString * const kBTResponseDateKey;
 
 
 
-@property NSTimeInterval responseTime;
+@property NSTimeInterval responseLatency;
 @property (strong, nonatomic) NSString *responseLabel;
 @property (strong, nonatomic) NSDictionary * response;
 @property (strong, nonatomic) NSNumber *idNum;
 
-@property (nonatomic, retain) NSDate * sessionDate;
-@property (nonatomic, retain) NSString * sessionComment;
-@property (nonatomic, retain) NSNumber * sessionScore;
-@property (nonatomic, retain) NSNumber * sessionRounds;
+//@property (nonatomic, retain) NSDate * sessionDate;
+//@property (nonatomic, retain) NSString * sessionComment;
+//@property (nonatomic, retain) NSNumber * sessionScore;
+//@property (nonatomic, retain) NSNumber * sessionRounds;
 
 
 @end

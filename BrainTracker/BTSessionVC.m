@@ -9,7 +9,7 @@
 #import "BTSessionVC.h"
 #import "BTMoleWhackViewer.h"
 #import "BTResultsTracker.h"
-#import "BTSession.h"
+//#import "BTSession.h"
 
 @interface BTSessionVC ()<BTTouchReturned, UIActionSheetDelegate>
 
@@ -108,7 +108,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     [self displayTrialNumber];
     self.lastTrialStatus.backgroundColor = nil;
     
-    NSString *latencyText =[[NSString alloc] initWithFormat:@"%0.0fmSec (%0.0f%%)",(response.responseTime)*1000,responsePercentile*100];
+    NSString *latencyText =[[NSString alloc] initWithFormat:@"%0.0fmSec (%0.0f%%)",(response.responseLatency)*1000,responsePercentile*100];
     self.lastTrialStatus.text =latencyText;
     
     
@@ -327,7 +327,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         trialIsCancelled = false;
         runTheTrial = true;
         
-                response.responseTime = time-prevTime; // subtract for the animation time.
+                response.responseLatency = time-prevTime; // subtract for the animation time.
                 
                 if ([self.results isUnderCutOff:time-prevTime]) {
                     

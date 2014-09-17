@@ -112,7 +112,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     } else {
         NSTimeInterval duration = time - prevTime;
         
-        response.responseTime = duration;
+        response.responseLatency = duration;
         
         
         
@@ -143,7 +143,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         NSTimeInterval duration = time - prevTime;
         
         BTResponse *thisResponse = [[BTResponse alloc] initWithString:[[NSString alloc] initWithFormat:@"%d",idNum]];
-        thisResponse.responseTime = duration;
+        thisResponse.responseLatency = duration;
         
         
         

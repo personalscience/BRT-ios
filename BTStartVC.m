@@ -133,7 +133,7 @@
     if ([thisStimulus matchesResponse:thisResponse]& !self.alreadyResponded) {
         NSLog(@"success: response matches stimulus");
         //  [thisResponse setResponseTime:duration];  // means the same thing as below:
-        thisResponse.responseTime = duration;
+        thisResponse.responseLatency = duration;
         
         
         

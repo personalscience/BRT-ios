@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BTDataSession" representedClassName="BTDataSession" syncable="YES">
+        <attribute name="sessionComment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sessionDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="sessionID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sessionRounds" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="sessionScore" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="whichTrial" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BTDataTrial" inverseName="whichSession" inverseEntity="BTDataTrial" syncable="YES"/>
+    </entity>
+    <entity name="BTDataTrial" representedClassName="BTDataTrial" syncable="YES">
+        <attribute name="trialForeperiod" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="trialLatency" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="trialResponseString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trialSessionID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trialStimulusString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trialTimeStamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="whichSession" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BTDataSession" inverseName="whichTrial" inverseEntity="BTDataSession" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BTDataSession" positionX="234" positionY="-36" width="128" height="133"/>
+        <element name="BTDataTrial" positionX="-63" positionY="-18" width="128" height="148"/>
+    </elements>
+</model>

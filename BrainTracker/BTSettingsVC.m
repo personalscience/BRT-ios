@@ -7,7 +7,7 @@
 //
 
 #import "BTSettingsVC.h"
-#import "BTData.h"
+#import "BTDataTrial.h"
 #import "BTResponse.h"
 #import "BTDataSession.h"
 
@@ -117,16 +117,16 @@ NSTimeInterval kBTLatencyCutOffValue;
     double margin = (500.0 + ((double) (arc4random() % 100)))/1000.0; // between 500 and 600 ms
 
     
-    response.responseTime = margin;
+    response.responseLatency = margin;
     
     
     NSDate *randomDateSinceJan1 = [NSDate dateWithTimeInterval:[self randomDays] sinceDate:[self startDate]]; //
     
-    BTData *BTDataResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:self.context];
+    BTDataTrial *BTDataResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTDataTrial" inManagedObjectContext:self.context];
     
-    BTDataResponse.responseTime = response.response[kBTResponseTimeKey];
-    BTDataResponse.responseString = response.response[kBTResponseStringKey];
-    BTDataResponse.responseDate = randomDateSinceJan1;
+    BTDataResponse.trialLatency = response.response[kBTtrialLatencyKey];
+    BTDataResponse.trialResponseString = response.response[kBTtrialResponseStringKey];
+    BTDataResponse.trialTimeStamp = randomDateSinceJan1;
     
     
 }
@@ -250,11 +250,11 @@ NSTimeInterval kBTLatencyCutOffValue;
             NSLog(@"string=%@",valueString);
             NSLog(@"latency=%f",[valueLatencyMsec doubleValue]);
             
-            BTData *BTDataResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTData" inManagedObjectContext:self.context];
+            BTDataTrial *BTDataResponse = [NSEntityDescription insertNewObjectForEntityForName:@"BTDataTrial" inManagedObjectContext:self.context];
             
-            BTDataResponse.responseTime = valueLatencyMsec;
-            BTDataResponse.responseString = valueString;
-            BTDataResponse.responseDate = valueDate;
+            BTDataResponse.trialLatency = valueLatencyMsec;
+            BTDataResponse.trialResponseString = valueString;
+            BTDataResponse.trialTimeStamp = valueDate;
             
         }
 //        

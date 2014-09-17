@@ -5,7 +5,7 @@
 //  Created by Richard Sprague on 3/7/14.
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
-#import "BTData.h"
+#import "BTDataTrial.h"
 #import "BTDataSession.h"
 #import "BTResultsVC.h"
 #import "BTResultsTracker.h"
@@ -53,10 +53,10 @@
 - (id) itemAtIndexPath: (NSIndexPath *) indexPath {
      id item = (sessionsNotResponses) ?  (BTDataSession *)[self.fetchedResultsController objectAtIndexPath:indexPath] : [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSAssert(([item isKindOfClass:[BTData class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class");
+    NSAssert(([item isKindOfClass:[BTDataTrial class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class");
 
     
-    if ([item isKindOfClass:[BTData class]]) { return (BTData *) item;
+    if ([item isKindOfClass:[BTDataTrial class]]) { return (BTDataTrial *) item;
     } else { return (BTDataSession *) item; }
     
 
@@ -65,21 +65,21 @@
 
 
 - (NSString *) targetOfItem: (id) item {
-    BTData *itemAsResponse;
+    BTDataTrial *itemAsResponse;
     BTDataSession *itemAsSession;
     
     NSString *returnItem;
     
-    NSAssert(([item isKindOfClass:[BTData class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (dateOfItem)");
+    NSAssert(([item isKindOfClass:[BTDataTrial class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (dateOfItem)");
     
     
     
     if ([item isKindOfClass:[BTDataSession class]]) {
         itemAsSession=item;
         returnItem= [itemAsSession.sessionRounds stringValue];}
-    else if ([item isKindOfClass:[BTData class]]){
+    else if ([item isKindOfClass:[BTDataTrial class]]){
         itemAsResponse = item;
-        returnItem= itemAsResponse.responseString;
+        returnItem= itemAsResponse.trialResponseString;
     }
     
     return returnItem;
@@ -88,38 +88,38 @@
 
 - (NSDate *) dateOfItem: (id) item {
     
-    BTData *itemAsResponse;
+    BTDataTrial *itemAsResponse;
     BTDataSession *itemAsSession;
     
     NSDate *returnItem;
     
-     NSAssert(([item isKindOfClass:[BTData class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (dateOfItem)");
+     NSAssert(([item isKindOfClass:[BTDataTrial class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (dateOfItem)");
     
     
     
     if ([item isKindOfClass:[BTDataSession class]]) {
         itemAsSession=item;
         returnItem= itemAsSession.sessionDate;}
-    else if ([item isKindOfClass:[BTData class]]){
+    else if ([item isKindOfClass:[BTDataTrial class]]){
         itemAsResponse = item;
-        returnItem= itemAsResponse.responseDate;
+        returnItem= itemAsResponse.trialTimeStamp;
     }
         
     return returnItem;
 }
 
 
-- (NSTimeInterval) timeOfItem: (id) item {
-    BTData *itemAsResponse;
+- (NSTimeInterval) timeOfItem: (id) item {  // this method should be called "latency" not "time"
+    BTDataTrial *itemAsResponse;
     BTDataSession *itemAsSession;
     
-    NSAssert(([item isKindOfClass:[BTData class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (timeOfItem)");
+    NSAssert(([item isKindOfClass:[BTDataTrial class]]|[item isKindOfClass:[BTDataSession class]]),@"Trying to show a tableview of something that isn't an expected class (timeOfItem)");
     
     NSTimeInterval returnItem = 0.0;
     
-    if ([item isKindOfClass:[BTData class]]) {
+    if ([item isKindOfClass:[BTDataTrial class]]) {
         itemAsResponse=item;
-        returnItem = (NSTimeInterval)[itemAsResponse.responseTime doubleValue];
+        returnItem = (NSTimeInterval)[itemAsResponse.trialLatency doubleValue];
     }    else if ([item isKindOfClass:[BTDataSession class]]){
         itemAsSession = item;
         returnItem =  (NSTimeInterval)[itemAsSession.sessionScore doubleValue];
@@ -216,9 +216,9 @@
 }
 - (NSFetchRequest *) fetchResponses {
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTData"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"responseDate" ascending:NO],
-                                     [NSSortDescriptor sortDescriptorWithKey: @"responseTime" ascending:YES]];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTDataTrial"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialTimestampKey ascending:NO],
+                                     [NSSortDescriptor sortDescriptorWithKey: kBTtrialLatencyKey ascending:YES]];
     
     return fetchRequest;
     
@@ -269,7 +269,7 @@
     
     
     [self.resultsTableView reloadData];
-    NSLog(@"reloading results data");
+    NSLog(@"reloading data for Results tab display");
     
 }
 

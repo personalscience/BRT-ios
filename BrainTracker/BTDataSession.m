@@ -7,7 +7,7 @@
 //
 
 #import "BTDataSession.h"
-#import "BTData.h"
+#import "BTDataTrial.h"
 
 
 @implementation BTDataSession
