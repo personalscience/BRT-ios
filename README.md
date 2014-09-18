@@ -69,5 +69,8 @@ Session
 
 Plotting uses the field "SessionScore" in BTDataSession for drawing the results of each session.
 
+Change Log
+==========
 
+9/18: BTResultsTracker includes - (NSArray) trialsMatchingResponse  and only looks at the latest  kBTlastNTrialsCutoffValue (sorted chronologically) trials 
 

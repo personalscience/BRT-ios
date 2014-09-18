@@ -47,7 +47,7 @@ extern NSString * const kBTMaxTrialsPerSessionKey;
 
 extern NSTimeInterval kBTLatencyCutOffValue;
 
-
+extern int const kBTlastNTrialsCutoffValue;
 
 
 #import <Foundation/Foundation.h>

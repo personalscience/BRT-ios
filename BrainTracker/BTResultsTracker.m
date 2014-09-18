@@ -17,8 +17,9 @@
 @property (strong, nonatomic) NSManagedObjectContext *context;
 
 
-
 @end
+
+int const kBTlastNTrialsCutoffValue = 100;
 
 @implementation BTResultsTracker
 
@@ -30,28 +31,64 @@
     
 }
 
-
-// returns a percentile that represents how this response compares to all others that had the same responseString. Returning 0.5, for example, means this response is the exact median for all responses.
-
 // TODO: should be: look at last n (e.g. 100) latencies for this particular stimulus. Return where this response fits, as a percentile of those previous n latencies.
 
-- (double) percentileOfResponse: (BTResponse *) response {
+// returns an array of trials whose trialResponseString equals the string in response.
+// The array is sorted by latency, from highest to lowest.  e.g. result[0].trialLatency= 1.5, result[192]=0.3 or something.
+- (NSArray *) trialsMatchingResponse: (BTResponse *) response {
     NSString *responseString =response.response[kBTtrialResponseStringKey];
-    NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
+  //  NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataTrial"];
-    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataTrial" ];
+  
     // filter for everything in the database where attribute ResponseString = responseString
     NSPredicate *matchesString = [NSPredicate predicateWithFormat:@"%K matches %@",kBTtrialResponseStringKey,responseString];
     
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialLatencyKey ascending:NO]];
+ //   request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialLatencyKey ascending:NO]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialTimestampKey ascending:NO]];
+    
+    // I can just grab the first n responses with this:
+    request.fetchLimit = kBTlastNTrialsCutoffValue;
+
+    
     
     [request setPredicate:matchesString];
-
+    
     
     NSError *error ;
     NSArray *results = [self.context executeFetchRequest:request error:&error  ];
+    
+    NSAssert(!error, @"error fetching trials to match response: (%@) : %@",responseString,[error localizedDescription]);
+    
     // results is an NSArray of every response that matched this stimulus
+    
+    return results;
+    
+}
+
+// returns a percentile that represents how this response compares to all others that had the same responseString. Returning 0.5, for example, means this response is the exact median for all responses.
+
+- (double) percentileOfResponse: (BTResponse *) response {
+     NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
+    
+    NSArray *results = [self trialsMatchingResponse:response];
+    
+    // now count the number of items in results where the latency is higher than the current response.  Divide by the total number of items in the results.
+    
+    
+    uint countOfItemsGreaterThanCurrentResponse = 0;
+    
+    for (BTDataTrial *result in results){
+        
+        if ([result.trialLatency doubleValue]> response.responseLatency) { countOfItemsGreaterThanCurrentResponse++;
+            
+        }
+    }
+    
+    double percent = (double)countOfItemsGreaterThanCurrentResponse / (double) [results count];
+    
+/* old convoluted way of calculating the percentile involved sorting the array and walking through it till you reach the median
+    // results is a sorted NSArray of every response that matched this stimulus
     
     NSMutableArray *responseTimes = [[NSMutableArray alloc] init];
     for (BTDataTrial *result in results) {
@@ -95,6 +132,9 @@
     
     //double percent = 55.0;
     double percent = (double)g/(double)rc;
+    
+    
+*/
     
     return percent;
 }
