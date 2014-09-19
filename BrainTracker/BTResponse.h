@@ -26,7 +26,7 @@
  
  It can also be used to store Session information [perhaps the class should be renamed, or refactored as a category]
  
- but it always contains a dict, response, with at least the following three keys:
+ but it always contains the NSDictionary *response , with at least the following three keys (defined in BTResponse.m):
  
 */
 
@@ -42,7 +42,7 @@ extern NSString * const kBTtrialTimestampKey;
 
 @interface BTResponse : NSObject
 - (BOOL) matchesResponse: (BTResponse *) response;
-- (BOOL) isStimulus;
+- (BOOL) isStimulus; // HACK: should be cleaned up later. Used to determine when something is the start button.
 - (id) initWithString: (NSString *) initString;
 
 

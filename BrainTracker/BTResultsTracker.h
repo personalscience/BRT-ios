@@ -52,9 +52,10 @@ extern int const kBTlastNTrialsCutoffValue;
 
 #import <Foundation/Foundation.h>
 
+@class BTResponse;
+@class BTSession;
 
-#import "BTResponse.h"
-#import "BTSession.h"
+
 
 @interface BTResultsTracker : NSObject
 

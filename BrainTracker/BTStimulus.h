@@ -9,12 +9,13 @@
 
 
 
-#import "BTResponse.h"
+#import "BTResponse.h"  // includes constants. TODO: you should combine the classes BTStimulus and BTResponse
 
 @interface BTStimulus : BTResponse
 
 - (BOOL) matchesStimulus: (BTResponse *) response;
 
+- (int) valueAsInt; // integer representation of the stimulus string;
 
 @property (strong, nonatomic) NSDictionary * stimulus;
 @end

@@ -6,13 +6,17 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 // Sets up the moles and the start button. Responds to events by passing them to the VC.
+// There is only one stimulus for this viewer and it will display it
 
 // 
 
 
 #import "BTMoleWhackViewer.h"
 #import "BTResponse.h"
+#import "BTStimulus.h"
 #import "BTStartView.h"
+
+extern uint const kBTNumberOfStimuli;
 
 static const CGFloat kMoleHeight = 50;  // size for the mole object you will try to whack
 //static const uint kMoleNumCols = 2;
@@ -23,7 +27,8 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
 @interface BTMoleWhackViewer ()
 
 @property (strong,nonatomic) BTStartView *startButton;
-@property (strong, nonatomic) NSArray *moles;
+@property (strong, nonatomic) NSArray *moles;  // each mole is a potential stimulus. this array contains all possible stimulii
+@property (strong, nonatomic) BTStimulus *stimulus; //this viewer has a single stimulus associated with it.
 @end
 
 @implementation BTMoleWhackViewer
@@ -90,8 +95,10 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
 
 - (void) presentNewStimulusResponse {
     
-    int randomMole = (arc4random() % ([self.moles count]-1))+1 ; // ignore the first mole (which is really just the start button)
+    // the stimulus is the randomMole index in the self.moles array ]
+    int randomMole = [self.stimulus valueAsInt]; //(arc4random() % ([self.moles count]-1))+1 ; // ignore the first mole (which is really just the start button)
     
+   // int randomMoleFromStimulus = [self.stimulus valueAsInt];
   /*  for (uint i=1;i<[self.moles count]; i++){
         [self.moles[i] setAlpha:0.0];
     }
@@ -99,6 +106,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
    // [self clearAllResponsesExcept:randomMole];
     [self clearAllResponses];
     
+    // this is where we
     BTResponseView *response = [self.moles objectAtIndex:randomMole];
     [self.moles[randomMole] drawRed];
     response.alpha = 1.0;
@@ -165,7 +173,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     int i = 0;
     uint index = 1;
     
-    while (i<6) {
+    while (i<kBTNumberOfStimuli) {
         CGFloat lenOpp = kLineLen * sinf(theta);  // lenght of the side opposite the theta angle
         CGFloat lenAdj = kLineLen * cosf(theta);
         CGFloat x = verticalCenter - lenOpp + kMoleHeight/2;
@@ -173,6 +181,8 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
         theta = theta - thetaPiece;
         
         BTResponse *response = [[BTResponse alloc]initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:[NSNumber numberWithInt:index++]]];
+        
+    
         
         BTResponseView *newMole = [[BTResponseView alloc]
                                    initWithFrame:CGRectMake(
@@ -199,7 +209,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
 
 
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame stimulus: (BTStimulus *) stimulus
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -208,6 +218,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     myFrame = self.frame; // now I can calculate the size of the current view.
     height = myFrame.size.height;
     width = myFrame.size.width - kMoleHeight;
+    self.stimulus = stimulus;
   //   self.backgroundColor = [UIColor clearColor];
     return self;
 }

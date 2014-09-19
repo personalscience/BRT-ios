@@ -16,6 +16,7 @@
 		FE5B8DC6190C574700DA47E0 /* BTResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B8DC5190C574700DA47E0 /* BTResultsTableViewCell.m */; };
 		FE6CD0C419BA4E41001B13DF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6CD0C319BA4E41001B13DF /* HealthKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FE7A475618F5CD1700BDC95D /* BTDataSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7A475518F5CD1700BDC95D /* BTDataSession.m */; };
+		FE8814BA19CBD5F80059A39B /* BTStimulusCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8814B919CBD5F80059A39B /* BTStimulusCollection.m */; };
 		FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8BB5EB18E7DB50004A7F19 /* BTStartView.m */; };
 		FE9148CA18C7CE8B00A694B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9148C918C7CE8B00A694B5 /* Foundation.framework */; };
 		FE9148CC18C7CE8B00A694B5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9148CB18C7CE8B00A694B5 /* CoreGraphics.framework */; };
@@ -76,6 +77,8 @@
 		FE6CD0C319BA4E41001B13DF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		FE7A475418F5CD1700BDC95D /* BTDataSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataSession.h; sourceTree = "<group>"; };
 		FE7A475518F5CD1700BDC95D /* BTDataSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDataSession.m; sourceTree = "<group>"; };
+		FE8814B819CBD5F80059A39B /* BTStimulusCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTStimulusCollection.h; sourceTree = "<group>"; };
+		FE8814B919CBD5F80059A39B /* BTStimulusCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTStimulusCollection.m; sourceTree = "<group>"; };
 		FE8BB5EA18E7DB50004A7F19 /* BTStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTStartView.h; sourceTree = "<group>"; };
 		FE8BB5EB18E7DB50004A7F19 /* BTStartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTStartView.m; sourceTree = "<group>"; };
 		FE9148C618C7CE8B00A694B5 /* BrainTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrainTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,8 +117,8 @@
 		FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMoleWhackViewer.m; path = BrainTracker/BTMoleWhackViewer.m; sourceTree = "<group>"; };
 		FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleVC.h; sourceTree = "<group>"; };
 		FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleVC.m; sourceTree = "<group>"; };
-		FEBEC08218E5F32B00CED03B /* BTMoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleView.h; sourceTree = "<group>"; };
-		FEBEC08318E5F32B00CED03B /* BTMoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleView.m; sourceTree = "<group>"; };
+		FEBEC08218E5F32B00CED03B /* BTMoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTMoleView.h; path = ../BTMoleView.h; sourceTree = "<group>"; };
+		FEBEC08318E5F32B00CED03B /* BTMoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMoleView.m; path = ../BTMoleView.m; sourceTree = "<group>"; };
 		FEBED29818F1A56B00CF28DC /* BTTouchReturnedProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BTTouchReturnedProtocol.h; path = BrainTracker/BTTouchReturnedProtocol.h; sourceTree = "<group>"; };
 		FEBEE28519317B040056A5B2 /* BTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSession.h; sourceTree = "<group>"; };
 		FEBEE28619317B040056A5B2 /* BTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSession.m; sourceTree = "<group>"; };
@@ -162,6 +165,8 @@
 		FE37D22B19875F850062F769 /* Old Files */ = {
 			isa = PBXGroup;
 			children = (
+				FEBEC08218E5F32B00CED03B /* BTMoleView.h */,
+				FEBEC08318E5F32B00CED03B /* BTMoleView.m */,
 				FEFDCA1318DDD0E10083F7EF /* BTStartVC.h */,
 				FEFDCA1418DDD0E10083F7EF /* BTStartVC.m */,
 			);
@@ -288,6 +293,8 @@
 				FE91490518C7D02F00A694B5 /* BTResponse.m */,
 				FEA1F3B718F21B87002060CC /* BTStimulus.h */,
 				FEA1F3B818F21B87002060CC /* BTStimulus.m */,
+				FE8814B819CBD5F80059A39B /* BTStimulusCollection.h */,
+				FE8814B919CBD5F80059A39B /* BTStimulusCollection.m */,
 				FE91490A18C7D05A00A694B5 /* BTResultsTracker.h */,
 				FE91490B18C7D05A00A694B5 /* BTResultsTracker.m */,
 				FEBEE28519317B040056A5B2 /* BTSession.h */,
@@ -305,8 +312,6 @@
 				FEBA977B18EE5639007E8245 /* BTStimulusResponseViewSubclasses */,
 				FEBA978218EF4EE7007E8245 /* BTMoleWhackViewer.h */,
 				FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */,
-				FEBEC08218E5F32B00CED03B /* BTMoleView.h */,
-				FEBEC08318E5F32B00CED03B /* BTMoleView.m */,
 				FEFDCA0918DD513E0083F7EF /* BTWedgeView.h */,
 				FEFDCA0A18DD513E0083F7EF /* BTWedgeView.m */,
 				FE5B8DC4190C574700DA47E0 /* BTResultsTableViewCell.h */,
@@ -464,6 +469,7 @@
 				FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */,
 				FEBA978418EF4EE7007E8245 /* BTMoleWhackViewer.m in Sources */,
 				FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */,
+				FE8814BA19CBD5F80059A39B /* BTStimulusCollection.m in Sources */,
 				FEEE05CA19C8999D003E8866 /* BTDataStore.xcdatamodeld in Sources */,
 				FE91491218C7D36500A694B5 /* BTResponseView.m in Sources */,
 				FE91490C18C7D05A00A694B5 /* BTResultsTracker.m in Sources */,
@@ -602,12 +608,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BrainTracker/BrainTracker-Prefix.pch";
 				INFOPLIST_FILE = "BrainTracker/BrainTracker-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BrainTracker",
@@ -617,6 +625,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "74F5A046-14E0-4E1F-BE4D-D4EE90D27D48";
 				"PROVISIONING_PROFILE[sdk=*]" = "74F5A046-14E0-4E1F-BE4D-D4EE90D27D48";
+				SWIFT_OBJC_BRIDGING_HEADER = "BrainTracker/BrainTracker-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -626,6 +636,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -633,6 +644,7 @@
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
 				INFOPLIST_FILE = "BrainTracker/BrainTracker-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BrainTracker",
@@ -641,6 +653,7 @@
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "BrainTracker/BrainTracker-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

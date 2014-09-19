@@ -11,6 +11,7 @@
 
 #import "BTPlayViewController.h"
 #import "BTResponseView.h"
+#import "BTResponse.h"
 
 @interface BTPlayViewController ()<BTTouchReturned>
 

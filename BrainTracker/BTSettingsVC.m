@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *trialsPerSessionLabel;
 @end
 
+uint const kBTNumberOfStimuli = 6;
 NSString * const kBTMaxTrialsPerSessionKey = @"trialsPerSession";
 NSString * const kBTPrecisionControlKey = @"precisionControl"; // if you want to review every result before saving it
 NSString * const kBTLatencyCutOffValueKey = @"latencyCutOffValue";

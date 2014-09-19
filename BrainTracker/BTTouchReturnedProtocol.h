@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BTResponse.h"
+//#import "BTResponse.h"
+@class BTResponse;
 
 @protocol BTTouchReturned <NSObject>
 

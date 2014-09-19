@@ -8,7 +8,7 @@
 
 #import "BTStimulusResponseView.h"
 
-
+#import "BTResponse.h"
 
 @interface BTStimulusResponseView()
 

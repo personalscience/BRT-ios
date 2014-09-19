@@ -10,6 +10,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BTTouchReturnedProtocol.h"
+@class BTStimulus;
+
 
 @interface BTMoleWhackViewer : UIView
 
@@ -20,6 +22,8 @@
 - (void) presentForeperiod;
 
 - (void) changeStartButtonLabelTo: (NSString*) newLabel;
+
+- (id)initWithFrame:(CGRect)frame stimulus: (BTStimulus *) stimulus;
 
 
 - (void) clearAllResponses;

@@ -16,7 +16,8 @@
 #import <UIKit/UIKit.h>
 
 #import "BTTouchReturnedProtocol.h" // a protocol for how a delegate can respond to touches on this UIView.
-#import "BTResponse.h"
+
+@class BTResponse;
 
 
 @interface BTStimulusResponseView : UIView

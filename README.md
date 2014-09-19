@@ -33,12 +33,19 @@ View Controllers
 *  **BTResultsVC**: display the trial and session results in a table
 
 *  **BTSessionVC**: kicks off a series of trials based on Mole UI.
-*  MoleView: viewer for the whack-a-mole UI
-*  WedgeView: viewer for the wedge UI
+
 
 *  BTStartVC: Wedges UI
 
 *  BTSessionVC: an all-purpose VC for controlling a view of your session. Embed a view (e.g. BTMoleView or BTMoleWhackViewer or BTWedgeView) to display the type of trial you like.
+
+Viewers
+=======
+
+A view knows absolutely nothing about a session. It just uses kicks off some instances of BTStimulusResponseView nicely laid out. Those instance return a **BTResponse** when touched.
+
+*  **MoleWhackViewer**: viewer for the whack-a-mole UI
+*  **WedgeView**: viewer for the wedge UI
 
 Database
 ========
@@ -50,13 +57,13 @@ Attributes:
 
 Trial
 
-    * _stimulus_ == problem (e.g. "showed ball number 6”)
-    * _response_ == actual.answer (e.g. "tapped the wrong location”, “hit ball number 6”)
-    * _latency_ == latency.msec (difference in time between when the stimulus was presented and when the response was received)
-    * _timestamp_ == when  (the time at which the stimulus was presented)
-    * _session_ == condition (unique identifier that applies to all trials in a particular session)
-    * _foreperiod)_ (how long between warning the user and first presentation of the stimulus)
-    * _whichSession_: one-to-one pointer to a session to which this trial belongs.
+    * __stimulus__ == problem (e.g. "showed ball number 6”)
+    * __response__ == actual.answer (e.g. "tapped the wrong location”, “hit ball number 6”)
+    * __latency__ == latency.msec (difference in time between when the stimulus was presented and when the response was received)
+    * __timestamp__ == when  (the time at which the stimulus was presented)
+    * __session__ == condition (unique identifier that applies to all trials in a particular session)
+    * __foreperiod__ (how long between warning the user and first presentation of the stimulus)
+    * __whichSession__: one-to-one pointer to a session to which this trial belongs.
 
 Session
 

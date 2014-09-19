@@ -9,7 +9,8 @@
 #import "BTResultsTracker.h"
 #import "BTDataTrial.h"
 #import "BTDataSession.h"
-
+#import "BTResponse.h"
+#import "BTSession.h"
 
 
 @interface BTResultsTracker ()
@@ -69,7 +70,7 @@ int const kBTlastNTrialsCutoffValue = 100;
 // returns a percentile that represents how this response compares to all others that had the same responseString. Returning 0.5, for example, means this response is the exact median for all responses.
 
 - (double) percentileOfResponse: (BTResponse *) response {
-     NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
+    // NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
     
     NSArray *results = [self trialsMatchingResponse:response];
     

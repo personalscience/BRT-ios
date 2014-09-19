@@ -7,6 +7,9 @@
 //
 
 #import "BTSessionVC.h"
+#import "BTSession.h"
+#import "BTStimulus.h"
+#import "BTResponse.h"
 #import "BTMoleWhackViewer.h"
 #import "BTResultsTracker.h"
 //#import "BTSession.h"
@@ -134,7 +137,9 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {  // you're not over the Max trials, so no need to do anything special, but note that the currentTrialNumber is now incremented
         [self displayTrialNumber];
-        [self.trialView changeStartButtonLabelTo:@"Press and Hold"];
+    
+      //  [self.trialView changeStartButtonLabelTo:@"Press and Hold"];
+        [self reloadTrialView];
         
     }
     
@@ -389,6 +394,24 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     if( kBTPrecisionControl) { precisionControl =  YES;} else precisionControl = NO;
     
 }
+
+- (void) reloadTrialView { // every reload gives you a brand new BTMoleWhackViewer
+    
+    BTStimulus *stimulus = [[BTStimulus alloc] init]; //[[BTStimulus alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@2] ];
+    
+    self.trialView = [[BTMoleWhackViewer alloc] initWithFrame:self.trialViewPlaceHolder.frame stimulus:stimulus];
+    self.trialView.motherViewer = self;
+    self.trialView.backgroundColor= [UIColor whiteColor];
+    
+    [self.trialViewPlaceHolder removeFromSuperview];
+    [self.view addSubview:self.trialView];
+    [self.trialView makeStartButton];
+    self.trialViewPlaceHolder  = self.trialView;
+    [self displayTrialNumber];
+    
+    
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -407,16 +430,8 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         MaxTrialsPerSession = @32;
         [[NSUserDefaults standardUserDefaults] setObject:MaxTrialsPerSession forKey:kBTMaxTrialsPerSessionKey];
     }
-    self.trialView = [[BTMoleWhackViewer alloc] initWithFrame:self.trialViewPlaceHolder.frame];
-    self.trialView.motherViewer = self;
-    self.trialView.backgroundColor= [UIColor whiteColor];
     
-    [self.trialViewPlaceHolder removeFromSuperview];
-    [self.view addSubview:self.trialView];
-    [self.trialView makeStartButton];
-    [self displayTrialNumber];
-
-    
+    [self reloadTrialView];
     
 }
 
