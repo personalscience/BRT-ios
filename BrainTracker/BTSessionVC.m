@@ -8,6 +8,7 @@
 
 #import "BTSessionVC.h"
 #import "BTSession.h"
+#import "BTTrial.h"
 #import "BTStimulus.h"
 #import "BTResponse.h"
 #import "BTMoleWhackViewer.h"
@@ -22,6 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIView *trialViewPlaceHolder;
 @property (strong, nonatomic) BTMoleWhackViewer *trialView;
 @property (weak, nonatomic) IBOutlet UILabel *lastTrialStatus;
+
+@property (strong, nonatomic) BTSession * session;
+@property (strong, nonatomic) BTTrial *trial;
 
 @property (weak, nonatomic) IBOutlet UILabel *BTSessionScoreLabel;
 
@@ -45,7 +49,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     NSNumber *currentTrialNumber;
     NSNumber *latencyCutOffValue;
     double rollingResponsePercentile; // add all the percentiles until
-    NSTimeInterval prevTime;
+    NSTimeInterval timeMarkForStartOfTrial; // number of seconds since system went uptime:used for measuring latency
     
     bool finishedForeperiod;
     bool trialIsCancelled;
@@ -60,6 +64,8 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
 }
 
+# pragma mark Setters/Getters
+
 - (BTResultsTracker *) results {
     
     if(!_results) {
@@ -70,156 +76,19 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
 }
 
-
-- (void) displayTrialNumber {
-    
-    if ([currentTrialNumber intValue]==0){
-        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Begin %d Trials",[MaxTrialsPerSession intValue]];
-    } else {
-        self.BTSessionScoreLabel.text = [[NSString alloc]initWithFormat:@"Press to Start Trial %d of %d",[currentTrialNumber intValue],[MaxTrialsPerSession intValue]];
-    }
-    
-    
-}
-
-
-- (BOOL) incrementTrialNumber {
-    bool overMax = NO;
-    
-
-     currentTrialNumber = [NSNumber numberWithInt:([currentTrialNumber intValue]+1)];
-    
-    if([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedDescending){
-        overMax = YES;
-    }
-    
-    return overMax;
-    
-}
-
-
-- (void) processResponse: (BTResponse *) response {
-    // get the all-time percentile for this response and cummulatively add it.
-    [self.results saveResult:response];  // save the result first, or you risk crashing when you calculate percentileOfResponse
-    
-    double responsePercentile = [self.results percentileOfResponse:response];
-    rollingResponsePercentile = rollingResponsePercentile + responsePercentile/[MaxTrialsPerSession doubleValue];
- //   NSLog(@" percentile = %0.3f RP=%0.3f",responsePercentile, rollingResponsePercentile);
-    self.sessionResults = rollingResponsePercentile ;
-   
-    // add it from a rolling mean
-    [self displayTrialNumber];
-    self.lastTrialStatus.backgroundColor = nil;
-    
-    NSString *latencyText =[[NSString alloc] initWithFormat:@"%0.0fmSec (%0.0f%%)",(response.responseLatency)*1000,responsePercentile*100];
-    self.lastTrialStatus.text =latencyText;
-    
-    
-    if (precisionControl){
-    
-    UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:[[NSString alloc] initWithFormat:@"KEEP: %@?",latencyText] delegate:self cancelButtonTitle:@"Keep" destructiveButtonTitle:@"Delete" otherButtonTitles:nil] ;
-    
-    [alert showInView:self.view];
-    } else [self makeNextTrial];
-
-    
-}
-
-- (void) makeNextTrial {
-    if ([self incrementTrialNumber]) { // true if you're over the MaxTrials, so post notification and exit
-        BTSession *newSession = [[BTSession alloc] init];
-        newSession.sessionComment = self.sessionComments;
-    
-        newSession.sessionScore = [NSNumber numberWithDouble:self.sessionResults];
-        
-        [self.results saveSession:newSession];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"displayResponsePercentile" object:self];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {  // you're not over the Max trials, so no need to do anything special, but note that the currentTrialNumber is now incremented
-        [self displayTrialNumber];
-    
-      //  [self.trialView changeStartButtonLabelTo:@"Press and Hold"];
-        [self reloadTrialView];
-        
-    }
-    
-}
-
--(void) actionSheet: (UIActionSheet*) actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    
-    NSLog(@"you pressed %d",(int)buttonIndex);
-    
-    if (buttonIndex == 1){
-        [self makeNextTrial];
-    
-        
-    }
-    else { NSLog(@"Nothing happens: we're not keeping this result");
-        
-    }
-}
-
-- (void) actionSheetCancel:(UIActionSheet *)actionSheet
-{
-    
-
-    
-}
-
-
-// two possibilities:
-// you pressed when Foreperiod is not yet finished
-// You pressed when you had already cancelled and you want to restart
-// this method handles two circumstances:
-// 1. You want to begin a trial
-//  a. Foreperiod is over: start a new trial
-//  b. Foreperiod is not over: ignore the touch
-// 2. You want to cancel a trial that is already in progress
-
-- (void) didPressStartButtonAtTime:(NSTimeInterval)time {
-    
-    
-    if (runTheTrial) {//((!trialIsCancelled & !finishedForeperiod)| (trialIsCancelled & finishedForeperiod)){
-            //start from scratch, because you're just beginning this trial
-            // trialIsCancelled = false;
-            // finishedForeperiod = false;
-        NSLog(@"Start Button: runThetrial is true");
-     
-            [self displayTrialNumber];
-            [self.trialView clearAllResponses];
-            [self.trialView changeStartButtonLabelTo:@"WAIT"];
-            self.lastTrialStatus.text = @"WAIT";
-            //          self.lastTrialStatus.backgroundColor = [UIColor redColor];
-            foreperiodCount = 0;
-        trialIsCancelled=false;
-            [self.trialView presentForeperiod];
-        
-    }
-
-}
-
-- (bool) isFinalForeperiod {
-    
-    foreperiodCount++;
-    if (foreperiodCount>5) {
-    //    NSLog(@"final foreperiod")  ;
-        return true;
-    } else return false;
-    
-}
-
+#pragma mark Protocol handlers for BTTouchReturned Protocol
 // When you're here, it means the user better be trying to hit the response target.
 - (void) didFinishForeperiod {
     finishedForeperiod = false;
     runTheTrial = false;
-
+    
     
     if (trialIsCancelled) { // forePeriod ends prematurely when user lets up on start button
-
-      //  trialIsCancelled = false; // reset trialIsCancelled because foreperiod is over
-       // [self.trialView clearAllResponses];
-       // foreperiodCount--;
-  //      NSLog(@"finishedForeperiod = true, TrialisCancelled=True, foreperiodCount=%d",foreperiodCount );
+        
+        //  trialIsCancelled = false; // reset trialIsCancelled because foreperiod is over
+        // [self.trialView clearAllResponses];
+        // foreperiodCount--;
+        //      NSLog(@"finishedForeperiod = true, TrialisCancelled=True, foreperiodCount=%d",foreperiodCount );
         
         if ([self isFinalForeperiod]) {
             NSLog(@"final with cancelled");
@@ -228,8 +97,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
             foreperiodCount= 0;
             self.lastTrialStatus.text = @"GO";
             
-          //  [self.trialView presentNewStimulusResponse];
-           // prevTime = [[NSProcessInfo processInfo] systemUptime];
+
         }
         
     } else { //NSLog(@"finishedForeperiod = true, TrialisCancelled=false, foreperiodCount=%d",foreperiodCount);
@@ -238,16 +106,16 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
             finishedForeperiod = true;
             runTheTrial = true;
             foreperiodCount= 0;
-        
-        self.lastTrialStatus.text = @"GO";
-
-        [self.trialView presentNewStimulusResponse];
-        prevTime = [[NSProcessInfo processInfo] systemUptime];
+            
+            self.lastTrialStatus.text = @"GO";
+            
+            [self.trialView presentNewStimulusResponse];
+            timeMarkForStartOfTrial = [[NSProcessInfo processInfo] systemUptime];
         }
         
     }
-     
-
+    
+    
     
 }
 
@@ -289,73 +157,213 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
                 trialIsCancelled = true;
                 
             }
-          
+            
             [self.trialView changeStartButtonLabelTo:@"Start Again"];
             
         } else { // foreperiod is finished, so you must be releasing this button after having hit start when the trial had already been cancelled
-           // NSLog(@"finished foreperiod and released start button");
+            // NSLog(@"finished foreperiod and released start button");
             runTheTrial = true;
             trialIsCancelled = true;
-           // foreperiodCount = 0;
-          //  if (trialIsCancelled) NSLog(@"trialIsCancelled=true"); else NSLog(@"trialIsCancelled=false");
-     
-      //  trialIsCancelled = true;
-      /*      self.lastTrialStatus.text = @"GO";
-            if (!trialIsCancelled) {
-            [self.trialView presentNewStimulusResponse];
-                prevTime = [[NSProcessInfo processInfo] systemUptime];}
-            trialIsCancelled = false;
-       */
-            
         }
-        
-        
-        
     }
     
 }
 
-#pragma mark Touch Handling
-
 - (void) didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
     
-   
+    
     if([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedDescending){  // this should never be true, because it should have been caught elsewhere
         NSLog(@"currentTrialNumber=%@ exceeds max allowed=%@",[currentTrialNumber description],[MaxTrialsPerSession description]);
         self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Session Score = %0.0f",rollingResponsePercentile];
     } else {  // a Response key has been pressed...
-            // the foreperiod is over by the
+        // the foreperiod is over by the
         //time we get here
-           // if (finishedForeperiod){
+        // if (finishedForeperiod){
         
         finishedForeperiod = false;
         trialIsCancelled = false;
         runTheTrial = true;
         
-                response.responseLatency = time-prevTime; // subtract for the animation time.
-                
-                if ([self.results isUnderCutOff:time-prevTime]) {
-                    
-                    [self processResponse:response];
-                    
-
-
-                } else {
-                    NSLog(@"%0.2f is over cutoff",time-prevTime);
-                    self.lastTrialStatus.text=@"Too Long";
-                }
-                
-                
-                
-
-                
-                [self.trialView clearAllResponses]; // wipe the response key so you can't press it again
-                
-
-                
+        [self.trial setTrialLatency:[NSNumber numberWithDouble:time-timeMarkForStartOfTrial]];
+        
+        response.responseLatency = time-timeMarkForStartOfTrial; // subtract for the animation time.
+        
+        if ([self.results isUnderCutOff:time-timeMarkForStartOfTrial]) {
+            
+            [self processResponse:response];
+            
+            
+            
+        } else {
+            NSLog(@"%0.2f is over cutoff",time-timeMarkForStartOfTrial);
+            self.lastTrialStatus.text=@"Too Long";
+        }
+        
+        
+        
+        
+        
+        [self.trialView clearAllResponses]; // wipe the response key so you can't press it again
+        
+        
+        
         
     }
 }
+
+#pragma mark Trial handling
+
+- (void) displayTrialNumber {
+    
+    if ([currentTrialNumber intValue]==0){
+        self.BTSessionScoreLabel.text = [[NSString alloc] initWithFormat:@"Begin %d Trials",[MaxTrialsPerSession intValue]];
+    } else {
+        self.BTSessionScoreLabel.text = [[NSString alloc]initWithFormat:@"Press to Start Trial %d of %d",[currentTrialNumber intValue],[MaxTrialsPerSession intValue]];
+    }
+    
+    
+}
+
+
+- (BOOL) incrementTrialNumber {
+    bool overMax = NO;
+    
+
+     currentTrialNumber = [NSNumber numberWithInt:([currentTrialNumber intValue]+1)];
+    
+    if([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedDescending){
+        overMax = YES;
+    }
+    
+    return overMax;
+    
+}
+
+
+- (void) processResponse: (BTResponse *) response {
+
+    [self.trial setResponseString:response ];
+     
+     [self.trial setSession:self.session];
+    [self.results saveTrial:self.trial];
+    
+    // get the all-time percentile for this response and cummulatively add it.
+  //  [self.results saveResult:response];  // save the result first, or you risk crashing when you calculate percentileOfResponse
+    
+    double responsePercentile = [self.results percentileOfResponse:response];
+    rollingResponsePercentile = rollingResponsePercentile + responsePercentile/[MaxTrialsPerSession doubleValue];
+    // this is intended to be the mean of all the responsePercentiles for this session
+ //   NSLog(@" percentile = %0.3f RP=%0.3f",responsePercentile, rollingResponsePercentile);
+    self.sessionResults = rollingResponsePercentile ;
+   
+    // add it from a rolling mean
+    [self displayTrialNumber];
+    self.lastTrialStatus.backgroundColor = nil;
+    
+    NSString *latencyText =[[NSString alloc] initWithFormat:@"%0.0fmSec (%0.0f%%)",(response.responseLatency)*1000,responsePercentile*100];
+    self.lastTrialStatus.text =latencyText;
+    
+    
+    if (precisionControl){
+    
+    UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:[[NSString alloc] initWithFormat:@"KEEP: %@?",latencyText] delegate:self cancelButtonTitle:@"Keep" destructiveButtonTitle:@"Delete" otherButtonTitles:nil] ;
+    
+    [alert showInView:self.view];
+    } else [self makeNextTrial];
+
+    
+}
+
+- (void) makeNextTrial {
+    if ([self incrementTrialNumber]) { // true if you're over the MaxTrials, so post notification and exit
+      
+        // self.session.sessionComment = self.sessionComments;
+    
+        self.session.sessionScore = [NSNumber numberWithDouble:self.sessionResults];
+        
+        [self.results saveSession:self.session];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"displayResponsePercentile" object:self];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {  // you're not over the Max trials, so no need to do anything special, but note that the currentTrialNumber is now incremented
+        [self displayTrialNumber];
+    
+      //  [self.trialView changeStartButtonLabelTo:@"Press and Hold"];
+        [self reloadTrialView];
+        
+    }
+    
+}
+
+#pragma mark actionSheet delegate handling
+-(void) actionSheet: (UIActionSheet*) actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    NSLog(@"you pressed %d",(int)buttonIndex);
+    
+    if (buttonIndex == 1){
+        [self makeNextTrial];
+    
+        
+    }
+    else { NSLog(@"Nothing happens: we're not keeping this result");
+        
+    }
+}
+
+- (void) actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    
+
+    
+}
+
+
+#pragma mark Touch Handling
+
+
+
+// two possibilities:
+// you pressed when Foreperiod is not yet finished
+// You pressed when you had already cancelled and you want to restart
+// this method handles two circumstances:
+// 1. You want to begin a trial
+//  a. Foreperiod is over: start a new trial
+//  b. Foreperiod is not over: ignore the touch
+// 2. You want to cancel a trial that is already in progress
+
+- (void) didPressStartButtonAtTime:(NSTimeInterval)time {
+    
+    
+    if (runTheTrial) {//((!trialIsCancelled & !finishedForeperiod)| (trialIsCancelled & finishedForeperiod)){
+            //start from scratch, because you're just beginning this trial
+            // trialIsCancelled = false;
+            // finishedForeperiod = false;
+        NSLog(@"Start Button pressed: runThetrial is true");
+        self.trial = [[BTTrial alloc] init];
+     
+            [self displayTrialNumber];
+            [self.trialView clearAllResponses];
+            [self.trialView changeStartButtonLabelTo:@"WAIT"];
+            self.lastTrialStatus.text = @"WAIT";
+            //          self.lastTrialStatus.backgroundColor = [UIColor redColor];
+            foreperiodCount = 0;
+        trialIsCancelled=false;
+            [self.trialView presentForeperiod];
+        
+    }
+
+}
+
+- (bool) isFinalForeperiod {
+    
+    foreperiodCount++;
+    if (foreperiodCount>5) {
+    //    NSLog(@"final foreperiod")  ;
+        return true;
+    } else return false;
+    
+}
+
+
 
 
 
@@ -418,7 +426,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     // Do any additional setup after loading the view.
     
     MaxTrialsPerSession = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
-   
+    self.session = [[BTSession alloc] initWithComment:self.sessionComments];
     
     currentTrialNumber = @1;
     rollingResponsePercentile= 0.0f;

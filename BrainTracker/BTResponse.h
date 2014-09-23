@@ -50,12 +50,8 @@ extern NSString * const kBTtrialTimestampKey;
 @property NSTimeInterval responseLatency;
 @property (strong, nonatomic) NSString *responseLabel;
 @property (strong, nonatomic) NSDictionary * response;
-@property (strong, nonatomic) NSNumber *idNum;
 
-//@property (nonatomic, retain) NSDate * sessionDate;
-//@property (nonatomic, retain) NSString * sessionComment;
-//@property (nonatomic, retain) NSNumber * sessionScore;
-//@property (nonatomic, retain) NSNumber * sessionRounds;
+
 
 
 @end

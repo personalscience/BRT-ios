@@ -106,16 +106,14 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
    // [self clearAllResponsesExcept:randomMole];
     [self clearAllResponses];
     
-    // this is where we
-    BTResponseView *response = [self.moles objectAtIndex:randomMole];
-    [self.moles[randomMole] drawRed];
-    response.alpha = 1.0;
 
-//    UILabel *newLabel = [[UILabel alloc] init];
-//    newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"%d",[response.idNum intValue]]];
-//    response.label = newLabel;
+    BTResponseView *responseView = self.moles[randomMole]; //[self.moles objectAtIndex:randomMole];
+    [responseView drawRed];
+    //[self.moles[randomMole] drawRed];
+    responseView.alpha = 1.0;
+
     [self changeStartButtonLabelTo:@""];
-    [response setNeedsDisplay];
+    [responseView setNeedsDisplay];
     
     
     

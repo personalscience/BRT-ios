@@ -25,6 +25,9 @@ Subclass again with BTStimulusView if you want a stimulus that is not meant to b
 
 **BTResultsTracker**: Instantiated once per user of the app, with contents saved in a CoreData database, and to disk. 
 
+Protocols
+=========
+**BTTouchReturnedProtocol**: __didReceiveResponse__ will send back which string was pressed and the latency.
 
 View Controllers
 ================

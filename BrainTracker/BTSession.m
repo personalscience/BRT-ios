@@ -11,9 +11,13 @@
 @implementation BTSession
 
 
-- (id) init {
+- (id) initWithComment: (NSString *) comment {
     
     self = [super init];
+    
+    _sessionComment = comment;
+    _sessionDate = [NSDate date];
+    _sessionRounds = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
     
     return self;
     

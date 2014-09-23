@@ -103,6 +103,8 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     
 }
+
+/*
 - (void)didReceiveResponse:(BTResponse *)response atTime:(NSTimeInterval)time {
     if ([response isStimulus]){
         for (int i=1;i<=kMoleCount ;i++){
@@ -123,7 +125,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         self.timeLabel.text = [[NSString alloc] initWithFormat:@"%3.0f mSec (%2.3f)%%",duration * 1000,g*100];
         
         [self.startButton drawGreen];
-        [[self.moles objectAtIndex:[[response idNum] intValue]] setAlpha:0.0];
+  /// deprecated       [[self.moles objectAtIndex:[[response idNum] intValue]] setAlpha:0.0];
         
         // self.timeLabel.text = [[NSString alloc] initWithFormat:@"Time:%3.1f mSec item:%d",1000*(time - prevTime) ,idNum];
     }
@@ -172,6 +174,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
    
 }
 
+ */
 #pragma mark lay out 
 
 - (void) layOutViewsInRows {

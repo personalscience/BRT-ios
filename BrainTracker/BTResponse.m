@@ -72,6 +72,8 @@ NSString * const kBTtrialTimestampKey = @"trialTimeStamp";
     
 }
 
+
+
 - (NSNumber *) idNum {
     
     NSNumber *idNum = @0; // default id returned is 0.
@@ -87,6 +89,7 @@ NSString * const kBTtrialTimestampKey = @"trialTimeStamp";
     
     return idNum;
 }
+ 
 
 - (void) setResponseLatency: (NSTimeInterval ) timeInSeconds {
     
@@ -103,7 +106,9 @@ NSString * const kBTtrialTimestampKey = @"trialTimeStamp";
     self = [super init];
     
     
-        _response = [[NSMutableDictionary alloc] initWithObjectsAndKeys:initString,kBTtrialResponseStringKey, nil];
+    _response = [[NSMutableDictionary alloc] initWithObjectsAndKeys:initString,kBTtrialResponseStringKey, nil];
+    
+    
     
     
     return  self;

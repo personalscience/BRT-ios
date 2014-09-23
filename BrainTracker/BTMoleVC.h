@@ -9,6 +9,9 @@
 // to make it disappear, not unlike the game of the same idea.
 // Objects in this code are often referred to as "moles" for that reason.
 
+// 9/14:  this class is not used -- use BTSessionVC instead.
+
+
 #import <UIKit/UIKit.h>
 
 @interface BTMoleVC : UIViewController

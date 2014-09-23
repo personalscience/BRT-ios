@@ -43,7 +43,7 @@ extern NSString * const kBTtrialResponseStringKey;
 extern NSString * const kBTtrialLatencyKey;
 extern NSString * const kBTtrialTimestampKey;
 
-extern NSString * const kBTMaxTrialsPerSessionKey;
+
 
 extern NSTimeInterval kBTLatencyCutOffValue;
 
@@ -54,12 +54,14 @@ extern int const kBTlastNTrialsCutoffValue;
 
 @class BTResponse;
 @class BTSession;
+@class BTTrial;
 
 
 
 @interface BTResultsTracker : NSObject
 
-- (void) saveResult: (BTResponse *) response;
+//- (void) saveResult: (BTResponse *) response;
+- (void) saveTrial: (BTTrial *) trial;
 - (void) saveSession: (BTSession *) session;
 - (double) percentileOfResponse: (BTResponse *) response;
 - (BOOL) isUnderCutOff: (NSTimeInterval)  responseLatency;

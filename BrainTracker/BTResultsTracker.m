@@ -8,6 +8,7 @@
 
 #import "BTResultsTracker.h"
 #import "BTDataTrial.h"
+#import "BTTrial.h"
 #import "BTDataSession.h"
 #import "BTResponse.h"
 #import "BTSession.h"
@@ -32,10 +33,10 @@ int const kBTlastNTrialsCutoffValue = 100;
     
 }
 
-// TODO: should be: look at last n (e.g. 100) latencies for this particular stimulus. Return where this response fits, as a percentile of those previous n latencies.
+
 
 // returns an array of trials whose trialResponseString equals the string in response.
-// The array is sorted by latency, from highest to lowest.  e.g. result[0].trialLatency= 1.5, result[192]=0.3 or something.
+// The array is sorted by date, from highest to lowest.  
 - (NSArray *) trialsMatchingResponse: (BTResponse *) response {
     NSString *responseString =response.response[kBTtrialResponseStringKey];
   //  NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
@@ -140,15 +141,15 @@ int const kBTlastNTrialsCutoffValue = 100;
     return percent;
 }
 
-// TODO: must make this a bona fide object to track and save everything about a session.
-// currently just saves the session score, but this
+// stores the current session to the BTDataSession store, and also to a CSV on disk
+// 
 - (void) saveSession: (BTSession *) session {
     if (!self.context) {NSLog(@"no context found in BTResultsTracker.saveResult");}
     else {
         // think of this like a proxy for a session item in the database
         BTDataSession *newSession =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataSession" inManagedObjectContext:self.context];
-        newSession.sessionDate = [NSDate date];
-        newSession.sessionRounds = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
+        newSession.sessionDate = session.sessionDate;
+        newSession.sessionRounds = session.sessionRounds;
         newSession.sessionScore = session.sessionScore;
         
         [self saveToDisk:@"Session" duration:[session.sessionScore doubleValue] comment:session.sessionComment];
@@ -160,6 +161,35 @@ int const kBTlastNTrialsCutoffValue = 100;
 
 # pragma mark Disk Save
 
+- (void) saveTrial:(BTTrial *)trial  {
+    
+    if (!self.context) {NSLog(@"no context found in BTResultsTracker.saveResult");}
+    else {
+        // think of this like a proxy for a response item in the database
+        
+        //* UNCOMMMENT THIS WHEN YOU ARE READY TO SAVE TO DATABASE
+        BTDataTrial *BTDataResponse =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataTrial" inManagedObjectContext:self.context];
+        
+        BTDataResponse.trialLatency = trial.trialLatency;
+        BTDataResponse.trialResponseString = trial.trialResponseString;
+        BTDataResponse.trialTimeStamp = trial.trialTimeStamp;
+        BTDataResponse.trialSessionID = trial.trialSessionID;
+        BTDataResponse.whichSession = trial.trialSession;
+        
+        
+        // */
+        
+    }
+    NSString *textToWrite = [[NSString alloc] initWithFormat:@"(timestamp=%@),%@,%f,%@\r",trial.trialTimeStamp, trial.trialResponseString,[trial.trialLatency doubleValue]*1000,trial.trialSession.sessionComment];
+    NSLog(@"Disk Save:\n%@\n",textToWrite);
+    
+    [self saveToDisk:textToWrite];
+
+    
+}
+
+
+/* deprecated on 9/23; use saveTrial instead
 - (void) saveResult: (BTResponse *) response {
     
   
@@ -183,13 +213,25 @@ int const kBTlastNTrialsCutoffValue = 100;
     [self saveToDisk:responseString duration:[responseTime doubleValue]*1000 comment:[[NSString alloc] initWithFormat: @"Target Response=%@",responseString]];
 }
 
-
+*/
 
 -(NSString *)dataFilePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(
                                                          NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     return [documentsDirectory stringByAppendingPathComponent:@"BrainTrackerResultsFile.csv"];
+}
+
+- (void) saveToDisk: (NSString *) textToWrite {
+    
+   // NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\r",[NSDate date], inputString,duration,comment];
+    NSFileHandle *handle;
+    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
+    //say to handle where's the file fo write
+    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
+    //position handle cursor to the end of file
+    [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
+    
 }
 
 - (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
@@ -239,7 +281,7 @@ int const kBTlastNTrialsCutoffValue = 100;
     self.context = [self managedObjectContext];
     [self doInitializationsIfNecessary];
     
-    if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=0.550;} // initialization:  this should be deleted in final version
+    if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=3.0;} // initialization:  this should be deleted in final version
 
 
 
