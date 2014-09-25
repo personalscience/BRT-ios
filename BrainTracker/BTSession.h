@@ -15,8 +15,10 @@ extern NSString * const kBTMaxTrialsPerSessionKey;
 
 @interface BTSession : NSObject
 
-@property (nonatomic, retain) NSDate * sessionDate;
+
 @property (nonatomic, retain) NSString * sessionComment;
+@property (nonatomic, retain) NSDate * sessionDate;
+@property (nonatomic, retain) NSString * sessionID;
 @property (nonatomic, retain) NSNumber * sessionScore;  // a percentile, value from 0.0 to 1.0
 @property (nonatomic, retain) NSNumber * sessionRounds; // integer number of rounds in this session
 - (id) initWithComment: (NSString *) comment;

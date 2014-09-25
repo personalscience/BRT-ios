@@ -17,6 +17,7 @@
 @interface BTResultsTracker ()
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
+@property  (strong, nonatomic) BTDataSession *session;
 
 
 @end
@@ -25,6 +26,8 @@ int const kBTlastNTrialsCutoffValue = 100;
 
 @implementation BTResultsTracker
 
+/* deprecated 9/23/14
+
 - (BOOL) isUnderCutOff: (NSTimeInterval)  responseLatency {
     if (responseLatency <= kBTLatencyCutOffValue)
         
@@ -32,6 +35,7 @@ int const kBTlastNTrialsCutoffValue = 100;
     else return NO;
     
 }
+ */
 
 
 
@@ -144,15 +148,29 @@ int const kBTlastNTrialsCutoffValue = 100;
 // stores the current session to the BTDataSession store, and also to a CSV on disk
 // 
 - (void) saveSession: (BTSession *) session {
-    if (!self.context) {NSLog(@"no context found in BTResultsTracker.saveResult");}
+    if (!self.context) {NSLog(@"no context found in BTResultsTracker.saveSession");}
     else {
         // think of this like a proxy for a session item in the database
-        BTDataSession *newSession =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataSession" inManagedObjectContext:self.context];
-        newSession.sessionDate = session.sessionDate;
-        newSession.sessionRounds = session.sessionRounds;
-        newSession.sessionScore = session.sessionScore;
+
+        self.session.sessionDate = session.sessionDate;
+        self.session.sessionRounds = session.sessionRounds;
+        self.session.sessionScore = session.sessionScore;
+        self.session.sessionComment= session.sessionComment;
+        self.session.sessionID = session.sessionID;
         
-        [self saveToDisk:@"Session" duration:[session.sessionScore doubleValue] comment:session.sessionComment];
+        NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,Session,%f,%@\r",
+                                 self.session.sessionID,
+                                 self.session.sessionDate,
+                                 [self.session.sessionScore doubleValue],
+                                 self.session.sessionComment ] ;
+        
+        
+        [self saveToDisk:textToWrite];
+                                 
+                                 
+                                 
+ //                                ,[trial.trialLatency doubleValue]*1000,trial.trialSession.sessionComment];
+ //       [self saveToDisk:@"Session" duration:[session.sessionScore doubleValue] comment:session.sessionComment];
         NSLog(@"saved session with results=%f",[session.sessionScore doubleValue]);
         
     }
@@ -174,13 +192,12 @@ int const kBTlastNTrialsCutoffValue = 100;
         BTDataResponse.trialResponseString = trial.trialResponseString;
         BTDataResponse.trialTimeStamp = trial.trialTimeStamp;
         BTDataResponse.trialSessionID = trial.trialSessionID;
-        BTDataResponse.whichSession = trial.trialSession;
-        
+        BTDataResponse.whichSession = self.session;
         
         // */
         
     }
-    NSString *textToWrite = [[NSString alloc] initWithFormat:@"(timestamp=%@),%@,%f,%@\r",trial.trialTimeStamp, trial.trialResponseString,[trial.trialLatency doubleValue]*1000,trial.trialSession.sessionComment];
+    NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%@,%f,%@\r",trial.trialSession.sessionID,trial.trialTimeStamp, trial.trialResponseString,[trial.trialLatency doubleValue]*1000,trial.trialSession.sessionID];
     NSLog(@"Disk Save:\n%@\n",textToWrite);
     
     [self saveToDisk:textToWrite];
@@ -234,6 +251,8 @@ int const kBTlastNTrialsCutoffValue = 100;
     
 }
 
+/* deprecated: used only in saveResult
+
 - (void) saveToDisk: (NSString *) inputString  duration: (NSTimeInterval) duration comment: (NSString *) comment{
     
     NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%f,%@\r",[NSDate date], inputString,duration,comment];
@@ -245,6 +264,7 @@ int const kBTlastNTrialsCutoffValue = 100;
     [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
     
 }
+ */
 
 - (void) doInitializationsIfNecessary {
     
@@ -252,12 +272,14 @@ int const kBTlastNTrialsCutoffValue = 100;
         [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
         NSLog(@"new results file created");
         NSString *textToWrite = [[NSString alloc] initWithFormat:@"date,string,latency (mSec),comment\r"];
-        NSFileHandle *handle;
-        handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
-        //say to handle where's the file fo write
-        //       [handle truncateFileAtOffset:[handle seekToEndOfFile]];
-        //position handle cursor to the end of file
-        [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
+        [self saveToDisk:textToWrite];
+    }
+    
+    if (!self.context) {
+        NSLog(@"No context in BTResultsTracker:doinitializationsifnecessary");
+    } else {
+        self.session =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataSession" inManagedObjectContext:self.context];
+        
     }
 }
 
@@ -281,7 +303,7 @@ int const kBTlastNTrialsCutoffValue = 100;
     self.context = [self managedObjectContext];
     [self doInitializationsIfNecessary];
     
-    if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=3.0;} // initialization:  this should be deleted in final version
+    if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=3.0;} // initialization:  TODO this should be deleted in final version
 
 
 

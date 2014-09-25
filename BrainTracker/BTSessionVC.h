@@ -35,5 +35,6 @@ extern bool  kBTPrecisionControl;
 extern NSString * const kBTMaxTrialsPerSessionKey;
 extern NSString * const kBTPrecisionControlKey;
 extern NSString * const kBTLatencyCutOffValueKey;
+extern NSTimeInterval kBTLatencyCutOffValue;
 
 @end

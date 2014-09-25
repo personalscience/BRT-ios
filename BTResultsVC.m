@@ -8,7 +8,7 @@
 #import "BTDataTrial.h"
 #import "BTDataSession.h"
 #import "BTResultsVC.h"
-#import "BTResultsTracker.h"
+//#import "BTResultsTracker.h"
 
 #define TARGETLABELTAG 102
 #define TIMELABELTAG 101
@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 
-@property (strong, nonatomic) BTDataSession *session;
+//@property (strong, nonatomic) BTDataSession *session;
 
 @property (weak, nonatomic) IBOutlet UILabel *sessionsOrResponsesLabel;
 
@@ -76,7 +76,10 @@
     
     if ([item isKindOfClass:[BTDataSession class]]) {
         itemAsSession=item;
-        returnItem= [itemAsSession.sessionRounds stringValue];}
+        NSNumber *scoreN = [[NSNumber alloc] initWithDouble:[itemAsSession.sessionScore doubleValue] * 1000];
+       // double score = [itemAsSession.sessionScore doubleValue] * 1000;
+        returnItem= itemAsSession.sessionComment; //[scoreN stringValue];
+    }
     else if ([item isKindOfClass:[BTDataTrial class]]){
         itemAsResponse = item;
         returnItem= itemAsResponse.trialResponseString;
@@ -269,7 +272,7 @@
     
     
     [self.resultsTableView reloadData];
-    NSLog(@"reloading data for Results tab display");
+   // NSLog(@"reloading data for Results tab display");
     
 }
 

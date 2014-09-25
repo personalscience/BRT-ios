@@ -15,8 +15,14 @@
     
     self = [super init];
     
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+   // [format setDateStyle:NSDateFormatterShortStyle];
+    //[format setTimeStyle:NSDateFormatterShortStyle];
+    [format setDateFormat:@"YYYYMMDDHHmm"];
+    
     _sessionComment = comment;
     _sessionDate = [NSDate date];
+    _sessionID = [NSString localizedStringWithFormat:@"ID%@|%@",_sessionComment,[format stringFromDate:_sessionDate]];
     _sessionRounds = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
     
     return self;

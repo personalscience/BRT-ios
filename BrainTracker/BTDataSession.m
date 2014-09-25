@@ -2,7 +2,7 @@
 //  BTDataSession.m
 //  BrainTracker
 //
-//  Created by Richard Sprague on 4/9/14.
+//  Created by Richard Sprague on 9/23/14.
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
@@ -12,10 +12,11 @@
 
 @implementation BTDataSession
 
-@dynamic sessionDate;
 @dynamic sessionComment;
-@dynamic sessionScore;
+@dynamic sessionDate;
+@dynamic sessionID;
 @dynamic sessionRounds;
-@dynamic whichResponse;
+@dynamic sessionScore;
+@dynamic whichTrials;
 
 @end

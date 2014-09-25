@@ -10,6 +10,7 @@
 #import "BTDataTrial.h"
 #import "BTResponse.h"
 #import "BTDataSession.h"
+#import "BTFileReader.h"
 
 @interface BTSettingsVC ()
 @property (weak, nonatomic) IBOutlet UITextField *latencyCutOffTextField;
@@ -25,7 +26,7 @@ NSString * const kBTMaxTrialsPerSessionKey = @"trialsPerSession";
 NSString * const kBTPrecisionControlKey = @"precisionControl"; // if you want to review every result before saving it
 NSString * const kBTLatencyCutOffValueKey = @"latencyCutOffValue";
 
-NSTimeInterval kBTLatencyCutOffValue;
+NSTimeInterval kBTLatencyCutOffValue = 3.0;
 
     bool kBTPrecisionControl;
 @implementation BTSettingsVC
@@ -35,6 +36,8 @@ NSTimeInterval kBTLatencyCutOffValue;
 
 
 }
+
+#pragma mark IBAction methods
 
 - (IBAction)pressedTrialsPerSessionStepper:(id)sender {
     
@@ -68,6 +71,7 @@ NSTimeInterval kBTLatencyCutOffValue;
         }
         else {NSLog(@"you entered a non-number %@",fieldString);}
         kBTLatencyCutOffValue = myDouble/1000;
+        [[NSUserDefaults standardUserDefaults] setObject:[[NSNumber alloc] initWithDouble:kBTLatencyCutOffValue]forKey:kBTLatencyCutOffValueKey];
         NSLog(@"Latency Cutoff = %0.3f",kBTLatencyCutOffValue);
         [sender resignFirstResponder];
     }
@@ -75,7 +79,29 @@ NSTimeInterval kBTLatencyCutOffValue;
     else NSLog(@"not a class");
 }
 
-
+- (IBAction)pressFillDatabase:(id)sender {
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]]) {
+        // no file exists, so just alert the user and ignore
+        
+        NSLog(@"No results file exists ");
+        
+    } else { // assume it's a valid CSV file and parse it
+        
+        BTFileReader *CSVFile = [[BTFileReader alloc] init] ;
+        [CSVFile readFromDisk:[self dataFilePath]];
+        
+        //[self readFromDisk];
+        
+    }
+    
+    
+    /* to fill the database with values, uncomment this code
+     for (uint i = 0;i<10;i++) {
+     [self fillOneItemInDatabase];
+     }
+     */
+}
 
 #pragma mark Test Methods for Filling the Database
 
@@ -134,26 +160,7 @@ NSTimeInterval kBTLatencyCutOffValue;
 
 
 
-- (IBAction)pressFillDatabase:(id)sender {
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]]) {
-        // no file exists, so just alert the user and ignore
-        
-        NSLog(@"No results file exists ");
-        
-    } else { // assume it's a valid CSV file and parse it
-    
-        [self readFromDisk];
-        
-    }
-    
-    
-    /* to fill the database with values, uncomment this code
-    for (uint i = 0;i<10;i++) {
-        [self fillOneItemInDatabase];
-    }
-     */
-}
+
 
 
 - (NSManagedObjectContext *) managedObjectContext {
@@ -194,7 +201,7 @@ NSTimeInterval kBTLatencyCutOffValue;
     [handle writeData:[textToWrite dataUsingEncoding:NSUTF8StringEncoding]];
     
 }
-
+/*
 - (void) readFromDisk {
     
     
@@ -209,7 +216,7 @@ NSTimeInterval kBTLatencyCutOffValue;
         
  
     NSArray *allLinesInFile = [fileContents componentsSeparatedByString:@"\r"];
-        NSString *csvFileHeader = allLinesInFile[0];
+    //    NSString *csvFileHeader = allLinesInFile[0];
         
         NSRange rangeForFile = NSMakeRange(1,[allLinesInFile count]-2);
         
@@ -272,6 +279,7 @@ NSTimeInterval kBTLatencyCutOffValue;
     }}
     
 }
+*/
 
 
 -(NSString *)dataFilePath {

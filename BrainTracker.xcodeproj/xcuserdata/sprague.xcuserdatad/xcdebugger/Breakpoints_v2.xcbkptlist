@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTResultsTracker.m"
-            timestampString = "433188520.562276"
+            timestampString = "433312940.617045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
             landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>
@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "420241449.319722"
+            timestampString = "433214813.212486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
             landmarkName = "-initWithNibName:bundle:"
             landmarkType = "5">
          </BreakpointContent>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "431641614.817323"
+            timestampString = "433214813.212486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "-didReceiveMemoryWarning"
             landmarkType = "5">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "420241449.319722"
+            timestampString = "433214813.212486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTResultsTracker.m"
-            timestampString = "432927975.418928"
+            timestampString = "433198592.328394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "-percentileOfResponse:"
             landmarkType = "5">
          </BreakpointContent>
@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTResultsTracker.m"
-            timestampString = "432927975.418928"
+            timestampString = "433198592.328394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "-percentileOfResponse:"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "431641614.817323"
+            timestampString = "433214813.212486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
             landmarkName = "@implementation BTResultsVC"
             landmarkType = "3">
          </BreakpointContent>
@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSettingsVC.m"
-            timestampString = "432836415.578778"
+            timestampString = "433288515.055848"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "-doInitializationsIfNecessary"
             landmarkType = "5">
          </BreakpointContent>
@@ -251,11 +251,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSessionVC.m"
-            timestampString = "432928351.895671"
+            timestampString = "433195626.695237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
             landmarkName = "-processResponse:"
             landmarkType = "5">
          </BreakpointContent>
@@ -267,11 +267,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSettingsVC.m"
-            timestampString = "432836415.578778"
+            timestampString = "433288515.055848"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "-flippedPrecisionControl:"
             landmarkType = "5">
          </BreakpointContent>
@@ -283,11 +283,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSessionVC.m"
-            timestampString = "432928351.895671"
+            timestampString = "433282121.561516"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
             landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -309,11 +309,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSessionVC.m"
-            timestampString = "432928351.895671"
+            timestampString = "433282121.561516"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "436"
-            endingLineNumber = "436"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -325,11 +325,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTResultsTracker.m"
-            timestampString = "432927975.418928"
+            timestampString = "433280066.951492"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "-saveSession:"
             landmarkType = "5">
          </BreakpointContent>
@@ -341,11 +341,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "431641149.076975"
+            timestampString = "433214813.212486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "-updateUI"
             landmarkType = "5">
          </BreakpointContent>
@@ -357,13 +357,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSettingsVC.m"
-            timestampString = "432836415.578778"
+            timestampString = "433288515.055848"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "-readFromDisk"
-            landmarkType = "5">
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "@implementation BTSettingsVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -373,13 +373,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSettingsVC.m"
-            timestampString = "432836415.578778"
+            timestampString = "433288515.055848"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
-            landmarkName = "-readFromDisk"
-            landmarkType = "5">
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "@implementation BTSettingsVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -389,11 +389,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTResultsTracker.m"
-            timestampString = "432927975.418928"
+            timestampString = "433198592.328394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "-trialsMatchingResponse:"
             landmarkType = "5">
          </BreakpointContent>
@@ -405,11 +405,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTResultsTracker.m"
-            timestampString = "432927975.418928"
+            timestampString = "433198592.328394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "-percentileOfResponse:"
             landmarkType = "5">
          </BreakpointContent>
@@ -437,11 +437,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSessionVC.m"
-            timestampString = "432928351.895671"
+            timestampString = "433195626.695237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "-processResponse:"
             landmarkType = "5">
          </BreakpointContent>
@@ -453,12 +453,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTResultsTracker.m"
-            timestampString = "433046797.649382"
+            timestampString = "433280066.951492"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "-saveTrial:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BrainTracker/BTSessionVC.m"
+            timestampString = "433196460.53082"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "-didReceiveResponse:atTime:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BrainTracker/BTSession.m"
+            timestampString = "433281144.618907"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "-initWithComment:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

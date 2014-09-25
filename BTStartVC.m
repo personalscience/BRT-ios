@@ -70,7 +70,7 @@
 //    
 //}
 
-
+/*  all code long since deprecated 9/14 
 
 # pragma mark Touch-related
 

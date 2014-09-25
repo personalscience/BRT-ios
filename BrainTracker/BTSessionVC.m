@@ -188,7 +188,11 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         
         response.responseLatency = time-timeMarkForStartOfTrial; // subtract for the animation time.
         
-        if ([self.results isUnderCutOff:time-timeMarkForStartOfTrial]) {
+        if (
+            //[self.results isUnderCutOff:time-timeMarkForStartOfTrial]
+            time-timeMarkForStartOfTrial <= kBTLatencyCutOffValue
+            
+            ) {
             
             [self processResponse:response];
             
@@ -393,7 +397,12 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     [self.trialView clearAllResponses];
    latencyCutOffValue =[[NSUserDefaults standardUserDefaults] objectForKey:kBTLatencyCutOffValueKey];
     
-    if (!latencyCutOffValue) {NSLog(@"no latency cuttoff value");}
+    if (!latencyCutOffValue) {
+        NSLog(@"no latency cuttoff value");
+        latencyCutOffValue = [[NSUserDefaults standardUserDefaults] valueForKey:kBTLatencyCutOffValueKey];
+        
+    //    [[NSUserDefaults standardUserDefaults] setObject:[[NSNumber alloc] initWithDouble:3.0]forKey:kBTLatencyCutOffValueKey];
+    }
     
     
     finishedForeperiod = false;

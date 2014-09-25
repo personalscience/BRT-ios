@@ -16,6 +16,7 @@
     
     if (!_trialSession){
         _trialSession = session;
+        _trialSessionID = session.sessionID;
     } else
     {NSLog(@"attempting to set a session when one already exists (BTTrial)");
     }
@@ -39,7 +40,7 @@
     _trialTimeStamp = [NSDate date];
   //  NSString *timestampMe = [[[NSDateFormatter alloc] init] stringFromDate:_trialTimeStamp];
     
-    _trialSessionID =[[NSString alloc] initWithFormat:@"A%f", [NSDate timeIntervalSinceReferenceDate]] ;
+//    _trialSessionID =[[NSString alloc] initWithFormat:@"A%f", [NSDate timeIntervalSinceReferenceDate]] ;
     
  //   _trialStimulusString = [[NSString alloc] initWithString:_trialResponseString]; // stimulus=response in the whackamole implementation.
     
