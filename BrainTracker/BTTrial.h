@@ -24,6 +24,11 @@
 @property (nonatomic, strong) NSString * trialSessionID;
 @property (nonatomic, strong) NSNumber * trialForeperiod;
 @property (nonatomic, strong) NSString * trialResponseString;
+
+@property (nonatomic, strong) NSNumber * trialNumber;
+@property (nonatomic, strong) NSNumber * trialInclude;
+@property (nonatomic, strong) NSNumber * trialCorrect;
+
 @property (nonatomic, strong) BTSession *trialSession;
 
 @end

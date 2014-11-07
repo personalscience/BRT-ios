@@ -190,8 +190,12 @@ int const kBTlastNTrialsCutoffValue = 100;
         
         BTDataResponse.trialLatency = trial.trialLatency;
         BTDataResponse.trialResponseString = trial.trialResponseString;
+        BTDataResponse.trialStimulusString = trial.trialStimulusString;
         BTDataResponse.trialTimeStamp = trial.trialTimeStamp;
         BTDataResponse.trialSessionID = trial.trialSessionID;
+        
+        BTDataResponse.trialNumber = trial.trialNumber;
+        
         BTDataResponse.whichSession = self.session;
         
         // */
@@ -303,7 +307,7 @@ int const kBTlastNTrialsCutoffValue = 100;
     self.context = [self managedObjectContext];
     [self doInitializationsIfNecessary];
     
-    if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=3.0;} // initialization:  TODO this should be deleted in final version
+   // if(kBTLatencyCutOffValue==0) {kBTLatencyCutOffValue=3.0;} // initialization:  TODO this should be deleted in final version
 
 
 

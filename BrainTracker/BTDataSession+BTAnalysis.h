@@ -12,7 +12,7 @@
 
 // recalculate every sessionScore in entity BTDataSession, using all trial information, including those that may have happened AFTER you originally ran this session
 
-+ (void) updateSessionScores: (NSManagedObjectContext *) context ;
+- (void) updateSessionScores: (NSManagedObjectContext *) context ;
 
 
 @end

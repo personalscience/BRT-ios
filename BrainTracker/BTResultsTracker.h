@@ -25,7 +25,7 @@ extern NSString * const kBTtrialTimestampKey;
 
 
 
-extern NSTimeInterval kBTLatencyCutOffValue;
+//extern NSTimeInterval kBTLatencyCutOffValue;
 
 extern int const kBTlastNTrialsCutoffValue;
 

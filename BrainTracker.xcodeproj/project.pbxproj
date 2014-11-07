@@ -34,9 +34,9 @@
 		FE91490C18C7D05A00A694B5 /* BTResultsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = FE91490B18C7D05A00A694B5 /* BTResultsTracker.m */; };
 		FE91491218C7D36500A694B5 /* BTResponseView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE91491118C7D36500A694B5 /* BTResponseView.m */; };
 		FE91491B18CA761D00A694B5 /* Chart_Up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE91491A18CA761D00A694B5 /* Chart_Up@2x.png */; };
-		FE99389F19D2016B0071A46D /* BTDataSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FE99389E19D2016B0071A46D /* BTDataSession.m */; };
-		FE9938A219D2016C0071A46D /* BTDataTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9938A119D2016C0071A46D /* BTDataTrial.m */; };
 		FE9938A519D277500071A46D /* BTDataSession+BTAnalysis.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9938A419D277500071A46D /* BTDataSession+BTAnalysis.m */; };
+		FE9EAB2C19D5DB8D006F4159 /* BTDataSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9EAB2B19D5DB8D006F4159 /* BTDataSession.m */; };
+		FE9EAB2F19D5DB8E006F4159 /* BTDataTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9EAB2E19D5DB8E006F4159 /* BTDataTrial.m */; };
 		FEA1F3B918F21B87002060CC /* BTStimulus.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA1F3B818F21B87002060CC /* BTStimulus.m */; };
 		FEB338D718DA68FB00BA1D4D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FEB338D618DA68FB00BA1D4D /* README.md */; };
 		FEBA977618ECED03007E8245 /* BTHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBA977518ECED03007E8245 /* BTHomeVC.m */; };
@@ -106,12 +106,12 @@
 		FE91491018C7D36500A694B5 /* BTResponseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTResponseView.h; sourceTree = "<group>"; };
 		FE91491118C7D36500A694B5 /* BTResponseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTResponseView.m; sourceTree = "<group>"; };
 		FE91491A18CA761D00A694B5 /* Chart_Up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chart_Up@2x.png"; sourceTree = "<group>"; };
-		FE99389D19D2016B0071A46D /* BTDataSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataSession.h; sourceTree = "<group>"; };
-		FE99389E19D2016B0071A46D /* BTDataSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDataSession.m; sourceTree = "<group>"; };
-		FE9938A019D2016C0071A46D /* BTDataTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataTrial.h; sourceTree = "<group>"; };
-		FE9938A119D2016C0071A46D /* BTDataTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDataTrial.m; sourceTree = "<group>"; };
 		FE9938A319D277500071A46D /* BTDataSession+BTAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTDataSession+BTAnalysis.h"; sourceTree = "<group>"; };
 		FE9938A419D277500071A46D /* BTDataSession+BTAnalysis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BTDataSession+BTAnalysis.m"; sourceTree = "<group>"; };
+		FE9EAB2A19D5DB8D006F4159 /* BTDataSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataSession.h; sourceTree = "<group>"; };
+		FE9EAB2B19D5DB8D006F4159 /* BTDataSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDataSession.m; sourceTree = "<group>"; };
+		FE9EAB2D19D5DB8E006F4159 /* BTDataTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataTrial.h; sourceTree = "<group>"; };
+		FE9EAB2E19D5DB8E006F4159 /* BTDataTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDataTrial.m; sourceTree = "<group>"; };
 		FEA1F3B718F21B87002060CC /* BTStimulus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTStimulus.h; sourceTree = "<group>"; };
 		FEA1F3B818F21B87002060CC /* BTStimulus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTStimulus.m; sourceTree = "<group>"; };
 		FEB338D618DA68FB00BA1D4D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -203,10 +203,10 @@
 			isa = PBXGroup;
 			children = (
 				FEEE05C819C8999D003E8866 /* BTDataStore.xcdatamodeld */,
-				FE9938A019D2016C0071A46D /* BTDataTrial.h */,
-				FE9938A119D2016C0071A46D /* BTDataTrial.m */,
-				FE99389D19D2016B0071A46D /* BTDataSession.h */,
-				FE99389E19D2016B0071A46D /* BTDataSession.m */,
+				FE9EAB2D19D5DB8E006F4159 /* BTDataTrial.h */,
+				FE9EAB2E19D5DB8E006F4159 /* BTDataTrial.m */,
+				FE9EAB2A19D5DB8D006F4159 /* BTDataSession.h */,
+				FE9EAB2B19D5DB8D006F4159 /* BTDataSession.m */,
 				FE9938A319D277500071A46D /* BTDataSession+BTAnalysis.h */,
 				FE9938A419D277500071A46D /* BTDataSession+BTAnalysis.m */,
 			);
@@ -473,7 +473,6 @@
 				FEFDCA0B18DD513E0083F7EF /* BTWedgeView.m in Sources */,
 				FEBA977618ECED03007E8245 /* BTHomeVC.m in Sources */,
 				FEA1F3B918F21B87002060CC /* BTStimulus.m in Sources */,
-				FE9938A219D2016C0071A46D /* BTDataTrial.m in Sources */,
 				FE8A20AB19D370A40082873E /* BTFileReader.m in Sources */,
 				FEFDCA1518DDD0E10083F7EF /* BTStartVC.m in Sources */,
 				FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */,
@@ -482,13 +481,14 @@
 				FEEE05CA19C8999D003E8866 /* BTDataStore.xcdatamodeld in Sources */,
 				FE91491218C7D36500A694B5 /* BTResponseView.m in Sources */,
 				FE91490C18C7D05A00A694B5 /* BTResultsTracker.m in Sources */,
-				FE99389F19D2016B0071A46D /* BTDataSession.m in Sources */,
 				FEC23EC519CDE50400ECD16F /* BTTrial.m in Sources */,
 				FED57F9118CF757C00B91DEA /* BTChartVC.m in Sources */,
 				FEBEC08418E5F32B00CED03B /* BTMoleView.m in Sources */,
+				FE9EAB2C19D5DB8D006F4159 /* BTDataSession.m in Sources */,
 				FE5B8DC6190C574700DA47E0 /* BTResultsTableViewCell.m in Sources */,
 				FE9148DA18C7CE8B00A694B5 /* BTAppDelegate.m in Sources */,
 				FE9148D618C7CE8B00A694B5 /* main.m in Sources */,
+				FE9EAB2F19D5DB8E006F4159 /* BTDataTrial.m in Sources */,
 				FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */,
 				FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */,
 				FE9938A519D277500071A46D /* BTDataSession+BTAnalysis.m in Sources */,

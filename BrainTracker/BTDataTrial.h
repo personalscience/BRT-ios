@@ -2,7 +2,7 @@
 //  BTDataTrial.h
 //  BrainTracker
 //
-//  Created by Richard Sprague on 9/23/14.
+//  Created by Richard Sprague on 9/26/14.
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
@@ -19,6 +19,10 @@
 @property (nonatomic, retain) NSString * trialSessionID;
 @property (nonatomic, retain) NSString * trialStimulusString;
 @property (nonatomic, retain) NSDate * trialTimeStamp;
+@property (nonatomic, retain) NSString * trialNote;
+@property (nonatomic, retain) NSNumber * trialCorrect;
+@property (nonatomic, retain) NSNumber * trialInclude;
+@property (nonatomic, retain) NSNumber * trialNumber;
 @property (nonatomic, retain) BTDataSession *whichSession;
 
 @end

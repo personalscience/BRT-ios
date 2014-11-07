@@ -14,7 +14,7 @@
 		<string>https://github.com/richardsprague/BrainTracker.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BrainTracker.xcodeproj/project.xcworkspace</string>
+	<string>BrainTracker.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>62DA9E4ACADD4C773CA4D9BDB897A0F26D3E1ED7</key>

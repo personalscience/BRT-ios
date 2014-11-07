@@ -79,6 +79,14 @@ Session
 
 Plotting uses the field "SessionScore" in BTDataSession for drawing the results of each session.
 
+Debugging
+=========
+* "Update Scores" on the Results tab will 
+* "Fill database with sample" on the _Settings_ tab will load the database with whatever's in the BrainTrackerResultsFile.CSV
+
+
+
+
 Change Log
 ==========
 

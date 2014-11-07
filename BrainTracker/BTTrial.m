@@ -26,6 +26,7 @@
     if (!_trialResponseString){
         _trialResponseString = response.responseLabel;
         _trialStimulusString = [[NSString alloc] initWithString:_trialResponseString]; // stimulus=response in the whackamole implementation.
+
         
         
     } else
@@ -38,6 +39,8 @@
     
     self = [super init];
     _trialTimeStamp = [NSDate date];
+    _trialNumber =@1;
+
   //  NSString *timestampMe = [[[NSDateFormatter alloc] init] stringFromDate:_trialTimeStamp];
     
 //    _trialSessionID =[[NSString alloc] initWithFormat:@"A%f", [NSDate timeIntervalSinceReferenceDate]] ;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 #import "BTDataTrial.h"
-#import "BTDataSession.h"
+#import "BTDataSession+BTAnalysis.h"
 #import "BTResultsVC.h"
 //#import "BTResultsTracker.h"
 
@@ -40,6 +40,109 @@
     bool sessionsNotResponses; // if true, then show sessions, not Responses [and vice versa]
 }
 
+// returns an array of trials whose trialResponseString equals the string in response.
+// The array is sorted by date, from highest to lowest.
+- (NSArray *) trialsMatchingResponse: (NSString *) responseString {
+    
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataTrial" ];
+    
+    // filter for everything in the database where attribute ResponseString = responseString
+    NSPredicate *matchesString = [NSPredicate predicateWithFormat:@"%K matches %@",kBTtrialResponseStringKey,responseString];
+    
+    //   request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialLatencyKey ascending:NO]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialTimestampKey ascending:NO]];
+    
+    // I can just grab the first n responses with this:
+ //   request.fetchLimit = kBTlastNTrialsCutoffValue;
+    
+    
+    
+    [request setPredicate:matchesString];
+    
+    
+    NSError *error ;
+    NSArray *results = [self.context executeFetchRequest:request error:&error  ];
+    
+    NSAssert(!error, @"error fetching trials to match response: (%@) : %@",responseString,[error localizedDescription]);
+    
+    // results is an NSArray of every response that matched this stimulus
+    
+    return results;
+    
+}
+
+// returns a percentile that represents how this response compares to all others that had the same responseString. Returning 0.5, for example, means this response is the exact median for all responses.
+
+- (double) percentileOfResponse: (NSString *) responseString versusLatency: (double) trialLatency {
+    // NSNumber  *responseTime = response.response[kBTtrialLatencyKey];
+    
+    NSArray *allTrialsMatchingResponse = [self trialsMatchingResponse:responseString];
+    
+    // now count the number of items in results where the latency is higher than the current response.  Divide by the total number of items in the results.
+    
+    
+    uint countOfItemsGreaterThanCurrentResponse = 0;
+    
+    for (BTDataTrial *trial in allTrialsMatchingResponse){
+        
+        if ([trial.trialLatency doubleValue]> trialLatency) { countOfItemsGreaterThanCurrentResponse++;
+            
+        }
+    }
+    
+    double percent = (double)countOfItemsGreaterThanCurrentResponse / (double) [allTrialsMatchingResponse count];
+    
+    return percent;
+}
+
+
+- (IBAction)pressUpdateScores:(id)sender {
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataSession"];
+    request.fetchLimit = 100;
+    
+    NSError * error = nil;
+    
+    NSArray *allSessions = [self.context executeFetchRequest:request error:&error];
+    
+    if(error){
+        NSLog(@"error fetching sessions = %@",error.localizedDescription);
+    } else
+    {NSLog(@"Number of sessions = %lu",(unsigned long)allSessions.count);
+    }
+    
+    for (BTDataSession *session in allSessions){
+        NSLog(@"%@: %@",session.sessionID,session.sessionScore);
+        
+        // find all trials that match this sessionID
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataTrial"];
+        request.predicate = [NSPredicate predicateWithFormat:@"trialSessionID == %@",session.sessionID];
+        
+        NSError * error = nil;
+        NSArray *allTrials = [self.context executeFetchRequest:request error:&error];
+        if(error){
+            NSLog(@"error fetching trials = %@",error.localizedDescription);
+        } else
+        
+        {NSLog(@"Number of trials = %lu",(unsigned long)allTrials.count);
+            
+            for (BTDataTrial *trial in allTrials){
+            
+                double newScore = [self percentileOfResponse:trial.trialResponseString versusLatency:[trial.trialLatency doubleValue]];
+                NSLog(@"Score (old): %@, Score (New): %f",session.sessionScore, newScore);
+                      
+            }
+        }
+        
+        // for every trial in this session, compute the new PercentileReponse
+        
+    }
+    
+   // [session updateSessionScores:self.context];
+    
+}
+
 - (IBAction)sessionsOrResponsesSwitchDidChange:(id)sender {
     
     sessionsNotResponses = !sessionsNotResponses;
@@ -57,7 +160,11 @@
 
     
     if ([item isKindOfClass:[BTDataTrial class]]) { return (BTDataTrial *) item;
-    } else { return (BTDataSession *) item; }
+    } else{ BTDataSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  //      [session updateSessionScores:self.context];
+        return (BTDataSession *) item;
+    
+    }
     
 
     

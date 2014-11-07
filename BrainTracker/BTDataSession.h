@@ -2,7 +2,7 @@
 //  BTDataSession.h
 //  BrainTracker
 //
-//  Created by Richard Sprague on 9/23/14.
+//  Created by Richard Sprague on 9/26/14.
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 

@@ -46,8 +46,11 @@
             
             NSString *currentSessionID = @"NOSESSION";
             
+            int trialNumber = 1;
+            
             for (NSString *eachLineInFile in linesInFile){
                 NSArray *valuesInLine = [eachLineInFile componentsSeparatedByString:@","];
+               
                 
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
                 [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
@@ -79,6 +82,8 @@
                     newSession.sessionID = currentSessionID; // Note: uses the previous trial session ID, so the entire CSV file must be in order: session follows trial
                     newSession.sessionComment = [[NSString alloc] initWithFormat:@"%@",valueComment];
                     
+                    trialNumber = 1;
+                    
                 } else {
                     NSLog(@"date=%@",valueDate);
                     NSLog(@"string=%@",valueString);
@@ -93,6 +98,10 @@
                     newTrial.trialResponseString = valueString;
                     newTrial.trialStimulusString = valueString;
                     newTrial.trialTimeStamp = valueDate;
+                    newTrial.trialNumber = [[NSNumber alloc] initWithInt:trialNumber];
+                    newTrial.trialInclude = @1;
+                    newTrial.trialCorrect = @1;
+                    trialNumber++;
                     
                 }
                 //        

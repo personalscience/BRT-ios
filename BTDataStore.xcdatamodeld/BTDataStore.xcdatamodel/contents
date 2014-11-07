@@ -9,8 +9,12 @@
         <relationship name="whichTrials" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BTDataTrial" inverseName="whichSession" inverseEntity="BTDataTrial" syncable="YES"/>
     </entity>
     <entity name="BTDataTrial" representedClassName="BTDataTrial" syncable="YES">
+        <attribute name="trialCorrect" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="trialForeperiod" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="trialInclude" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="trialLatency" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="trialNote" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trialNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="trialResponseString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trialSessionID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trialStimulusString" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,6 +23,6 @@
     </entity>
     <elements>
         <element name="BTDataSession" positionX="234" positionY="-36" width="128" height="133"/>
-        <element name="BTDataTrial" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="BTDataTrial" positionX="-63" positionY="-18" width="128" height="208"/>
     </elements>
 </model>

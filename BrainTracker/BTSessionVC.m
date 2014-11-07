@@ -234,6 +234,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
 
      currentTrialNumber = [NSNumber numberWithInt:([currentTrialNumber intValue]+1)];
+    self.trial.trialNumber = currentTrialNumber;
     
     if([currentTrialNumber compare:MaxTrialsPerSession]==NSOrderedDescending){
         overMax = YES;
@@ -247,6 +248,8 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 - (void) processResponse: (BTResponse *) response {
 
     [self.trial setResponseString:response ];
+    self.trial.trialCorrect = @1;
+    self.trial.trialInclude = @1;
      
      [self.trial setSession:self.session];
     [self.results saveTrial:self.trial];
@@ -401,7 +404,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
         NSLog(@"no latency cuttoff value");
         latencyCutOffValue = [[NSUserDefaults standardUserDefaults] valueForKey:kBTLatencyCutOffValueKey];
         
-    //    [[NSUserDefaults standardUserDefaults] setObject:[[NSNumber alloc] initWithDouble:3.0]forKey:kBTLatencyCutOffValueKey];
+       [[NSUserDefaults standardUserDefaults] setObject:@3.0 forKey:kBTLatencyCutOffValueKey];
     }
     
     
