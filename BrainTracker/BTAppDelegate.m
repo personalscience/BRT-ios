@@ -26,12 +26,34 @@
 
 - (void) documentIsReady {
     if (self.document.documentState == UIDocumentStateNormal){
-        NSLog(@"...ready to start using document");
+        
+#if DEBUG
+        NSLog(@"%@...ready to start using document",[[NSString stringWithUTF8String:__FILE__] lastPathComponent]);
+#endif
+        
+        //[[NSString stringWithUTF8String:__FILE__] lastPathComponent]
         self.BTDataContext = self.document.managedObjectContext;
         self.managedObjectContext = self.BTDataContext;
     }
     
 }
+
+// used by CoreDataPro
+#if !(TARGET_OS_EMBEDDED)  // This will work for Mac or Simulator but excludes physical iOS devices
+- (void) createCoreDataDebugProjectWithType: (NSNumber*) storeFormat storeUrl:(NSString*) storeURL modelFilePath:(NSString*) modelFilePath {
+    NSDictionary* project = @{
+                              @"storeFilePath": storeURL,
+                              @"storeFormat" : storeFormat,
+                              @"modelFilePath": modelFilePath,
+                              @"v" : @(1)
+                              };
+    
+    NSString* projectFile = [NSString stringWithFormat:@"/tmp/%@.cdp", [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleNameKey]];
+    
+    [project writeToFile:projectFile atomically:YES];
+    
+}
+#endif
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -134,6 +156,19 @@
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    
+// used by CoreDataPro
+#if !(TARGET_OS_EMBEDDED)  // This will work for Mac or Simulator but excludes physical iOS devices
+    NSLog(@"building for simulator");
+//#ifdef DEBUG
+    // @(1) is NSSQLiteStoreType
+      NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"BTData" withExtension:@"momd"];
+    NSLog(@"adding coredatapro stuff now");
+    [self createCoreDataDebugProjectWithType:@(1) storeUrl:[storeURL absoluteString] modelFilePath:[modelURL absoluteString]];
+//#endif
+#endif
+    
+    
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.

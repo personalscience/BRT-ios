@@ -77,7 +77,15 @@
                     BTDataSession *newSession =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataSession" inManagedObjectContext:[self managedObjectContext]];
                     
                     newSession.sessionDate = valueDate;
-                    newSession.sessionRounds = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
+                    
+                    trialNumber = trialNumber - 1;// because it was incremented after the last trial was read
+                    
+                    NSLog(@"session rounds=%d",trialNumber);
+                    
+                    newSession.sessionRounds = [[NSNumber alloc]initWithInt:trialNumber];
+        
+                    
+                    
                     newSession.sessionScore = valueLatency;
                     newSession.sessionID = currentSessionID; // Note: uses the previous trial session ID, so the entire CSV file must be in order: session follows trial
                     newSession.sessionComment = [[NSString alloc] initWithFormat:@"%@",valueComment];

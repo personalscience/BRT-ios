@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * sessionID;
 @property (nonatomic, retain) NSNumber * sessionRounds;
 @property (nonatomic, retain) NSNumber * sessionScore;
+@property (nonatomic, retain) NSNumber * sessionScoreUpdated;
 @property (nonatomic, retain) NSSet *whichTrials;
 @end
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>modelFilePath</key>
+	<string>file:///Users/sprague/Library/Developer/CoreSimulator/Devices/9E8FEA6D-9853-4815-AF7C-FA83EAFCF779/data/Containers/Bundle/Application/184DFAF1-B5A6-46AD-A284-342CA7C6E5D8/BrainTracker.app/BTDataStore.momd/BTDataStore.mom</string>
+	<key>storeFilePath</key>
+	<string>file:///Users/sprague/Library/Developer/CoreSimulator/Devices/9E8FEA6D-9853-4815-AF7C-FA83EAFCF779/data/Containers/Data/Application/D8934800-1C24-4AD4-A08E-7B893B98D920/Documents/BTData/StoreContent/persistentStore</string>
+	<key>storeFormat</key>
+	<integer>1</integer>
+	<key>v</key>
+	<integer>1</integer>
+</dict>
+</plist>

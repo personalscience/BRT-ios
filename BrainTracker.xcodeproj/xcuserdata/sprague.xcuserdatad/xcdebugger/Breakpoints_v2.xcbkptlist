@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTAppDelegate.m"
-            timestampString = "416102032.95219"
+            timestampString = "438285947.726706"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "-persistentStoreCoordinator"
             landmarkType = "5">
          </BreakpointContent>
@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "437093335.355948"
+            timestampString = "438370950.722746"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-initWithNibName:bundle:"
             landmarkType = "5">
          </BreakpointContent>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "437093335.355948"
+            timestampString = "438370950.722746"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "458"
+            endingLineNumber = "458"
             landmarkName = "-didReceiveMemoryWarning"
             landmarkType = "5">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "437093335.355948"
+            timestampString = "438370950.722746"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "437093335.355948"
+            timestampString = "438370950.722746"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "417"
-            endingLineNumber = "417"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
             landmarkName = "@implementation BTResultsVC"
             landmarkType = "3">
          </BreakpointContent>
@@ -341,11 +341,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BTResultsVC.m"
-            timestampString = "437093335.355948"
+            timestampString = "438370950.722746"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
             landmarkName = "-updateUI"
             landmarkType = "5">
          </BreakpointContent>
@@ -481,7 +481,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTSession.m"

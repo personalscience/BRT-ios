@@ -40,6 +40,8 @@
     bool sessionsNotResponses; // if true, then show sessions, not Responses [and vice versa]
 }
 
+#pragma mark Updated Score Computation
+
 // returns an array of trials whose trialResponseString equals the string in response.
 // The array is sorted by date, from highest to lowest.
 - (NSArray *) trialsMatchingResponse: (NSString *) responseString {
@@ -96,6 +98,41 @@
     return percent;
 }
 
+- (double) recalcScoreForSession: (BTDataSession *) session {
+    
+    
+    double newScore = 0.0;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataTrial"];
+    request.predicate = [NSPredicate predicateWithFormat:@"trialSessionID == %@",session.sessionID];
+    
+    NSError * error = nil;
+    NSArray *allTrials = [self.context executeFetchRequest:request error:&error];
+    if(error){
+        NSLog(@"error fetching trials = %@",error.localizedDescription);
+    } else
+        
+    {
+   
+        double trialPercentileTotal = 0;
+        
+        for (BTDataTrial *trial in allTrials){
+            
+            double newTrialLatency = [self percentileOfResponse:trial.trialResponseString versusLatency:[trial.trialLatency doubleValue]];
+    
+            trialPercentileTotal = trialPercentileTotal + newTrialLatency;
+            
+        }
+        double newSessionScore = trialPercentileTotal / allTrials.count;
+        newScore = newSessionScore;
+        
+       
+    }
+    
+    return newScore;
+    
+}
+
 
 - (IBAction)pressUpdateScores:(id)sender {
     
@@ -113,31 +150,19 @@
     }
     
     for (BTDataSession *session in allSessions){
-        NSLog(@"%@: %@",session.sessionID,session.sessionScore);
+    //    NSLog(@"%@: %@",session.sessionID,session.sessionScore);
         
-        // find all trials that match this sessionID
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataTrial"];
-        request.predicate = [NSPredicate predicateWithFormat:@"trialSessionID == %@",session.sessionID];
+        double newScore = [self recalcScoreForSession:session];
+        session.sessionScoreUpdated = [[NSNumber alloc] initWithDouble:newScore];
         
-        NSError * error = nil;
-        NSArray *allTrials = [self.context executeFetchRequest:request error:&error];
-        if(error){
-            NSLog(@"error fetching trials = %@",error.localizedDescription);
-        } else
+        NSLog(@"%@: Score (old): %0.2f, Score (new): %0.2f",session.sessionID,[session.sessionScore doubleValue], newScore);
         
-        {NSLog(@"Number of trials = %lu",(unsigned long)allTrials.count);
-            
-            for (BTDataTrial *trial in allTrials){
-            
-                double newScore = [self percentileOfResponse:trial.trialResponseString versusLatency:[trial.trialLatency doubleValue]];
-                NSLog(@"Score (old): %@, Score (New): %f",session.sessionScore, newScore);
-                      
-            }
-        }
+
         
-        // for every trial in this session, compute the new PercentileReponse
         
     }
+    
+    [self updateUI];
     
    // [session updateSessionScores:self.context];
     
@@ -153,6 +178,10 @@
 
 #pragma mark Table Handling
 // returns an item from the database and checks that it's valid
+
+// Fetch the item at this index path, and return it as a type that is either BTDataSession or BTDataTrial, depending on the
+// mode in which we are currently displaying results (as a session or as a trial/response)
+
 - (id) itemAtIndexPath: (NSIndexPath *) indexPath {
      id item = (sessionsNotResponses) ?  (BTDataSession *)[self.fetchedResultsController objectAtIndexPath:indexPath] : [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -160,7 +189,10 @@
 
     
     if ([item isKindOfClass:[BTDataTrial class]]) { return (BTDataTrial *) item;
-    } else{ BTDataSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    }
+    else{
+        
+        // BTDataSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
   //      [session updateSessionScores:self.context];
         return (BTDataSession *) item;
     
@@ -170,6 +202,9 @@
     
 }
 
+
+// return either the target (i.e. ResponseString) of this item, or the comment field
+// depending on which mode you're in now (session or trial/response)
 
 - (NSString *) targetOfItem: (id) item {
     BTDataTrial *itemAsResponse;
@@ -183,9 +218,20 @@
     
     if ([item isKindOfClass:[BTDataSession class]]) {
         itemAsSession=item;
-        NSNumber *scoreN = [[NSNumber alloc] initWithDouble:[itemAsSession.sessionScore doubleValue] * 1000];
+        // if you just want to display the score (i.e. the latency percentile)
+       // NSNumber *scoreN = [[NSNumber alloc] initWithDouble:[itemAsSession.sessionScore doubleValue] * 1000];
        // double score = [itemAsSession.sessionScore doubleValue] * 1000;
-        returnItem= itemAsSession.sessionComment; //[scoreN stringValue];
+        
+        
+        
+       // double newScore =[self recalcScoreForSession:itemAsSession]* 100;
+        NSNumber *newScoreAsNSNumber = @([itemAsSession.sessionScoreUpdated doubleValue]*100) ;
+        returnItem = [[NSString alloc] initWithFormat:@" %3.1f%%",[newScoreAsNSNumber doubleValue]];
+        
+     //   returnItem = [[NSString alloc] initWithFormat:@" %3.1f%%",newScore];
+        
+        
+       // returnItem= itemAsSession.sessionComment; //[scoreN stringValue];
     }
     else if ([item isKindOfClass:[BTDataTrial class]]){
         itemAsResponse = item;
@@ -346,7 +392,7 @@
 
 - (void) updateSessionsOrResponsesLabel {
     
-    self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Responses";
+    self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Trials";
     self.sessionsOrSecondsLabel.text = (sessionsNotResponses) ?@"Percentile" : @"ms";
     self.targetOrRoundsLabel.text =(sessionsNotResponses) ?@"Rounds" : @"Target";
     
