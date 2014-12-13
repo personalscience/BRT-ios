@@ -14,5 +14,6 @@ extern uint const kBTNumberOfStimuli;
 @interface BTSettingsVC : UIViewController
 
 
+
 extern bool kBTPrecisionControl;
 @end

@@ -8,6 +8,7 @@
 
 #import "BTAppDelegate.h"
 #import <CoreData/CoreData.h>
+#import "ZBConnectionProtocol.h"
 
 @interface BTAppDelegate()
 @property (strong, nonatomic) NSManagedObjectContext *BTDataContext;
@@ -15,7 +16,8 @@
 
 @end
 
-
+extern NSString *ZBAccessToken;
+extern NSString *ZBScopeToken;
 
 @implementation BTAppDelegate
 
@@ -55,6 +57,62 @@
 }
 #endif
 
+# pragma mark Zenobase handling
+
+- (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSLog(@"Calling from application Bundle ID: %@", sourceApplication);
+    //    NSLog(@"URL scheme:%@", [url scheme]);
+    //    NSLog(@"URL query: %@", [url query]);
+    //    NSLog(@"URL query: %@", [url fragment]);
+    
+    NSArray *urlComponents = [url.fragment componentsSeparatedByString:@"&"];
+    if (urlComponents.count < 2){
+        NSLog(@"Error: attempting to load application without specifying an access token: %@",urlComponents);
+    } else {
+        
+        NSString *accessToken = nil;
+        NSString *scopeToken = nil;
+        NSArray *accessTokenArray= [urlComponents[0] componentsSeparatedByString:@"="];
+        NSArray *scopeIDArray = [urlComponents[2] componentsSeparatedByString:@"="];
+        
+        // if all is well, then:
+        // accessToken = accessTokenArray[1]
+        // scopeToken = scopeIDArray[1]
+        // but the following convoluted if-statement will double-check
+        if ([accessTokenArray[0] isKindOfClass:[NSString class]] && [scopeIDArray[0] isKindOfClass:[NSString class]]){
+            // confirm that it's an access token
+            if ([accessTokenArray[0] isEqualToString:@"access_token"] && [scopeIDArray[0] isEqualToString:@"scope"]){
+                accessToken = accessTokenArray[1];
+                scopeToken = scopeIDArray[1];
+                
+                NSLog(@"%s access_token = %@, scope=%@",__func__,accessToken,scopeToken);
+                ZBAccessToken = accessToken;
+                ZBScopeToken = scopeToken;
+                
+                [[NSUserDefaults standardUserDefaults]setObject:accessToken forKey:ZBACCESSTOKEN_KEY];
+                [[NSUserDefaults standardUserDefaults]setObject:scopeToken forKey:ZBSCOPETOKEN_KEY];
+            }
+            else {
+                NSLog(@"Error: attempting to load application without access_token=%@ or scope=%@",accessTokenArray,scopeIDArray);
+            }
+            
+            
+        } else {
+            NSLog(@"Error: attempting to load application with incorrect URL parameters: %@",urlComponents[0]);
+        }
+                 
+        // note: if something went wrong, don't change the current values (if any) of ZBAccessToken or ZBScopeToken
+        
+        
+    }
+    
+    
+    
+    return YES;
+}
+
+# pragma mark application launching
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

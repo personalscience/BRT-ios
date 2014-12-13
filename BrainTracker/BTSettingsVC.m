@@ -11,9 +11,19 @@
 #import "BTResponse.h"
 #import "BTDataSession.h"
 #import "BTFileReader.h"
+#import "ZBConnection.h"
 
-@interface BTSettingsVC ()
+NSString * const kZenobaseHardCodedURL = @"https://zenobase.com/#/oauth/authorize?response_type=token&client_id=317cg8pqd1&redirect_uri=x-braintracker:///";
+// signed up with username=braintracker password = braintracker
+
+
+extern NSString *ZBAccessToken;
+extern NSString *ZBScopeToken;
+
+@interface BTSettingsVC ()<ZBConnectionProtocol>
+
 @property (weak, nonatomic) IBOutlet UITextField *latencyCutOffTextField;
+@property (weak, nonatomic) IBOutlet UILabel *ZBAccessTokenLabel;
 
 @property (weak, nonatomic) IBOutlet UISwitch *precisionControlSwitch;
 @property (strong, nonatomic) NSManagedObjectContext *context;
@@ -27,6 +37,8 @@ NSString * const kBTPrecisionControlKey = @"precisionControl"; // if you want to
 NSString * const kBTLatencyCutOffValueKey = @"latencyCutOffValue";
 
 NSTimeInterval kBTLatencyCutOffValue = 3.0;
+NSString *ZBAccessToken = nil;
+NSString *ZBScopeToken = nil;
 
     bool kBTPrecisionControl;
 @implementation BTSettingsVC
@@ -78,6 +90,12 @@ NSTimeInterval kBTLatencyCutOffValue = 3.0;
     
     else NSLog(@"not a class");
 }
+- (IBAction)pressSetUpZenobase:(id)sender {
+    
+    [self askForZBAccessToken];
+}
+
+
 
 - (IBAction)pressFillDatabase:(id)sender {
     
@@ -289,9 +307,29 @@ NSTimeInterval kBTLatencyCutOffValue = 3.0;
     return [documentsDirectory stringByAppendingPathComponent:@"BrainTrackerResultsFile.csv"];
 }
 
+#pragma mark Zenobase methods
+
+- (void) didReceiveJSON:(NSDictionary *)json {
+    
+    NSLog(@"didReceiveJSON in %s",__func__);
+}
+
+- (void) askForZBAccessToken {
+    
+    NSURL *url = [NSURL URLWithString:[[NSString alloc] initWithString:kZenobaseHardCodedURL]];
+    [[UIApplication sharedApplication] openURL:url];
+    
+}
+
 
 #pragma mark General
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    if(ZBAccessToken ) {
+        self.ZBAccessTokenLabel.text = ZBAccessToken;
+    }
+}
 
 
 - (void)viewDidLoad
@@ -303,7 +341,15 @@ NSTimeInterval kBTLatencyCutOffValue = 3.0;
     
     trialsPerSession = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
     self.trialsPerSessionLabel.text = [trialsPerSession description];
+    
+    if (!ZBAccessToken){
+        
+        self.ZBAccessTokenLabel.text = @"no token";
+    } else {
    
+    self.ZBAccessTokenLabel.text = ZBAccessToken;
+    }
+    
     
     
 }

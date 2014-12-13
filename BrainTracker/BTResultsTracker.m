@@ -12,17 +12,22 @@
 #import "BTDataSession.h"
 #import "BTResponse.h"
 #import "BTSession.h"
+#import "ZBConnection.h"
 
+extern NSString *ZBAccessToken;
+extern NSString *ZBScopeToken;
 
 @interface BTResultsTracker ()
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property  (strong, nonatomic) BTDataSession *session;
+@property  (strong, nonatomic) ZBConnection *ZB;
 
 
 @end
 
 int const kBTlastNTrialsCutoffValue = 100;
+bool const useZB = true;  // placeholder for some global setting that allows turning it on or off
 
 @implementation BTResultsTracker
 
@@ -37,6 +42,14 @@ int const kBTlastNTrialsCutoffValue = 100;
 }
  */
 
+- (ZBConnection *) ZB {
+    
+    if (!_ZB ) {
+        _ZB = [[ZBConnection alloc] init];
+    }
+    return _ZB;
+    
+}
 
 
 // returns an array of trials whose trialResponseString equals the string in response.
@@ -145,6 +158,8 @@ int const kBTlastNTrialsCutoffValue = 100;
     return percent;
 }
 
+# pragma mark Disk and DB Save
+
 // stores the current session to the BTDataSession store, and also to a CSV on disk
 // 
 - (void) saveSession: (BTSession *) session {
@@ -166,6 +181,7 @@ int const kBTlastNTrialsCutoffValue = 100;
         
         
         [self saveToDisk:textToWrite];
+        [self saveSessionToZB:session];
                                  
                                  
                                  
@@ -177,15 +193,12 @@ int const kBTlastNTrialsCutoffValue = 100;
     
 }
 
-# pragma mark Disk Save
-
 - (void) saveTrial:(BTTrial *)trial  {
     
     if (!self.context) {NSLog(@"no context found in BTResultsTracker.saveResult");}
     else {
         // think of this like a proxy for a response item in the database
         
-        //* UNCOMMMENT THIS WHEN YOU ARE READY TO SAVE TO DATABASE
         BTDataTrial *BTDataResponse =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataTrial" inManagedObjectContext:self.context];
         
         BTDataResponse.trialLatency = trial.trialLatency;
@@ -198,14 +211,26 @@ int const kBTlastNTrialsCutoffValue = 100;
         
         BTDataResponse.whichSession = self.session;
         
-        // */
-        
     }
     NSString *textToWrite = [[NSString alloc] initWithFormat:@"%@,%@,%@,%f,%@\r",trial.trialSession.sessionID,trial.trialTimeStamp, trial.trialResponseString,[trial.trialLatency doubleValue]*1000,trial.trialSession.sessionID];
     NSLog(@"Disk Save:\n%@\n",textToWrite);
     
     [self saveToDisk:textToWrite];
 
+    
+}
+
+// saves the results of the Session to Zenobase
+
+- (void) saveSessionToZB: (BTSession *) session {
+    
+    
+    double val = [session.sessionScore doubleValue] *100;
+    
+    NSDictionary *event = @{@"percentage":[NSNumber numberWithDouble:val]}; //[session.sessionScore stringValue]
+    NSString *bucketID = [self.ZB ZBScopeTokenString];
+    
+    [self.ZB addNewEventToBucket:bucketID withEvent:event];
     
 }
 
@@ -270,7 +295,11 @@ int const kBTlastNTrialsCutoffValue = 100;
 }
  */
 
+#pragma mark Initialization
+
 - (void) doInitializationsIfNecessary {
+    
+    // ensure we can write something to local disk, as a CSV copy of whatever results we obtain
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]]) {
         [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
@@ -279,12 +308,26 @@ int const kBTlastNTrialsCutoffValue = 100;
         [self saveToDisk:textToWrite];
     }
     
+    // check if Core Data and its database are ready.
     if (!self.context) {
         NSLog(@"No context in BTResultsTracker:doinitializationsifnecessary");
+        // TODO add more terrible error codes and recovery steps
+        // the rest of the program is not useful if this code is reached.
     } else {
         self.session =[NSEntityDescription insertNewObjectForEntityForName:@"BTDataSession" inManagedObjectContext:self.context];
         
     }
+    
+    // set up Zenobase if necessary
+    if (useZB) {
+        
+        self.ZB.ZBAccessTokenString = ZBAccessToken;
+        self.ZB.ZBScopeTokenString = ZBScopeToken;
+        NSLog(@"Ready to write to Zenobase using access_token=%@, scope=%@",ZBScopeToken,ZBScopeToken);
+        
+  
+    }
+    
 }
 
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A780D18E0A4750049F45E /* BTPlayViewController.m */; };
 		FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */; };
+		FE4205F21A3B752300176487 /* ZBConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4205F11A3B752300176487 /* ZBConnection.m */; };
 		FE5B4C9C18CA830600409CA5 /* home-7.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9B18CA830600409CA5 /* home-7.png */; };
 		FE5B4C9E18CA831300409CA5 /* config30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9D18CA831300409CA5 /* config30x30.png */; };
 		FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */; };
@@ -65,10 +66,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE1D67C81A394F1600047297 /* ZBConnectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBConnectionProtocol.h; sourceTree = "<group>"; };
 		FE3A780C18E0A4750049F45E /* BTPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPlayViewController.h; sourceTree = "<group>"; };
 		FE3A780D18E0A4750049F45E /* BTPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPlayViewController.m; sourceTree = "<group>"; };
 		FE3A780F18E0A6850049F45E /* BTStimulusResponseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTStimulusResponseView.h; path = BrainTracker/BTStimulusResponseView.h; sourceTree = "<group>"; };
 		FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTStimulusResponseView.m; path = BrainTracker/BTStimulusResponseView.m; sourceTree = "<group>"; };
+		FE4205F01A3B752300176487 /* ZBConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBConnection.h; sourceTree = "<group>"; };
+		FE4205F11A3B752300176487 /* ZBConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBConnection.m; sourceTree = "<group>"; };
 		FE5B4C9B18CA830600409CA5 /* home-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-7.png"; sourceTree = "<group>"; };
 		FE5B4C9D18CA831300409CA5 /* config30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config30x30.png; sourceTree = "<group>"; };
 		FE5B4C9F18CA86A900409CA5 /* BTResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTResultsVC.h; path = ../BTResultsVC.h; sourceTree = "<group>"; };
@@ -168,6 +172,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE1D67CA1A394F2000047297 /* Zenobase */ = {
+			isa = PBXGroup;
+			children = (
+				FE4205F01A3B752300176487 /* ZBConnection.h */,
+				FE4205F11A3B752300176487 /* ZBConnection.m */,
+				FE1D67C81A394F1600047297 /* ZBConnectionProtocol.h */,
+			);
+			name = Zenobase;
+			sourceTree = "<group>";
+		};
 		FE37D22B19875F850062F769 /* Old Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +360,7 @@
 				FED57F9018CF757C00B91DEA /* BTChartVC.m */,
 				FE9148E118C7CE8B00A694B5 /* BTSettingsVC.h */,
 				FE9148E218C7CE8B00A694B5 /* BTSettingsVC.m */,
+				FE1D67CA1A394F2000047297 /* Zenobase */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -472,6 +487,7 @@
 				FEBA977E18EF4A6C007E8245 /* BTSessionVC.m in Sources */,
 				FEFDCA0B18DD513E0083F7EF /* BTWedgeView.m in Sources */,
 				FEBA977618ECED03007E8245 /* BTHomeVC.m in Sources */,
+				FE4205F21A3B752300176487 /* ZBConnection.m in Sources */,
 				FEA1F3B918F21B87002060CC /* BTStimulus.m in Sources */,
 				FE8A20AB19D370A40082873E /* BTFileReader.m in Sources */,
 				FEFDCA1518DDD0E10083F7EF /* BTStartVC.m in Sources */,
