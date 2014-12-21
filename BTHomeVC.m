@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
+#import "BTGlobals.h"
 #import "BTHomeVC.h"
 #import "BTSessionVC.h"
 
@@ -43,6 +44,13 @@
     //conveniently pre-select the text in the description field, because you'll want to change it immediately.
     
     [self.sessionDescriptionTextField setSelectedTextRange:[self.sessionDescriptionTextField textRangeFromPosition:self.sessionDescriptionTextField.beginningOfDocument toPosition:self.sessionDescriptionTextField.endOfDocument]];
+    
+    NSString * ZBAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kBTZBAccessTokenKey];
+    if (!ZBAccessToken ) {
+ 
+        NSLog(@"No ZBAccessToken yet in %s",__func__);
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,9 +77,9 @@
         self.nextView.sessionComments = [[NSString alloc] initWithString:self.sessionDescriptionTextField.text];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unwindToMainMenu:) name:@"displayResponsePercentile" object:nil];
-    
         
-
+        
+        
     }
     else
         NSLog(@"segue=%@",segue.identifier);

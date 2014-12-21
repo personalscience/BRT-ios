@@ -8,11 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define ZBUSERNAME_KEY @"USERNAME"
-#define ZBPASSWORD_KEY @"PASSWORD"
-#define ZBACCESSTOKEN_KEY @"ACCESSTOKEN"
-#define ZBCLIENTID_KEY @"CLIENTID"
-#define ZBSCOPETOKEN_KEY @"ZBSCOPETOKEN"
 
 typedef NS_ENUM(NSInteger, ZBReturnType) {
     ZBBuckets,                  // buckets

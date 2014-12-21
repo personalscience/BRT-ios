@@ -5,6 +5,8 @@
 //  Created by Richard Sprague on 3/7/14.
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
+
+#import "BTGlobals.h"
 #import "BTDataTrial.h"
 #import "BTDataSession+BTAnalysis.h"
 #import "BTResultsVC.h"

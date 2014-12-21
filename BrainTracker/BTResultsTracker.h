@@ -15,20 +15,6 @@
  
 */
 
-#define KEY_FOR_RESPONSES @"BTResponses"
-
-// values set in BTResponse.m
-
-extern NSString * const kBTtrialResponseStringKey;
-extern NSString * const kBTtrialLatencyKey;
-extern NSString * const kBTtrialTimestampKey;
-
-
-
-//extern NSTimeInterval kBTLatencyCutOffValue;
-
-extern int const kBTlastNTrialsCutoffValue;
-
 
 #import <Foundation/Foundation.h>
 

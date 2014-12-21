@@ -138,6 +138,7 @@
 		FED57F8F18CF757C00B91DEA /* BTChartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTChartVC.h; sourceTree = "<group>"; };
 		FED57F9018CF757C00B91DEA /* BTChartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTChartVC.m; sourceTree = "<group>"; };
 		FEEE05C919C8999D003E8866 /* BTDataStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTDataStore.xcdatamodel; sourceTree = "<group>"; };
+		FEEEFE0D1A470406006F63AD /* BTGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTGlobals.h; sourceTree = "<group>"; };
 		FEF7296718E9279E0094B30D /* BTResultsTrackerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTResultsTrackerTestCase.m; path = ../BrainTracker/BTResultsTrackerTestCase.m; sourceTree = "<group>"; };
 		FEFDCA0918DD513E0083F7EF /* BTWedgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTWedgeView.h; sourceTree = "<group>"; };
 		FEFDCA0A18DD513E0083F7EF /* BTWedgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTWedgeView.m; sourceTree = "<group>"; };
@@ -265,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				FE9148DB18C7CE8B00A694B5 /* Main.storyboard */,
+				FEEEFE0D1A470406006F63AD /* BTGlobals.h */,
 				FEBA977A18EE105A007E8245 /* View Controllers */,
 				FE3A781218E0A6960049F45E /* PlayTab */,
 				FE91490D18C7D06500A694B5 /* Model */,

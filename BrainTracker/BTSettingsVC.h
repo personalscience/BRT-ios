@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-extern NSString * const kBTtrialResponseStringKey;
-extern NSString * const kBTMaxTrialsPerSessionKey;
-extern uint const kBTNumberOfStimuli;
+
 
 @interface BTSettingsVC : UIViewController
 
 
 
-extern bool kBTPrecisionControl;
 @end

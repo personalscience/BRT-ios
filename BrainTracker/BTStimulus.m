@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
+#import "BTGlobals.h"
 #import "BTStimulus.h"
-extern uint const kBTNumberOfStimuli;
+
 
 @interface BTStimulus()
 

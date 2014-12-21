@@ -30,9 +30,9 @@
  
 */
 
-extern NSString * const kBTtrialResponseStringKey; // or more precisely, the responseLabel
-extern NSString * const kBTtrialLatencyKey;
-extern NSString * const kBTtrialTimestampKey;
+//extern NSString * const kBTtrialResponseStringKey; // or more precisely, the responseLabel
+//extern NSString * const kBTtrialLatencyKey;
+//extern NSString * const kBTtrialTimestampKey;
 
 //#define KEY_RESPONSE_TIME @"responseTime"
 //#define KEY_RESPONSE_STRING @"responseString"

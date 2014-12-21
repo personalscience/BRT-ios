@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
+#import "BTGlobals.h"
 #import "BTResponse.h"
+
 
 @interface BTResponse()
 

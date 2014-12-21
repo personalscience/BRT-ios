@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
+#import "BTGlobals.h"
 #import "BTSettingsVC.h"
 #import "BTDataTrial.h"
 #import "BTResponse.h"
@@ -17,8 +18,6 @@ NSString * const kZenobaseHardCodedURL = @"https://zenobase.com/#/oauth/authoriz
 // signed up with username=braintracker password = braintracker
 
 
-extern NSString *ZBAccessToken;
-extern NSString *ZBScopeToken;
 
 @interface BTSettingsVC ()<ZBConnectionProtocol>
 
@@ -35,12 +34,18 @@ uint const kBTNumberOfStimuli = 6;
 NSString * const kBTMaxTrialsPerSessionKey = @"trialsPerSession";
 NSString * const kBTPrecisionControlKey = @"precisionControl"; // if you want to review every result before saving it
 NSString * const kBTLatencyCutOffValueKey = @"latencyCutOffValue";
+NSString * const kBTZBAccessTokenKey = @"ZBAuthTokenKey";
+NSString * const kBTZBClientIDKey = @"ZBClientIDKey";
+NSString * const kBTZBScopeTokenKey = @"ZBScopeTokenKey";
 
 NSTimeInterval kBTLatencyCutOffValue = 3.0;
 NSString *ZBAccessToken = nil;
 NSString *ZBScopeToken = nil;
 
-    bool kBTPrecisionControl;
+bool kBTPrecisionControl;
+
+bool  BTuseZB = true;  // placeholder for some global setting that allows turning it on or off
+
 @implementation BTSettingsVC
 {
     NSNumber *trialsPerSession;
@@ -319,6 +324,10 @@ NSString *ZBScopeToken = nil;
     NSURL *url = [NSURL URLWithString:[[NSString alloc] initWithString:kZenobaseHardCodedURL]];
     [[UIApplication sharedApplication] openURL:url];
     
+    if(ZBAccessToken ) {
+        self.ZBAccessTokenLabel.text = ZBAccessToken;
+    }
+    
 }
 
 
@@ -342,7 +351,10 @@ NSString *ZBScopeToken = nil;
     trialsPerSession = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
     self.trialsPerSessionLabel.text = [trialsPerSession description];
     
+    ZBAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kBTZBAccessTokenKey];
+    
     if (!ZBAccessToken){
+        
         
         self.ZBAccessTokenLabel.text = @"no token";
     } else {

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
+#import "BTGlobals.h"
 #import "BTResultsTracker.h"
 #import "BTDataTrial.h"
 #import "BTTrial.h"
@@ -27,7 +28,6 @@ extern NSString *ZBScopeToken;
 @end
 
 int const kBTlastNTrialsCutoffValue = 100;
-bool const useZB = true;  // placeholder for some global setting that allows turning it on or off
 
 @implementation BTResultsTracker
 
@@ -319,11 +319,11 @@ bool const useZB = true;  // placeholder for some global setting that allows tur
     }
     
     // set up Zenobase if necessary
-    if (useZB) {
+    if (BTuseZB) {
         
-        self.ZB.ZBAccessTokenString = ZBAccessToken;
-        self.ZB.ZBScopeTokenString = ZBScopeToken;
-        NSLog(@"Ready to write to Zenobase using access_token=%@, scope=%@",ZBScopeToken,ZBScopeToken);
+    //    self.ZB.ZBAccessTokenString = ZBAccessToken;
+    //    self.ZB.ZBScopeTokenString = ZBScopeToken;
+        NSLog(@"Ready to write to Zenobase using access_token=%@, scope=%@",[[NSUserDefaults standardUserDefaults] objectForKey:kBTZBAccessTokenKey],ZBScopeToken);
         
   
     }

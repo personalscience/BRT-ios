@@ -11,9 +11,6 @@
 
 // values set in BTResponse.m
 
-extern NSString * const kBTtrialResponseStringKey;
-extern NSString * const kBTtrialLatencyKey;
-extern NSString * const kBTtrialTimestampKey;
 
 @interface BTResultsVC : UIViewController
 

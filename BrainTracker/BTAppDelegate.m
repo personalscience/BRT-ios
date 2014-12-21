@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
+#import "BTGlobals.h"
 #import "BTAppDelegate.h"
 #import <CoreData/CoreData.h>
-#import "ZBConnectionProtocol.h"
+//#import "ZBConnectionProtocol.h"
 
 @interface BTAppDelegate()
 @property (strong, nonatomic) NSManagedObjectContext *BTDataContext;
@@ -16,8 +17,6 @@
 
 @end
 
-extern NSString *ZBAccessToken;
-extern NSString *ZBScopeToken;
 
 @implementation BTAppDelegate
 
@@ -90,8 +89,8 @@ extern NSString *ZBScopeToken;
                 ZBAccessToken = accessToken;
                 ZBScopeToken = scopeToken;
                 
-                [[NSUserDefaults standardUserDefaults]setObject:accessToken forKey:ZBACCESSTOKEN_KEY];
-                [[NSUserDefaults standardUserDefaults]setObject:scopeToken forKey:ZBSCOPETOKEN_KEY];
+                [[NSUserDefaults standardUserDefaults]setObject:accessToken forKey:kBTZBAccessTokenKey];
+                [[NSUserDefaults standardUserDefaults]setObject:scopeToken forKey:kBTZBScopeTokenKey];
             }
             else {
                 NSLog(@"Error: attempting to load application without access_token=%@ or scope=%@",accessTokenArray,scopeIDArray);
@@ -218,12 +217,12 @@ extern NSString *ZBScopeToken;
 // used by CoreDataPro
 #if !(TARGET_OS_EMBEDDED)  // This will work for Mac or Simulator but excludes physical iOS devices
     NSLog(@"building for simulator");
-//#ifdef DEBUG
+#ifdef DEBUG
     // @(1) is NSSQLiteStoreType
       NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"BTData" withExtension:@"momd"];
     NSLog(@"adding coredatapro stuff now");
     [self createCoreDataDebugProjectWithType:@(1) storeUrl:[storeURL absoluteString] modelFilePath:[modelURL absoluteString]];
-//#endif
+#endif
 #endif
     
     

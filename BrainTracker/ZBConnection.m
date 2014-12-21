@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
+#import "BTGlobals.h"
 #import "ZBConnection.h"
 
 @implementation ZBConnection
@@ -19,9 +20,9 @@
     
     self = [super init];
     
-    self.ZBAccessTokenString = [[NSString alloc] initWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:ZBACCESSTOKEN_KEY]] ;
-    self.ZBClientIDString = [[NSString alloc] initWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:ZBCLIENTID_KEY]] ;
-    self.ZBScopeTokenString = [[NSString alloc] initWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:ZBSCOPETOKEN_KEY]] ;
+    self.ZBAccessTokenString = [[NSString alloc] initWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:kBTZBAccessTokenKey]] ;
+    self.ZBClientIDString = [[NSString alloc] initWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:kBTZBScopeTokenKey]] ;
+    self.ZBScopeTokenString = [[NSString alloc] initWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:kBTZBScopeTokenKey]] ;
     
     return self;
     
@@ -56,8 +57,8 @@
             NSLog(@"The requested access token was %@\n", json[@"access_token"]);
             self.ZBAccessTokenString = json[@"access_token"];
             self.ZBClientIDString = json[@"client_id"];
-            [[NSUserDefaults standardUserDefaults] setObject:self.ZBAccessTokenString forKey:ZBACCESSTOKEN_KEY];
-            [[NSUserDefaults standardUserDefaults] setObject:self.ZBClientIDString forKey:ZBCLIENTID_KEY];
+            [[NSUserDefaults standardUserDefaults] setObject:self.ZBAccessTokenString forKey:kBTZBAccessTokenKey];
+            [[NSUserDefaults standardUserDefaults] setObject:self.ZBClientIDString forKey:kBTZBClientIDKey];
             [self.delegate didReceiveJSON:json];
             
         } else {
