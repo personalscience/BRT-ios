@@ -38,14 +38,14 @@ View Controllers
 *  **BTSessionVC**: kicks off a series of trials based on Mole UI.
 
 
-*  BTStartVC: Wedges UI
+*  **BTStartVC**: Wedges UI
 
-*  BTSessionVC: an all-purpose VC for controlling a view of your session. Embed a view (e.g. BTMoleView or BTMoleWhackViewer or BTWedgeView) to display the type of trial you like.
+*  **BTSessionVC**: an all-purpose VC for controlling a view of your session. Embed a view (e.g. BTMoleView or BTMoleWhackViewer or BTWedgeView) to display the type of trial you like.
 
 Viewers
 =======
 
-A view knows absolutely nothing about a session. It just uses kicks off some instances of BTStimulusResponseView nicely laid out. Those instance return a **BTResponse** when touched.
+A view knows absolutely nothing about a session. It just uses kicks off some instances of BTStimulusResponseView nicely laid out. Those instances return a **BTResponse** when touched.
 
 *  **MoleWhackViewer**: viewer for the whack-a-mole UI
 *  **WedgeView**: viewer for the wedge UI

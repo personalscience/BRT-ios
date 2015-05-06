@@ -76,8 +76,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 	return theImage;
 }
 
-
-
+    
 #pragma mark handle touches
 
 - (void)didFinishForeperiod {

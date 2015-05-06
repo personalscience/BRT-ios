@@ -35,7 +35,7 @@ extern NSString * const kBTtrialTimestampKey;
 
 
 // needed by BTStimulus.m ?
-extern uint const kBTNumberOfStimuli;
+//extern uint const kBTNumberOfStimuli;
 
 
 //extern NSTimeInterval kBTLatencyCutOffValue;

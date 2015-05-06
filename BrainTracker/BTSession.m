@@ -9,7 +9,7 @@
 #import "BTSession.h"
 
 @implementation BTSession
-
+extern NSString * const kBTMaxTrialsPerSessionKey;
 
 - (id) initWithComment: (NSString *) comment {
     

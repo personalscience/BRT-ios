@@ -10,8 +10,8 @@
 #import "BTDataTrial.h"
 
 const NSString *kBTTrialSessionIDkey = @"sessionID";
-extern NSString *kBTtrialTimestampKey;
-extern int kBTlastNTrialsCutoffValue;
+//extern NSString *kBTtrialTimestampKey;
+//extern int kBTlastNTrialsCutoffValue;
 
 
 @implementation BTDataSession (BTAnalysis)

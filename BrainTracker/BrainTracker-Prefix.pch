@@ -10,7 +10,15 @@
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
 
+#ifdef DEBUG
+    #define NSLogDebug(format, ...) \
+        NSLog(@"<%s:%d> %s, " format, \strrchr("/" __FILE__, '/') + 1, __LINE__, __PRETTY_FUNCTION__, ## __VA_ARGS__)
+#else
+    #define NSLogDebug(format, ...)
+#endif
+
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "BTGlobals.h"
 #endif

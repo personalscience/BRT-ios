@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
-#import "BTGlobals.h"
+// #import "BTGlobals.h"  // see BrainTracker-Prefix.pch
 #import "BTResultsTracker.h"
 #import "BTDataTrial.h"
 #import "BTTrial.h"
@@ -227,7 +227,9 @@ int const kBTlastNTrialsCutoffValue = 100;
     
     double val = [session.sessionScore doubleValue] *100;
     
-    NSDictionary *event = @{@"percentage":[NSNumber numberWithDouble:val]}; //[session.sessionScore stringValue]
+    NSDictionary *event = @{@"rating":[NSNumber numberWithDouble:val]}; //[session.sessionScore stringValue]
+    // @"duration"  millisecond reaction time
+    // @"percentage" 
     NSString *bucketID = [self.ZB ZBScopeTokenString];
     
     [self.ZB addNewEventToBucket:bucketID withEvent:event];

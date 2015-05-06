@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const kBTMaxTrialsPerSessionKey;
+
 
 @interface BTSession : NSObject
 

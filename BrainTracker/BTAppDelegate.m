@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
-#import "BTGlobals.h"
+//#import "BTGlobals.h"
 #import "BTAppDelegate.h"
 #import <CoreData/CoreData.h>
 //#import "ZBConnectionProtocol.h"

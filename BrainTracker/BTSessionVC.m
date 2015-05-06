@@ -5,7 +5,7 @@
 //  Created by Richard Sprague on 4/4/14.
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
-#import "BTGlobals.h"
+// #import "BTGlobals.h"  // see BrainTracker-Prefix.pch
 #import "BTSessionVC.h"
 #import "BTSession.h"
 #import "BTTrial.h"

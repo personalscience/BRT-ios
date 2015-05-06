@@ -17,6 +17,7 @@
 @dynamic sessionID;
 @dynamic sessionRounds;
 @dynamic sessionScore;
+@dynamic sessionScoreUpdated;
 @dynamic whichTrials;
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Richard Sprague. All rights reserved.
 //
 
-#import "BTGlobals.h"
+// #import "BTGlobals.h"  // see BrainTracker-Prefix.pch
 #import "BTDataTrial.h"
 #import "BTDataSession+BTAnalysis.h"
 #import "BTResultsVC.h"
@@ -21,6 +21,9 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @property (weak, nonatomic) IBOutlet UILabel *targetOrRoundsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *column1Button;
+@property (weak, nonatomic) IBOutlet UIButton *column2Button;
+@property (weak, nonatomic) IBOutlet UIButton *column3Button;
 
 @property (weak, nonatomic) IBOutlet UILabel *sessionsOrSecondsLabel;
 
@@ -37,10 +40,117 @@
 
 @end
 
+NSArray * columnLabelsArray;
+
 @implementation BTResultsVC
 {
     bool sessionsNotResponses; // if true, then show sessions, not Responses [and vice versa]
+    
+
+    
+  
+  //;
+    
+    
 }
+
++ (NSArray *) columnLabels{
+    
+    columnLabelsArray =@[@[@"Sessions",@"Trials"],@[@"Percentile",@"ms"],@[@"Rounds",@"Target"],@[@"Date",@"Date"]];
+    
+    return columnLabelsArray;
+    
+    
+}
+
+- (NSString *) stringForColumnNumber: (uint) col {
+    
+    
+    NSString *colString = (sessionsNotResponses) ? columnLabelsArray[col][0]:columnLabelsArray[col][1];
+    
+    return colString;
+    
+    
+}
+
+- (NSString *) columnLabelForNumber: (uint) col {
+    
+    NSString * columnLabel = [self stringForColumnNumber:col]; //(sessionsNotResponses)?@"Percentile":@"ms";
+    
+    return columnLabel;
+}
+
+#pragma mark labels and buttons
+
+- (void) setLabelForColumn: (uint) col {
+    [self.column1Button setTitle:[self columnLabelForNumber:col] forState:UIControlStateNormal];
+    self.sessionsOrSecondsLabel.text = [self stringForColumnNumber:col];
+}
+
+- (IBAction)pressColumn1:(id)sender {
+    [self.column1Button setTitle:[self columnLabelForNumber:1] forState:UIControlStateNormal];
+}
+
+- (IBAction)pressColumn2:(id)sender {
+    [self.column2Button setTitle:[self columnLabelForNumber:2] forState:UIControlStateNormal];
+}
+
+- (IBAction)pressColumn3:(id)sender {
+    [self.column3Button setTitle:[self columnLabelForNumber:3] forState:UIControlStateNormal];
+}
+
+
+- (IBAction)pressUpdateScores:(id)sender {
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataSession"];
+    request.fetchLimit = 100;
+    
+    NSError * error = nil;
+    
+    NSArray *allSessions = [self.context executeFetchRequest:request error:&error];
+    
+    if(error){
+        NSLog(@"error fetching sessions = %@",error.localizedDescription);
+    } else
+    {NSLog(@"Number of sessions = %lu",(unsigned long)allSessions.count);
+    }
+    
+    for (BTDataSession *session in allSessions){
+        //    NSLog(@"%@: %@",session.sessionID,session.sessionScore);
+        
+        double newScore = [self recalcScoreForSession:session];
+        session.sessionScoreUpdated = [[NSNumber alloc] initWithDouble:newScore];
+        
+        NSLog(@"%@: Score (old): %0.2f, Score (new): %0.2f",session.sessionID,[session.sessionScore doubleValue], newScore);
+   
+    }
+    
+    [self updateUI];
+    
+    // [session updateSessionScores:self.context];
+    
+}
+
+- (IBAction)sessionsOrResponsesSwitchDidChange:(id)sender {
+    
+    sessionsNotResponses = !sessionsNotResponses;
+    [self updateSessionsOrResponsesLabel];
+    [self updateUI];
+    
+}
+
+
+
+- (void) updateSessionsOrResponsesLabel {
+    
+    self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Trials";
+    [self setLabelForColumn:1];
+    
+    
+    self.targetOrRoundsLabel.text =(sessionsNotResponses) ?@"Rounds" : @"Target";
+    
+}
+
 
 #pragma mark Updated Score Computation
 
@@ -136,47 +246,8 @@
 }
 
 
-- (IBAction)pressUpdateScores:(id)sender {
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"BTDataSession"];
-    request.fetchLimit = 100;
-    
-    NSError * error = nil;
-    
-    NSArray *allSessions = [self.context executeFetchRequest:request error:&error];
-    
-    if(error){
-        NSLog(@"error fetching sessions = %@",error.localizedDescription);
-    } else
-    {NSLog(@"Number of sessions = %lu",(unsigned long)allSessions.count);
-    }
-    
-    for (BTDataSession *session in allSessions){
-    //    NSLog(@"%@: %@",session.sessionID,session.sessionScore);
-        
-        double newScore = [self recalcScoreForSession:session];
-        session.sessionScoreUpdated = [[NSNumber alloc] initWithDouble:newScore];
-        
-        NSLog(@"%@: Score (old): %0.2f, Score (new): %0.2f",session.sessionID,[session.sessionScore doubleValue], newScore);
-        
 
-        
-        
-    }
-    
-    [self updateUI];
-    
-   // [session updateSessionScores:self.context];
-    
-}
 
-- (IBAction)sessionsOrResponsesSwitchDidChange:(id)sender {
-    
-    sessionsNotResponses = !sessionsNotResponses;
-    [self updateSessionsOrResponsesLabel];
-    [self updateUI];
-    
-}
 
 #pragma mark Table Handling
 // returns an item from the database and checks that it's valid
@@ -392,13 +463,6 @@
     
 }
 
-- (void) updateSessionsOrResponsesLabel {
-    
-    self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Trials";
-    self.sessionsOrSecondsLabel.text = (sessionsNotResponses) ?@"Percentile" : @"ms";
-    self.targetOrRoundsLabel.text =(sessionsNotResponses) ?@"Rounds" : @"Target";
-    
-}
 
 - (NSFetchRequest *) fetchSessionsOrResponses {
     
@@ -451,6 +515,9 @@
     if (!self.context){self.context = [self managedObjectContext];
         
     }
+    
+    columnLabelsArray = [BTResultsVC columnLabels];
+    
     sessionsNotResponses = YES;
     
    [self updateUI];
