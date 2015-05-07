@@ -60,20 +60,20 @@ Attributes:
 
 Trial
 
-    * __stimulus__ == problem (e.g. "showed ball number 6”)
-    * __response__ == actual.answer (e.g. "tapped the wrong location”, “hit ball number 6”)
-    * __latency__ == latency.msec (difference in time between when the stimulus was presented and when the response was received)
-    * __timestamp__ == when  (the time at which the stimulus was presented)
-    * __session__ == condition (unique identifier that applies to all trials in a particular session)
-    * __foreperiod__ (how long between warning the user and first presentation of the stimulus)
-    * __whichSession__: one-to-one pointer to a session to which this trial belongs.
+* __stimulus__ == problem (e.g. "showed ball number 6”)
+* __response__ == actual.answer (e.g. "tapped the wrong location”, “hit ball number 6”)
+* __latency__ == latency.msec (difference in time between when the stimulus was presented and when the response was received)
+* __timestamp__ == when  (the time at which the stimulus was presented)
+* __session__ == condition (unique identifier that applies to all trials in a particular session)
+* __foreperiod__ (how long between warning the user and first presentation of the stimulus)
+* __whichSession__: one-to-one pointer to a session to which this trial belongs.
 
 Session
 
-    * whichTrial: one-to-many pointer to set of trials associated with this session
-    * sessionRounds: number of rounds expected for this session
-    * sessionID: (unique identifier that applies to all trials in this session)
-    * SessionDate: a timestamp applied when the session is finished. 
+* whichTrial: one-to-many pointer to set of trials associated with this session
+* sessionRounds: number of rounds expected for this session
+* sessionID: (unique identifier that applies to all trials in this session)
+* SessionDate: a timestamp applied when the session is finished. 
 
 
 
@@ -85,10 +85,15 @@ Debugging
 * "Fill database with sample" on the _Settings_ tab will load the database with whatever's in the BrainTrackerResultsFile.CSV
 
 
-
+Zenobase
+========
+Session results are saved to a store at http://zenobase.com. You must enter your credentials first in the setup page.
 
 Change Log
 ==========
 
 9/18: BTResultsTracker includes - (NSArray) trialsMatchingResponse  and only looks at the latest  kBTlastNTrialsCutoffValue (sorted chronologically) trials 
+
+5/6: Swift language bridging headers added.
+
 
