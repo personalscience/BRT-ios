@@ -152,7 +152,8 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
 //    
 //}
 
-- (void) layOutViewsInArc {
+// used to be layOutViewsInArc
+- (void) layOutStimuli {
     
    // [self makeStartButton];
     
@@ -228,7 +229,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     height = myFrame.size.height;
     width = myFrame.size.width - kMoleHeight;
    
-    [self layOutViewsInArc];
+    [self layOutStimuli];
 }
 
 

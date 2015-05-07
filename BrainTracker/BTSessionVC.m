@@ -13,6 +13,7 @@
 #import "BTResponse.h"
 #import "BTMoleWhackViewer.h"
 #import "BTResultsTracker.h"
+#import "BrainTracker-Swift.h"
 //#import "BTSession.h"
 
 @interface BTSessionVC ()<BTTouchReturned, UIActionSheetDelegate>
@@ -21,7 +22,8 @@
 // That placeholder is replaced with, in this case, BTMoleWhackViewer.
 
 @property (weak, nonatomic) IBOutlet UIView *trialViewPlaceHolder;
-@property (strong, nonatomic) BTMoleWhackViewer *trialView;
+//@property (strong, nonatomic) BTMoleWhackViewer *trialView;
+@property (strong, nonatomic) BTMoleLineViewer *trialView;
 @property (weak, nonatomic) IBOutlet UILabel *lastTrialStatus;
 
 @property (strong, nonatomic) BTSession * session;
@@ -419,7 +421,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     BTStimulus *stimulus = [[BTStimulus alloc] init]; //[[BTStimulus alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@2] ];
     
-    self.trialView = [[BTMoleWhackViewer alloc] initWithFrame:self.trialViewPlaceHolder.frame stimulus:stimulus];
+    self.trialView = [[BTMoleLineViewer alloc] initWithFrame:self.trialViewPlaceHolder.frame stimulus:stimulus];
     self.trialView.motherViewer = self;
     self.trialView.backgroundColor= [UIColor whiteColor];
     

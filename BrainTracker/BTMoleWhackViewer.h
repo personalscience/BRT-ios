@@ -17,6 +17,8 @@
 
 - (void) makeStartButton ;
 
+- (void) layOutStimuli;  // designed to be overridden by a subclass
+
 - (void) presentNewStimulusResponse;
 
 - (void) presentForeperiod;

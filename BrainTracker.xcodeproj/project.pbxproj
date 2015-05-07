@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE064F661AFAC22900058543 /* BTMoleLineViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE064F651AFAC22900058543 /* BTMoleLineViewer.swift */; };
 		FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A780D18E0A4750049F45E /* BTPlayViewController.m */; };
 		FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */; };
 		FE4205F21A3B752300176487 /* ZBConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4205F11A3B752300176487 /* ZBConnection.m */; };
@@ -66,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE064F641AFAC17500058543 /* BrainTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "BrainTracker-Bridging-Header.h"; path = "BrainTracker/BrainTracker-Bridging-Header.h"; sourceTree = "<group>"; };
+		FE064F651AFAC22900058543 /* BTMoleLineViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTMoleLineViewer.swift; path = BrainTracker/BTMoleLineViewer.swift; sourceTree = "<group>"; };
 		FE1D67C81A394F1600047297 /* ZBConnectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBConnectionProtocol.h; sourceTree = "<group>"; };
 		FE3A780C18E0A4750049F45E /* BTPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPlayViewController.h; sourceTree = "<group>"; };
 		FE3A780D18E0A4750049F45E /* BTPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPlayViewController.m; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 		FE9148BD18C7CE8B00A694B5 = {
 			isa = PBXGroup;
 			children = (
+				FE064F651AFAC22900058543 /* BTMoleLineViewer.swift */,
+				FE064F641AFAC17500058543 /* BrainTracker-Bridging-Header.h */,
 				FEB338D618DA68FB00BA1D4D /* README.md */,
 				FE9148CF18C7CE8B00A694B5 /* BrainTracker */,
 				FE9148F118C7CE8B00A694B5 /* BrainTrackerTests */,
@@ -508,6 +513,7 @@
 				FE9148D618C7CE8B00A694B5 /* main.m in Sources */,
 				FE9EAB2F19D5DB8E006F4159 /* BTDataTrial.m in Sources */,
 				FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */,
+				FE064F661AFAC22900058543 /* BTMoleLineViewer.swift in Sources */,
 				FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */,
 				FE9938A519D277500071A46D /* BTDataSession+BTAnalysis.m in Sources */,
 				FE91490618C7D02F00A694B5 /* BTResponse.m in Sources */,

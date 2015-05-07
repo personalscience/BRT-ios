@@ -47,6 +47,7 @@ Viewers
 A view knows absolutely nothing about a session. It just uses kicks off some instances of BTStimulusResponseView nicely laid out. Those instances return a **BTResponse** when touched.
 
 *  **MoleWhackViewer**: viewer for the whack-a-mole UI
+*  **BTMoleLineViewer**: a subclass of BTMoleWhackViewer (written in Swift)
 *  **WedgeView**: viewer for the wedge UI
 
 Database
