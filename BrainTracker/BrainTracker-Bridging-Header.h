@@ -11,6 +11,12 @@
 #define BrainTracker_Bridging_Header_h
 
 #import "BTMoleWhackViewer.h"
+#import "BTTouchReturnedProtocol.h"
+#import "BTResponse.h"
+#import "BTStimulus.h"
+#import "BTStartView.h"
+
+#import "BTGlobals.h"
 
 #endif
 

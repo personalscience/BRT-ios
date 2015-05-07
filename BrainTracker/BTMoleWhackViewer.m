@@ -173,7 +173,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     uint index = 1;
     
     while (i<kBTNumberOfStimuli) {
-        CGFloat lenOpp = kLineLen * sinf(theta);  // lenght of the side opposite the theta angle
+        CGFloat lenOpp = kLineLen * sinf(theta);  // length of the side opposite the theta angle
         CGFloat lenAdj = kLineLen * cosf(theta);
         CGFloat x = verticalCenter - lenOpp + kMoleHeight/2;
         CGFloat y = height - lenAdj;

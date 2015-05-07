@@ -10,6 +10,7 @@
 		FE064F661AFAC22900058543 /* BTMoleLineViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE064F651AFAC22900058543 /* BTMoleLineViewer.swift */; };
 		FE3A780E18E0A4750049F45E /* BTPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A780D18E0A4750049F45E /* BTPlayViewController.m */; };
 		FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */; };
+		FE3A7A751AFBEEEB00B2A655 /* Universal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE3A7A741AFBEEEB00B2A655 /* Universal.storyboard */; };
 		FE4205F21A3B752300176487 /* ZBConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4205F11A3B752300176487 /* ZBConnection.m */; };
 		FE5B4C9C18CA830600409CA5 /* home-7.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9B18CA830600409CA5 /* home-7.png */; };
 		FE5B4C9E18CA831300409CA5 /* config30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9D18CA831300409CA5 /* config30x30.png */; };
@@ -74,6 +75,7 @@
 		FE3A780D18E0A4750049F45E /* BTPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPlayViewController.m; sourceTree = "<group>"; };
 		FE3A780F18E0A6850049F45E /* BTStimulusResponseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTStimulusResponseView.h; path = BrainTracker/BTStimulusResponseView.h; sourceTree = "<group>"; };
 		FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTStimulusResponseView.m; path = BrainTracker/BTStimulusResponseView.m; sourceTree = "<group>"; };
+		FE3A7A741AFBEEEB00B2A655 /* Universal.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Universal.storyboard; sourceTree = "<group>"; };
 		FE4205F01A3B752300176487 /* ZBConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBConnection.h; sourceTree = "<group>"; };
 		FE4205F11A3B752300176487 /* ZBConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBConnection.m; sourceTree = "<group>"; };
 		FE5B4C9B18CA830600409CA5 /* home-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-7.png"; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				FE9148DB18C7CE8B00A694B5 /* Main.storyboard */,
+				FE3A7A741AFBEEEB00B2A655 /* Universal.storyboard */,
 				FEEEFE0D1A470406006F63AD /* BTGlobals.h */,
 				FEBA977A18EE105A007E8245 /* View Controllers */,
 				FE3A781218E0A6960049F45E /* PlayTab */,
@@ -467,6 +470,7 @@
 				FE9148E518C7CE8B00A694B5 /* Images.xcassets in Resources */,
 				FE9148D418C7CE8B00A694B5 /* InfoPlist.strings in Resources */,
 				FEB338D718DA68FB00BA1D4D /* README.md in Resources */,
+				FE3A7A751AFBEEEB00B2A655 /* Universal.storyboard in Resources */,
 				FE91491B18CA761D00A694B5 /* Chart_Up@2x.png in Resources */,
 				FE5B4C9C18CA830600409CA5 /* home-7.png in Resources */,
 				FE9148DD18C7CE8B00A694B5 /* Main.storyboard in Resources */,
