@@ -646,11 +646,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrainTracker/BTMoleLineViewer.swift"
-            timestampString = "452717299.287769"
+            timestampString = "452892525.355835"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "layOutStimuli()"
             landmarkType = "5">
          </BreakpointContent>
@@ -658,16 +658,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BrainTracker/BTSessionVC.m"
-            timestampString = "452725178.839341"
+            filePath = "BrainTracker/BTMoleLineViewer.swift"
+            timestampString = "452892525.355835"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
-            landmarkName = "-reloadTrialView"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "makeMole(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

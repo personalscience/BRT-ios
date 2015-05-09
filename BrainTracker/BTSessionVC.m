@@ -421,10 +421,10 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     BTStimulus *stimulus = [[BTStimulus alloc] init]; //[[BTStimulus alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@2] ];
     
-    UIView * tView = [[UIView alloc] initWithFrame:CGRectMake(super.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height-83)];
- 
+  
     // works:
  //   self.trialView = [[BTMoleLineViewer alloc] initWithFrame:self.trialViewPlaceHolder.frame stimulus:stimulus];
+    
     //testing this:
     self.trialView = [[BTMoleLineViewer alloc] initWithFrame:CGRectMake(super.view.frame.origin.x, super.view.frame.origin.y+83, super.view.frame.size.width, super.view.frame.size.height - 83) stimulus:stimulus];
     
