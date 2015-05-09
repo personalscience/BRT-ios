@@ -9,7 +9,7 @@
 import UIKit
 
 let kMoleHeight:CGFloat = 50
-var kMarginSpace:CGFloat = kMoleHeight / 6
+var kMarginSpace:CGFloat = kMoleHeight / 4
 
 /*
 
@@ -36,6 +36,9 @@ marginSpace = kMoleHeight / 6
     var height:CGFloat = 0.0
     var width:CGFloat = 0.0
     var verticalCenter:CGFloat = 0.0
+    var responseIndex:Int = 1 // which response is this
+    var tempMoles = NSMutableArray()
+    
 
    
     override init!(frame: CGRect, stimulus: BTStimulus!) {
@@ -63,16 +66,19 @@ marginSpace = kMoleHeight / 6
             
         
 
-
-
-
+  //  BTResponse *response = [[BTResponse alloc]initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:[NSNumber numberWithInt:index++]]];
     
+
+
+    // create a new mole with response string = one more than the previous mole
     func makeMole(xy:CGPoint)
     {
-        let response = BTResponse(string: NSNumberFormatter().stringFromNumber(3))
+        let response = BTResponse(string: NSNumberFormatter().stringFromNumber(responseIndex++))
         let newMole = BTStimulusResponseView(frame: CGRectMake(xy.x,xy.y, kMoleHeight, kMoleHeight), forResponse: response)
         newMole.drawGreen()
         newMole.delegate = self.motherViewer
+        
+        tempMoles.addObject(newMole)
         
         self.addSubview(newMole)
     }
@@ -88,6 +94,8 @@ marginSpace = kMoleHeight / 6
         var height = self.bounds.height
         var width = self.bounds.width
         var verticalCenter = width/2
+        
+  
         
     //    var row1Width = width/3
     //    var row2Width = width*2/3
@@ -107,9 +115,22 @@ marginSpace = kMoleHeight / 6
         
         self.makeMole(CGPointMake(verticalCenter - kMoleHeight/2, kMarginSpace + kMoleHeight))
         
-        self.makeMole(CGPointMake(verticalCenter - kMoleHeight*2, kMarginSpace + kMoleHeight + kMarginSpace + kMoleHeight/2))
-        self.makeMole(CGPointMake(verticalCenter + kMoleHeight*2, kMarginSpace + kMoleHeight + kMarginSpace + kMoleHeight/2))
+        var yHeight:CGFloat = 0
+        
+        for i in 1...3{
+            var iFloat = CGFloat(i)
+             yHeight =  kMarginSpace * CGFloat(3) + kMarginSpace * iFloat + kMoleHeight*iFloat + kMarginSpace * iFloat  + kMoleHeight/2
+            
+            self.makeMole(CGPointMake(verticalCenter - kMoleHeight*2, yHeight))
+            self.makeMole(CGPointMake(verticalCenter + kMoleHeight, yHeight))
+        }
        // super.layOutStimuli()
+        
+        self.moles = NSArray(array: tempMoles) as! [BTStimulusResponseView]
+
+        
+        println("moles count = \(super.moles.count)")
+            
         
         
     }
@@ -123,6 +144,7 @@ marginSpace = kMoleHeight / 6
         
         var line1:UIBezierPath = UIBezierPath()
         var line2:UIBezierPath = UIBezierPath()
+        var centerline:UIBezierPath = UIBezierPath()
 
         
         line1.lineWidth = 1
@@ -133,11 +155,15 @@ marginSpace = kMoleHeight / 6
             
         line1.addLineToPoint(CGPointMake(self.bounds.size.width/3,self.bounds.size.height))
         line2.addLineToPoint(CGPointMake(self.bounds.size.width*2/3,self.bounds.size.height))
+        
+        centerline.moveToPoint(CGPointMake(self.bounds.size.width/2, 0))
+        centerline.addLineToPoint(CGPointMake(self.bounds.size.width/2, self.bounds.size.height))
             
         UIColor.blueColor().setStroke()
             
         line1.stroke()
         line2.stroke()
+        centerline.stroke()
         
        
         

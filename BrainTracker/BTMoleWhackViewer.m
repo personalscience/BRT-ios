@@ -27,7 +27,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
 @interface BTMoleWhackViewer ()
 
 @property (strong,nonatomic) BTStartView *startButton;
-@property (strong, nonatomic) NSArray *moles;  // each mole is a potential stimulus. this array contains all possible stimulii
+
 @property (strong, nonatomic) BTStimulus *stimulus; //this viewer has a single stimulus associated with it.
 @end
 

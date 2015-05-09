@@ -15,6 +15,8 @@
 
 @interface BTMoleWhackViewer : UIView
 
+@property (strong, nonatomic) NSArray *moles;  // each mole is a potential stimulus. this array contains all possible stimulii
+
 - (void) makeStartButton ;
 
 - (void) layOutStimuli;  // designed to be overridden by a subclass
