@@ -20,8 +20,9 @@
 
 // Whatever view you create in Storyboard gets instantiated into trialViewPlaceHolder
 // That placeholder is replaced with, in this case, BTMoleWhackViewer.
-
+// Now this is deprecated until I figure out how to keep constraints in there too.
 @property (weak, nonatomic) IBOutlet UIView *trialViewPlaceHolder;
+
 //@property (strong, nonatomic) BTMoleWhackViewer *trialView;
 @property (strong, nonatomic) BTMoleLineViewer *trialView;
 @property (weak, nonatomic) IBOutlet UILabel *lastTrialStatus;
@@ -34,12 +35,8 @@
 @property (strong, nonatomic) BTResultsTracker *results;
 
 @end
-/*
-const CGFloat kMoleHeight = 50;
-const uint kMoleNumCols = 2;
-const uint kMOleNumRows = 3;
-const uint kMoleCount = kMOleNumRows * kMoleNumCols;
-*/
+
+
 
  bool kBTPrecisionControl;
 
@@ -419,6 +416,7 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
 
 - (void) reloadTrialView { // every reload gives you a brand new BTMoleWhackViewer
     
+    // decide in advance which mole will be the target.
     BTStimulus *stimulus = [[BTStimulus alloc] init]; //[[BTStimulus alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@2] ];
     
   
@@ -430,12 +428,12 @@ const uint kMoleCount = kMOleNumRows * kMoleNumCols;
     
     self.trialView.motherViewer = self;
     self.trialView.backgroundColor= [UIColor whiteColor];
-    [self.trialView addConstraints:self.trialViewPlaceHolder.constraints];
+  //  [self.trialView addConstraints:self.trialViewPlaceHolder.constraints];
     
-    [self.trialViewPlaceHolder removeFromSuperview];
+  //  [self.trialViewPlaceHolder removeFromSuperview];
     [self.view addSubview:self.trialView];
     [self.trialView makeStartButton];
-    self.trialViewPlaceHolder  = self.trialView;
+ //   self.trialViewPlaceHolder  = self.trialView;
     [self displayTrialNumber];
     
     

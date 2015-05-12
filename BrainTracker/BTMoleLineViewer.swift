@@ -83,11 +83,7 @@ marginSpace = kMoleHeight / 6
         self.addSubview(newMole)
     }
     
-    // 
-    // to make the following method behave like the BTMoleWhackViewer, just change its body to:
-    //
-    // super.layOutStimuli()
-    
+       
      public override func layOutStimuli()
     {
         
@@ -95,7 +91,10 @@ marginSpace = kMoleHeight / 6
         var width = self.bounds.width
         var verticalCenter = width/2
         
-  
+        let fakeMole = BTStimulusResponseView(frame: CGRectMake(0,0, kMoleHeight, kMoleHeight), forResponse: BTResponse(string:NSNumberFormatter().stringFromNumber(1)))
+        
+        tempMoles.addObject(fakeMole)
+        
         
     //    var row1Width = width/3
     //    var row2Width = width*2/3
@@ -103,17 +102,20 @@ marginSpace = kMoleHeight / 6
         println("laying out \(kBTNumberOfStimuli) stimuli ")
         println("bounds = \(self.bounds)")
         
-        /*
-        let response = BTResponse(string: NSNumberFormatter().stringFromNumber(3))
-        let newMole = BTStimulusResponseView(frame: CGRectMake(100, 100, 50, 75), forResponse: response)
+   //     println("Interface = \(BTInterfaceSelection.value)")
         
-        newMole.drawGreen()
-        newMole.delegate = self.motherViewer
+       
         
-        self.addSubview(newMole)
-    */
+       if (BTInterfaceSelection.value == BTInterfaceArc.value)
+       {
+          super.layOutStimuli()
+      } else
         
-        self.makeMole(CGPointMake(verticalCenter - kMoleHeight/2, kMarginSpace + kMoleHeight))
+       {
+        
+    
+    // don't display the top mole
+      //  self.makeMole(CGPointMake(verticalCenter - kMoleHeight/2, kMarginSpace + kMoleHeight))
         
         var yHeight:CGFloat = 0
         
@@ -126,14 +128,16 @@ marginSpace = kMoleHeight / 6
         }
        // super.layOutStimuli()
         
+        
         self.moles = NSArray(array: tempMoles) as! [BTStimulusResponseView]
 
         
         println("moles count = \(super.moles.count)")
-            
-        
+        }
         
     }
+        
+
     
     public override func drawRect(rect: CGRect) {
         println("drawRect in BTMoleLineViewer.swift")

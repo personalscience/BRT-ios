@@ -296,31 +296,31 @@
                                 </connections>
                             </button>
                             <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="32" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="B4d-Yu-cZz">
-                                <rect key="frame" x="206" y="123" width="94" height="29"/>
+                                <rect key="frame" x="202" y="20" width="94" height="29"/>
                                 <connections>
                                     <action selector="pressedTrialsPerSessionStepper:" destination="HzL-2j-ueh" eventType="valueChanged" id="4bF-ke-fyp"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trials Per Session:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jpw-80-Z5Q">
-                                <rect key="frame" x="20" y="127" width="141" height="21"/>
+                                <rect key="frame" x="16" y="24" width="141" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="32" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwt-Wa-tpe">
-                                <rect key="frame" x="169" y="127" width="29" height="21"/>
+                                <rect key="frame" x="165" y="24" width="29" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latency Cutoff" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PD-oH-NB8">
-                                <rect key="frame" x="22" y="156" width="113" height="21"/>
+                                <rect key="frame" x="18" y="53" width="113" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="550" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tsN-BL-Kv9">
-                                <rect key="frame" x="177" y="153" width="65" height="30"/>
+                                <rect key="frame" x="173" y="50" width="65" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -328,19 +328,19 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mSec" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcF-w0-tIR">
-                                <rect key="frame" x="255" y="156" width="45" height="21"/>
+                                <rect key="frame" x="251" y="53" width="45" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fF3-Yy-cGp">
-                                <rect key="frame" x="177" y="191" width="51" height="31"/>
+                                <rect key="frame" x="173" y="88" width="51" height="31"/>
                                 <connections>
                                     <action selector="flippedPrecisionControl:" destination="HzL-2j-ueh" eventType="valueChanged" id="PXE-K5-qJV"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Precision Control" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mix-1S-J5a">
-                                <rect key="frame" x="22" y="200" width="171" height="21"/>
+                                <rect key="frame" x="18" y="97" width="171" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -366,12 +366,26 @@
                                     <action selector="pressSetUpZenobase:" destination="HzL-2j-ueh" eventType="touchUpInside" id="Y63-qd-UE7"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tkf-lx-eVs">
+                                <rect key="frame" x="165" y="136" width="123" height="29"/>
+                                <segments>
+                                    <segment title="Arc"/>
+                                    <segment title="Lines"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sfi-Ti-Jnw">
+                                <rect key="frame" x="16" y="134" width="141" height="30"/>
+                                <state key="normal" title="Interface Style">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.094117656349999995" green="0.10588236149999999" blue="0.50196081400000003" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="settingsTab" id="fMy-t8-9d6"/>
                     <connections>
                         <outlet property="ZBAccessTokenLabel" destination="q7Z-4W-jdb" id="DKE-sd-LZZ"/>
+                        <outlet property="interfaceSelectorSegmentedControl" destination="tkf-lx-eVs" id="THa-d1-GX4"/>
                         <outlet property="latencyCutOffTextField" destination="tsN-BL-Kv9" id="8TQ-5A-Eaw"/>
                         <outlet property="precisionControlSwitch" destination="fF3-Yy-cGp" id="5tu-dY-gVb"/>
                         <outlet property="trialsPerSessionLabel" destination="hwt-Wa-tpe" id="CvH-tr-nZP"/>
@@ -380,7 +394,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ujB-Wm-4jp" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1017" y="1796"/>
+            <point key="canvasLocation" x="-1215" y="1722"/>
         </scene>
         <!--Test-->
         <scene sceneID="hcF-MI-L0S">

@@ -9,13 +9,17 @@
 
 
 #import <UIKit/UIKit.h>
+
 #import "BTTouchReturnedProtocol.h"
+#import "BTStartView.h"
 @class BTStimulus;
 
 
 @interface BTMoleWhackViewer : UIView
 
 @property (strong, nonatomic) NSArray *moles;  // each mole is a potential stimulus. this array contains all possible stimulii
+
+@property (strong,nonatomic) BTStartView *startButton;
 
 - (void) makeStartButton ;
 

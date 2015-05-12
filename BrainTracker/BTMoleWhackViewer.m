@@ -14,7 +14,7 @@
 #import "BTMoleWhackViewer.h"
 #import "BTResponse.h"
 #import "BTStimulus.h"
-#import "BTStartView.h"
+
 
 extern uint const kBTNumberOfStimuli;
 
@@ -26,7 +26,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
 
 @interface BTMoleWhackViewer ()
 
-@property (strong,nonatomic) BTStartView *startButton;
+
 
 @property (strong, nonatomic) BTStimulus *stimulus; //this viewer has a single stimulus associated with it.
 @end
@@ -75,6 +75,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
  
     
     [tempMoles addObject:button];
+
     
 }
 
@@ -86,8 +87,12 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     } else {
         UILabel *aLabel = [[UILabel alloc] init];
         aLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithString:newLabel]];
-        [self.moles[0] setLabel:aLabel];
-        [self.moles[0] setNeedsDisplay];
+        
+        [self.startButton setLabel:aLabel];
+        [self.startButton setNeedsDisplay];
+        
+        //[self.moles[0] setLabel:aLabel];
+       // [self.moles[0] setNeedsDisplay];
     }
     
 }

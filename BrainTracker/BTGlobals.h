@@ -26,6 +26,8 @@ extern NSTimeInterval kBTLatencyCutOffValue;
 extern uint const kBTNumberOfStimuli;
 extern bool kBTPrecisionControl;
 extern bool BTuseZB;
+typedef enum {BTInterfaceArc,BTInterfaceLines} BTInterfaceSelectionType;
+extern BTInterfaceSelectionType BTInterfaceSelection; // choose the type of interface.
 
 
 // values set in BTResponse.m

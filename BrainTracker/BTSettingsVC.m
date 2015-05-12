@@ -23,6 +23,7 @@ NSString * const kZenobaseHardCodedURL = @"https://zenobase.com/#/oauth/authoriz
 
 @property (weak, nonatomic) IBOutlet UITextField *latencyCutOffTextField;
 @property (weak, nonatomic) IBOutlet UILabel *ZBAccessTokenLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *interfaceSelectorSegmentedControl;
 
 @property (weak, nonatomic) IBOutlet UISwitch *precisionControlSwitch;
 @property (strong, nonatomic) NSManagedObjectContext *context;
@@ -43,6 +44,13 @@ NSString *ZBAccessToken = nil;
 NSString *ZBScopeToken = nil;
 
 bool kBTPrecisionControl;
+
+
+//extern enum {BTInterfaceArc,BTInterfaceLines} BTInterfaceSelection;
+//enum {BTInterfaceArc,BTInterfaceLines} BTInterfaceSelection;
+//enum  BTInterfaceSelection ;
+
+BTInterfaceSelectionType BTInterfaceSelection;
 
 bool  BTuseZB = true;  // placeholder for some global setting that allows turning it on or off
 
@@ -76,6 +84,27 @@ bool  BTuseZB = true;  // placeholder for some global setting that allows turnin
     kBTPrecisionControl = !kBTPrecisionControl; //self.precisionControlSwitch.state;
 }
 
+- (void) selectInterface {
+    
+    
+  //  extern enum {BTInterfaceArc,BTInterfaceLines} BTInterfaceSelection;
+   // BTInterfaceSelection = BTInterfaceArc;
+
+  
+  
+
+    
+    if (self.interfaceSelectorSegmentedControl.selectedSegmentIndex==0)
+        
+        BTInterfaceSelection = BTInterfaceArc;
+    
+        else
+            BTInterfaceSelection = BTInterfaceLines;
+
+  NSLog(@"Setting BTInterfaceSelection to %u",BTInterfaceSelection);
+        
+}
+
 - (IBAction) enteredTextForLatencyCutoff:(id)sender {
     
     if ([sender isKindOfClass:[UITextField class]]){
@@ -95,6 +124,9 @@ bool  BTuseZB = true;  // placeholder for some global setting that allows turnin
     
     else NSLog(@"not a class");
 }
+
+
+
 - (IBAction)pressSetUpZenobase:(id)sender {
     
     [self askForZBAccessToken];
@@ -350,6 +382,11 @@ bool  BTuseZB = true;  // placeholder for some global setting that allows turnin
     
     trialsPerSession = [[NSUserDefaults standardUserDefaults] objectForKey:kBTMaxTrialsPerSessionKey];
     self.trialsPerSessionLabel.text = [trialsPerSession description];
+    
+    [self.interfaceSelectorSegmentedControl addTarget:self action:@selector(selectInterface )forControlEvents:UIControlEventValueChanged
+     
+     ];
+    
     
     ZBAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kBTZBAccessTokenKey];
     
