@@ -32,24 +32,16 @@ marginSpace = kMoleHeight / 6
 
 
 @objc public class BTMoleLineViewer: BTMoleWhackViewer {
-    
-    var height:CGFloat = 0.0
-    var width:CGFloat = 0.0
-    var verticalCenter:CGFloat = 0.0
+   
+
     var responseIndex:Int = 1 // which response is this
     var tempMoles = NSMutableArray()
     
-
-   
+    
     override init!(frame: CGRect, stimulus: BTStimulus!) {
         
         super.init(frame:frame, stimulus: stimulus)
-        
-        var height = self.bounds.height
-        var width = self.bounds.width
-        var verticalCenter = width/2
-        
-        
+       
     }
 
     required public init(coder aDecoder: NSCoder) {
@@ -57,26 +49,16 @@ marginSpace = kMoleHeight / 6
     }
     
     
-     /*
-        
-            var height = self.bounds.height
-            var width = self.bounds.width
-            var verticalCenter = width/2
-*/
-            
-        
-
-  //  BTResponse *response = [[BTResponse alloc]initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:[NSNumber numberWithInt:index++]]];
-    
 
 
     // create a new mole with response string = one more than the previous mole
     func makeMole(xy:CGPoint)
     {
         let response = BTResponse(string: NSNumberFormatter().stringFromNumber(responseIndex++))
-        let newMole = BTStimulusResponseView(frame: CGRectMake(xy.x,xy.y, kMoleHeight, kMoleHeight), forResponse: response)
+        let newMole = BTResponseView(frame: CGRectMake(xy.x,xy.y, kMoleHeight, kMoleHeight), forResponse: response)
         newMole.drawGreen()
-        newMole.delegate = self.motherViewer
+      //  newMole.alpha = 0.0
+        newMole.delegate = motherViewer
         
         tempMoles.addObject(newMole)
         
@@ -87,18 +69,12 @@ marginSpace = kMoleHeight / 6
      public override func layOutStimuli()
     {
         
-        var height = self.bounds.height
-        var width = self.bounds.width
-        var verticalCenter = width/2
-        
+  
         let fakeMole = BTStimulusResponseView(frame: CGRectMake(0,0, kMoleHeight, kMoleHeight), forResponse: BTResponse(string:NSNumberFormatter().stringFromNumber(1)))
         
         tempMoles.addObject(fakeMole)
         
-        
-    //    var row1Width = width/3
-    //    var row2Width = width*2/3
-        
+ 
         println("laying out \(kBTNumberOfStimuli) stimuli ")
         println("bounds = \(self.bounds)")
         
@@ -118,56 +94,78 @@ marginSpace = kMoleHeight / 6
       //  self.makeMole(CGPointMake(verticalCenter - kMoleHeight/2, kMarginSpace + kMoleHeight))
         
         var yHeight:CGFloat = 0
+        var verticalCenter:CGFloat = self.bounds.width / 2
         
         for i in 1...3{
             var iFloat = CGFloat(i)
              yHeight =  kMarginSpace * CGFloat(3) + kMarginSpace * iFloat + kMoleHeight*iFloat + kMarginSpace * iFloat  + kMoleHeight/2
             
-            self.makeMole(CGPointMake(verticalCenter - kMoleHeight*2, yHeight))
-            self.makeMole(CGPointMake(verticalCenter + kMoleHeight, yHeight))
+            /*   yHeight =  kMarginSpace * (CGFloat) 3  + kMarginSpace * iFloat + kMoleHeight*iFloat + kMarginSpace * iFloat  + kMoleHeight/2;
+*/
+            
+            self.makeMole(CGPointMake(self.bounds.size.width/3 - kMoleHeight/2, yHeight))
+            self.makeMole(CGPointMake(self.bounds.size.width*2/3 - kMoleHeight/2, yHeight))
         }
        // super.layOutStimuli()
         
         
-        self.moles = NSArray(array: tempMoles) as! [BTStimulusResponseView]
+        moles = NSArray(array: tempMoles) as! [BTStimulusResponseView]
 
         
         println("moles count = \(super.moles.count)")
         }
         
     }
-        
-
     
-    public override func drawRect(rect: CGRect) {
-        println("drawRect in BTMoleLineViewer.swift")
+    
+    public  override func presentForeperiod() {
         
-        self.superview?.backgroundColor=UIColor.brownColor()
+    for (var i=1;
+        i < self.moles.count;
+        i++)
+    {
         
+        self.moles[i].animatePresenceWithBlink()
         
-        
+    }
+    }
+    
+    func drawGrid() {
         var line1:UIBezierPath = UIBezierPath()
         var line2:UIBezierPath = UIBezierPath()
         var centerline:UIBezierPath = UIBezierPath()
-
+        
         
         line1.lineWidth = 1
         line2.lineWidth = 1
         
         line1.moveToPoint(CGPointMake(self.bounds.size.width/3,0))
         line2.moveToPoint(CGPointMake(self.bounds.size.width*2/3,0))
-            
+        
         line1.addLineToPoint(CGPointMake(self.bounds.size.width/3,self.bounds.size.height))
         line2.addLineToPoint(CGPointMake(self.bounds.size.width*2/3,self.bounds.size.height))
         
         centerline.moveToPoint(CGPointMake(self.bounds.size.width/2, 0))
         centerline.addLineToPoint(CGPointMake(self.bounds.size.width/2, self.bounds.size.height))
-            
+        
         UIColor.blueColor().setStroke()
-            
+        
         line1.stroke()
         line2.stroke()
         centerline.stroke()
+        
+    }
+    
+    public override func drawRect(rect: CGRect) {
+        println("drawRect in BTMoleLineViewer.swift")
+        
+        drawGrid()
+        
+        self.superview?.backgroundColor=UIColor.brownColor()
+        
+        
+        
+        
         
        
         

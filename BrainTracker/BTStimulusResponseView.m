@@ -13,6 +13,7 @@
 @interface BTStimulusResponseView()
 
 @property (strong, nonatomic) UIColor *buttonColor;
+@property (strong, nonatomic) UIImageView *myImage;
 
 //@property (strong,nonatomic) NSAttributedString *labelForView;
 
@@ -29,6 +30,15 @@
 
 
 #pragma mark Setters/Getters
+
+- (UIImageView *) myImage
+{
+    if (!_myImage)
+    {_myImage = [[UIImageView alloc] initWithImage:[self createImage]];
+    }
+    
+    return _myImage;
+}
 
 
 - (UIColor *) buttonColor {
@@ -51,6 +61,7 @@
     
     self.buttonColor = color;
   //  self.alpha=1.0;
+    
     
     [self setNeedsDisplay]; //update the new color right away
     
@@ -175,16 +186,23 @@
 
 - (void) drawGreen {
     [self setColor:[UIColor greenColor]];
-    
-}
+ }
 
 - (void) drawRed {
-    [self setColor:[UIColor redColor]];
+   
+//    if (_myImage){
+//    self.myImage = nil;
+//        [self removeFromSuperview];}
+//    
+     [self setColor:[UIColor redColor]];
+    
 }
 
 - (void) drawColor: (UIColor*) newColor {
     [self setColor:newColor];
 }
+
+
 
 
 - (void)drawRect:(CGRect)rect
@@ -194,10 +212,14 @@
 //    self.backgroundColor = nil;
  //   self.opaque = NO;
 
+    if (!_myImage)
+    {
+        [self addSubview:self.myImage];
+    }
     
-    UIImageView *circleImage = [[UIImageView alloc] initWithImage:[self createImage]];
+ //   UIImageView *circleImage = [[UIImageView alloc] initWithImage:[self createImage]];
   
-   [self addSubview:circleImage];
+ //  [self addSubview:circleImage];
 
 
     [self showLabels];

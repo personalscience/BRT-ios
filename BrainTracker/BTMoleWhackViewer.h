@@ -19,7 +19,9 @@
 
 @property (strong, nonatomic) NSArray *moles;  // each mole is a potential stimulus. this array contains all possible stimulii
 
+
 @property (strong,nonatomic) BTStartView *startButton;
+@property (strong, nonatomic) BTStimulus *stimulus; //this viewer has a single stimulus associated with it.
 
 - (void) makeStartButton ;
 

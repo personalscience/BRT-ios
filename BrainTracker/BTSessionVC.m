@@ -362,7 +362,7 @@
 - (bool) isFinalForeperiod {
     
     foreperiodCount++;
-    if (foreperiodCount>5) {
+    if (foreperiodCount==kBTNumberOfStimuli) {
     //    NSLog(@"final foreperiod")  ;
         return true;
     } else return false;
@@ -418,24 +418,35 @@
     
     // decide in advance which mole will be the target.
     BTStimulus *stimulus = [[BTStimulus alloc] init]; //[[BTStimulus alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@2] ];
+  
+    
+    if (self.trialView)
+        // don't create a new trial view if one already exists; just decide a new stimulus and update the start label.
+    {
+        self.trialView.stimulus = stimulus;
+        [self displayTrialNumber];
+        [self.trialView clearAllResponses];
+        
+        UILabel *newLabel = [[UILabel alloc] init];
+        newLabel.attributedText =[[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"Press and Hold"]];
+        
+        
+        self.trialView.startButton.label = newLabel;
+        [self.trialView.startButton setNeedsDisplay];
+        
+    } else {
     
   
-    // works:
- //   self.trialView = [[BTMoleLineViewer alloc] initWithFrame:self.trialViewPlaceHolder.frame stimulus:stimulus];
-    
-    //testing this:
     self.trialView = [[BTMoleLineViewer alloc] initWithFrame:CGRectMake(super.view.frame.origin.x, super.view.frame.origin.y+83, super.view.frame.size.width, super.view.frame.size.height - 83) stimulus:stimulus];
     
     self.trialView.motherViewer = self;
     self.trialView.backgroundColor= [UIColor whiteColor];
-  //  [self.trialView addConstraints:self.trialViewPlaceHolder.constraints];
-    
-  //  [self.trialViewPlaceHolder removeFromSuperview];
+ 
     [self.view addSubview:self.trialView];
     [self.trialView makeStartButton];
- //   self.trialViewPlaceHolder  = self.trialView;
+ 
     [self displayTrialNumber];
-    
+    }
     
     
 }
