@@ -437,7 +437,7 @@
     } else {
     
   
-    self.trialView = [[BTMoleLineViewer alloc] initWithFrame:CGRectMake(super.view.frame.origin.x, super.view.frame.origin.y+83, super.view.frame.size.width, super.view.frame.size.height - 83) stimulus:stimulus];
+    self.trialView = [[BTMoleLineViewer alloc] initWithFrame:CGRectMake(super.view.frame.origin.x, super.view.frame.origin.y+70, super.view.frame.size.width, super.view.frame.size.height - 70) stimulus:stimulus];
     
     self.trialView.motherViewer = self;
     self.trialView.backgroundColor= [UIColor whiteColor];

@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>FABAF5A6-2834-44B2-98D0-DCC58AB2BC9E</string>
 	<key>IDESourceControlProjectName</key>
-	<string>BrainTracker</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>62DA9E4ACADD4C773CA4D9BDB897A0F26D3E1ED7</key>
 		<string>https://github.com/richardsprague/BrainTracker.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BrainTracker.xcodeproj</string>
+	<string>BrainTracker.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>62DA9E4ACADD4C773CA4D9BDB897A0F26D3E1ED7</key>

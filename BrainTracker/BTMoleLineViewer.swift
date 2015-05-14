@@ -8,7 +8,7 @@
 
 import UIKit
 
-let kMoleHeight:CGFloat = 50
+var kMoleHeight:CGFloat = 85
 var kMarginSpace:CGFloat = kMoleHeight / 4
 
 /*
@@ -41,6 +41,10 @@ marginSpace = kMoleHeight / 6
     override init!(frame: CGRect, stimulus: BTStimulus!) {
         
         super.init(frame:frame, stimulus: stimulus)
+        
+        kMoleHeight = frame.height/5
+        kMarginSpace = kMoleHeight/4
+        
        
     }
 
@@ -98,13 +102,11 @@ marginSpace = kMoleHeight / 6
         
         for i in 1...3{
             var iFloat = CGFloat(i)
-             yHeight =  kMarginSpace * CGFloat(3) + kMarginSpace * iFloat + kMoleHeight*iFloat + kMarginSpace * iFloat  + kMoleHeight/2
+             yHeight =  (kMoleHeight)*(iFloat-1) + kMarginSpace * (iFloat)  + kMarginSpace
             
-            /*   yHeight =  kMarginSpace * (CGFloat) 3  + kMarginSpace * iFloat + kMoleHeight*iFloat + kMarginSpace * iFloat  + kMoleHeight/2;
-*/
-            
-            self.makeMole(CGPointMake(self.bounds.size.width/3 - kMoleHeight/2, yHeight))
-            self.makeMole(CGPointMake(self.bounds.size.width*2/3 - kMoleHeight/2, yHeight))
+         
+            self.makeMole(CGPointMake(self.bounds.size.width/4 - kMoleHeight/2, yHeight))
+            self.makeMole(CGPointMake(self.bounds.size.width*3/4 - kMoleHeight/2, yHeight))
         }
        // super.layOutStimuli()
         
@@ -139,11 +141,11 @@ marginSpace = kMoleHeight / 6
         line1.lineWidth = 1
         line2.lineWidth = 1
         
-        line1.moveToPoint(CGPointMake(self.bounds.size.width/3,0))
-        line2.moveToPoint(CGPointMake(self.bounds.size.width*2/3,0))
+        line1.moveToPoint(CGPointMake(self.bounds.size.width/4,0))
+        line2.moveToPoint(CGPointMake(self.bounds.size.width*3/4,0))
         
-        line1.addLineToPoint(CGPointMake(self.bounds.size.width/3,self.bounds.size.height))
-        line2.addLineToPoint(CGPointMake(self.bounds.size.width*2/3,self.bounds.size.height))
+        line1.addLineToPoint(CGPointMake(self.bounds.size.width/4,self.bounds.size.height))
+        line2.addLineToPoint(CGPointMake(self.bounds.size.width*3/4,self.bounds.size.height))
         
         centerline.moveToPoint(CGPointMake(self.bounds.size.width/2, 0))
         centerline.addLineToPoint(CGPointMake(self.bounds.size.width/2, self.bounds.size.height))
