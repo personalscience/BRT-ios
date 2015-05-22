@@ -149,11 +149,14 @@
 #pragma mark External Instance Methods
 
 
-// the view goes from fully-on (i.e. alpha=1.0) to completely disappeared (alpha=0.0) in 3 seconds.
+// the view goes from fully-on (i.e. alpha=1.0) to completely disappeared (alpha=0.0) in somewhere between 1.5 and 2.5 seconds.
 - (void) animatePresenceWithBlink {
     
            self.transform = CGAffineTransformMakeScale(0.0, 0.0);
-    [UIView animateWithDuration:2.0 animations:^{
+    
+    NSTimeInterval randomLag = (NSTimeInterval) (arc4random() / UINT32_MAX) ; // (random number between 0.0 and 1.0)
+    
+    [UIView animateWithDuration:(1.5+randomLag) animations:^{
         [self setAlpha:1.0];
         self.transform = CGAffineTransformIdentity;
 

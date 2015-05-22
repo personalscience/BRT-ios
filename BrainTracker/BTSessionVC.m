@@ -23,6 +23,8 @@
 // Now this is deprecated until I figure out how to keep constraints in there too.
 @property (weak, nonatomic) IBOutlet UIView *trialViewPlaceHolder;
 
+
+
 //@property (strong, nonatomic) BTMoleWhackViewer *trialView;
 @property (strong, nonatomic) BTMoleLineViewer *trialView;
 @property (weak, nonatomic) IBOutlet UILabel *lastTrialStatus;
@@ -53,6 +55,8 @@
     bool finishedForeperiod;
     bool trialIsCancelled;
     bool pressedStartButtonOnce;
+    
+    bool didPressRedo; // so you can only cancel once per trial.
     
     bool runTheTrial;
     uint foreperiodCount;
@@ -269,6 +273,7 @@
     NSString *latencyText =[[NSString alloc] initWithFormat:@"%0.0fmSec (%0.0f%%)",(response.responseLatency)*1000,responsePercentile*100];
     self.lastTrialStatus.text =latencyText;
     
+    didPressRedo = NO;
     
     if (precisionControl){
     
@@ -325,7 +330,31 @@
 
 #pragma mark Touch Handling
 
-
+- (IBAction) returnToHome:(id)sender {
+    NSLog(@"pressed return");
+    
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    
+   // self.view.window.rootViewController = self.lastVC;
+    
+  
+    
+}
+- (IBAction)didPressRedo:(id)sender {
+    self.lastTrialStatus.text = @"Cancelled";
+    
+    
+    NSAssert([currentTrialNumber integerValue]>0, @"Can't cancel when there are %@ trials",currentTrialNumber);
+    
+    if(!didPressRedo) { // only allowed to press 'redo' once
+        
+        currentTrialNumber = [NSNumber numberWithInteger:[currentTrialNumber integerValue] - 1];
+        [self displayTrialNumber];
+        didPressRedo = YES;
+    }
+    
+    
+}
 
 // two possibilities:
 // you pressed when Foreperiod is not yet finished
@@ -414,7 +443,7 @@
     
 }
 
-- (void) reloadTrialView { // every reload gives you a brand new BTMoleWhackViewer
+- (void) reloadTrialView {
     
     // decide in advance which mole will be the target.
     BTStimulus *stimulus = [[BTStimulus alloc] init]; //[[BTStimulus alloc] initWithString:[[[NSNumberFormatter alloc] init] stringFromNumber:@2] ];

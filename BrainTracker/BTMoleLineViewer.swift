@@ -119,18 +119,19 @@ marginSpace = kMoleHeight / 6
         
     }
     
-    
-    public  override func presentForeperiod() {
-        
-    for (var i=1;
-        i < self.moles.count;
-        i++)
-    {
-        
-        self.moles[i].animatePresenceWithBlink()
-        
-    }
-    }
+   
+// inherits this from superclass, currently the same behavior.
+//    public  override func presentForeperiod() {
+//        
+//        for (var i=1;
+//            i < self.moles.count;
+//            i++)
+//        {
+//            
+//            self.moles[i].animatePresenceWithBlink()
+//            
+//        }
+//    }
     
     func drawGrid() {
         var line1:UIBezierPath = UIBezierPath()

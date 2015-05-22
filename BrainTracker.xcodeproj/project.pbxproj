@@ -51,6 +51,7 @@
 		FEC23EC519CDE50400ECD16F /* BTTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC23EC419CDE50400ECD16F /* BTTrial.m */; };
 		FED57F8E18CF737200B91DEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED57F8D18CF737200B91DEA /* QuartzCore.framework */; };
 		FED57F9118CF757C00B91DEA /* BTChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FED57F9018CF757C00B91DEA /* BTChartVC.m */; };
+		FEE00F2E1B0570970003D60A /* SessionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEE00F2D1B0570970003D60A /* SessionView.xib */; };
 		FEEE05CA19C8999D003E8866 /* BTDataStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FEEE05C819C8999D003E8866 /* BTDataStore.xcdatamodeld */; };
 		FEF7296818E9279E0094B30D /* BTResultsTrackerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF7296718E9279E0094B30D /* BTResultsTrackerTestCase.m */; };
 		FEFDCA0B18DD513E0083F7EF /* BTWedgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFDCA0A18DD513E0083F7EF /* BTWedgeView.m */; };
@@ -142,6 +143,7 @@
 		FED57F8D18CF737200B91DEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FED57F8F18CF757C00B91DEA /* BTChartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTChartVC.h; sourceTree = "<group>"; };
 		FED57F9018CF757C00B91DEA /* BTChartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTChartVC.m; sourceTree = "<group>"; };
+		FEE00F2D1B0570970003D60A /* SessionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionView.xib; sourceTree = "<group>"; };
 		FEEE05C919C8999D003E8866 /* BTDataStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTDataStore.xcdatamodel; sourceTree = "<group>"; };
 		FEEEFE0D1A470406006F63AD /* BTGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTGlobals.h; sourceTree = "<group>"; };
 		FEF7296718E9279E0094B30D /* BTResultsTrackerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTResultsTrackerTestCase.m; path = ../BrainTracker/BTResultsTrackerTestCase.m; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				FE9148DB18C7CE8B00A694B5 /* Main.storyboard */,
+				FEE00F2D1B0570970003D60A /* SessionView.xib */,
 				FE3A7A741AFBEEEB00B2A655 /* Universal.storyboard */,
 				FEEEFE0D1A470406006F63AD /* BTGlobals.h */,
 				FEBA977A18EE105A007E8245 /* View Controllers */,
@@ -472,6 +475,7 @@
 				FEB338D718DA68FB00BA1D4D /* README.md in Resources */,
 				FE3A7A751AFBEEEB00B2A655 /* Universal.storyboard in Resources */,
 				FE91491B18CA761D00A694B5 /* Chart_Up@2x.png in Resources */,
+				FEE00F2E1B0570970003D60A /* SessionView.xib in Resources */,
 				FE5B4C9C18CA830600409CA5 /* home-7.png in Resources */,
 				FE9148DD18C7CE8B00A694B5 /* Main.storyboard in Resources */,
 			);

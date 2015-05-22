@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gqM-Xu-RPl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gqM-Xu-RPl">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Whack a Mole-->
@@ -113,16 +113,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elp-Zd-70F">
-                                <rect key="frame" x="103" y="263" width="107" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Start">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="ino-hC-Gny" kind="presentation" identifier="segueToMoleSession" id="Dlv-rG-SQb"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter a description for the session:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOb-80-oGg">
                                 <rect key="frame" x="8" y="119" width="292" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -137,6 +127,25 @@
                                     <action selector="sessionDescriptionDidExit:" destination="UDe-R6-MX0" eventType="editingDidEndOnExit" id="qJt-mF-5dQ"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j2t-on-SoG">
+                                <rect key="frame" x="188" y="234" width="96" height="30"/>
+                                <state key="normal" title="Crash Me">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressStart:" destination="UDe-R6-MX0" eventType="touchUpInside" id="Tz6-1I-uo0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elp-Zd-70F">
+                                <rect key="frame" x="20" y="234" width="107" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ino-hC-Gny" kind="presentation" identifier="segueToMoleSession" id="Dlv-rG-SQb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -173,8 +182,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trial/Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDj-Yi-KE6">
-                                <rect key="frame" x="61" y="49" width="504" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Trial/Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDj-Yi-KE6">
+                                <rect key="frame" x="61" y="49" width="450" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="kni-ox-AC0"/>
                                 </constraints>
@@ -191,13 +200,22 @@
                                     <segue destination="qJY-WS-5Qs" kind="unwind" unwindAction="unwindToMainMenu:" id="gbi-3P-IH9"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DR6-z3-2Dn">
+                                <rect key="frame" x="513" y="49" width="67" height="30"/>
+                                <state key="normal" title="Redo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressRedo:" destination="ino-hC-Gny" eventType="touchUpInside" id="WAo-hb-CbN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="ft9-74-EIN" firstAttribute="top" secondItem="JDj-Yi-KE6" secondAttribute="bottom" constant="13" id="06L-nh-i4z"/>
                             <constraint firstItem="ft9-74-EIN" firstAttribute="leading" secondItem="FPk-XP-sp4" secondAttribute="leading" constant="20" symbolic="YES" id="2du-jw-WaJ"/>
                             <constraint firstItem="wyM-qg-GzN" firstAttribute="top" secondItem="FPk-XP-sp4" secondAttribute="top" constant="20" symbolic="YES" id="3CV-Y6-htw"/>
+                            <constraint firstItem="ft9-74-EIN" firstAttribute="trailing" secondItem="DR6-z3-2Dn" secondAttribute="trailing" id="7R6-Yb-Y7m"/>
                             <constraint firstItem="JDj-Yi-KE6" firstAttribute="top" secondItem="wyM-qg-GzN" secondAttribute="bottom" constant="8" symbolic="YES" id="Bcj-nb-bYr"/>
-                            <constraint firstAttribute="trailing" secondItem="JDj-Yi-KE6" secondAttribute="trailing" constant="35" id="Dzb-rc-iJc"/>
                             <constraint firstItem="JDj-Yi-KE6" firstAttribute="leading" secondItem="wyM-qg-GzN" secondAttribute="leading" id="LxZ-Ez-gEZ"/>
                             <constraint firstAttribute="bottom" secondItem="ft9-74-EIN" secondAttribute="bottom" constant="20" symbolic="YES" id="S20-X8-Blz"/>
                             <constraint firstAttribute="trailing" secondItem="ft9-74-EIN" secondAttribute="trailing" constant="20" symbolic="YES" id="Zgc-ww-qIf"/>
@@ -485,7 +503,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Target" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddU-zV-dos">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddU-zV-dos">
                                                     <rect key="frame" x="79" y="13" width="66" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="66" id="Jrs-Xb-gFo"/>
@@ -494,7 +512,7 @@
                                                     <color key="textColor" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="latency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVZ-fg-7vV">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="latency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVZ-fg-7vV">
                                                     <rect key="frame" x="0.0" y="13" width="60" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="Zjd-1M-TzK"/>

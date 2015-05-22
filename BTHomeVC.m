@@ -23,6 +23,21 @@
     NSString *sessionDescription;
 }
 
+- (IBAction)didPressStart:(id)sender {
+    BTSessionVC *newSessionVC = [[BTSessionVC alloc] initWithNibName:@"SessionView" bundle:[NSBundle mainBundle]];
+    
+    newSessionVC.lastVC = self;
+    
+    self.nextView = newSessionVC;
+    
+    [self presentViewController:newSessionVC animated:YES completion:nil];
+    
+    //[self.navigationController pushViewController:newSessionVC animated:TRUE];
+  //  self.view.window.rootViewController = newSessionVC;
+}
+
+
+
 - (IBAction) unwindToMainMenu: (UIStoryboardSegue*)sender {
     
     self.latestSessionResultLabel.text = [[NSString alloc] initWithFormat:@"Last Session Mean: %0.0f%%",self.nextView.sessionResults*100];

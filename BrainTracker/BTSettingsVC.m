@@ -50,7 +50,7 @@ bool kBTPrecisionControl;
 //enum {BTInterfaceArc,BTInterfaceLines} BTInterfaceSelection;
 //enum  BTInterfaceSelection ;
 
-BTInterfaceSelectionType BTInterfaceSelection;
+BTInterfaceSelectionType BTInterfaceSelection = BTInterfaceLines;  // initialize so default = Lines interface
 
 bool  BTuseZB = true;  // placeholder for some global setting that allows turning it on or off
 
