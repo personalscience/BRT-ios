@@ -11,24 +11,6 @@ import UIKit
 var kMoleHeight:CGFloat = 85
 var kMarginSpace:CGFloat = kMoleHeight / 4
 
-/*
-
-The view is divided into these 5 sections
-
-top: a single mole, centered
-
-middle rows
-row 1
-row 2
-row 3
-
-bottom: always contains the start button, nothing more
-
-each section should be of height marginSpace + kMoleHeight + marginSpace
-marginSpace = kMoleHeight / 6
-
-
-*/
 
 
 @objc public class BTMoleLineViewer: BTMoleWhackViewer {
