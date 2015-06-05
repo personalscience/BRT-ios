@@ -41,6 +41,7 @@
 @end
 
 NSArray * columnLabelsArray;
+NSString *fetchSortString;
 
 @implementation BTResultsVC
 {
@@ -56,7 +57,7 @@ NSArray * columnLabelsArray;
 
 + (NSArray *) columnLabels{
     
-    columnLabelsArray =@[@[@"Sessions",@"Trials"],@[@"Percentile",@"ms"],@[@"Rounds",@"Target"],@[@"Date",@"Date"]];
+    columnLabelsArray =@[@[@"Sessions",@"Trials"],@[@"%",@"ms"],@[@"Ptile",@"Target"],@[@"Date",@"Date"]];
     
     return columnLabelsArray;
     
@@ -83,12 +84,16 @@ NSArray * columnLabelsArray;
 #pragma mark labels and buttons
 
 - (void) setLabelForColumn: (uint) col {
-    [self.column1Button setTitle:[self columnLabelForNumber:col] forState:UIControlStateNormal];
+    [self.column1Button setTitle:[self columnLabelForNumber:1] forState:UIControlStateNormal];
+       [self.column2Button setTitle:[self columnLabelForNumber:2] forState:UIControlStateNormal];
+       [self.column3Button setTitle:[self columnLabelForNumber:3] forState:UIControlStateNormal];
     self.sessionsOrSecondsLabel.text = [self stringForColumnNumber:col];
 }
 
 - (IBAction)pressColumn1:(id)sender {
     [self.column1Button setTitle:[self columnLabelForNumber:1] forState:UIControlStateNormal];
+    fetchSortString = (sessionsNotResponses)? @"sessionScore" : @"trialLatency";
+    [self updateUI];
 }
 
 - (IBAction)pressColumn2:(id)sender {
@@ -97,6 +102,8 @@ NSArray * columnLabelsArray;
 
 - (IBAction)pressColumn3:(id)sender {
     [self.column3Button setTitle:[self columnLabelForNumber:3] forState:UIControlStateNormal];
+    fetchSortString = (sessionsNotResponses)? @"sessionDate" : @"trialTimeStamp";
+    [self updateUI];
 }
 
 
@@ -134,6 +141,9 @@ NSArray * columnLabelsArray;
 - (IBAction)sessionsOrResponsesSwitchDidChange:(id)sender {
     
     sessionsNotResponses = !sessionsNotResponses;
+    
+    fetchSortString = (sessionsNotResponses)? @"sessionScore" : @"trialLatency";
+    
     [self updateSessionsOrResponsesLabel];
     [self updateUI];
     
@@ -144,7 +154,11 @@ NSArray * columnLabelsArray;
 - (void) updateSessionsOrResponsesLabel {
     
     self.sessionsOrResponsesLabel.text = (sessionsNotResponses) ? @"Sessions" : @"Trials";
-    [self setLabelForColumn:1];
+   
+    for (uint i = 0; i<3; i++) {
+    [self setLabelForColumn:i];
+}
+    
     
     
     self.targetOrRoundsLabel.text =(sessionsNotResponses) ?@"Rounds" : @"Target";
@@ -405,7 +419,8 @@ NSArray * columnLabelsArray;
     
     cellScoreLabel.text = [self targetOfItem:item];
     cellTimeLabel.text = [self cellTextFromDouble:(double)resultTime];
-    cellDateLabel.text = [self dateText:resultDate];     return cell;
+    cellDateLabel.text = [self dateText:resultDate];
+    return cell;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -443,10 +458,27 @@ NSArray * columnLabelsArray;
     return cellString;
     
 }
+
+
+// determines which sort descriptor will be used for the fetch that lays out the table.
+// return a different string if you want to sort by something different.
+- (NSString *) sessionsOrResponsesSortDescriptorString {
+    
+    if (!fetchSortString) {fetchSortString = (sessionsNotResponses)? @"sessionDate" : kBTtrialTimestampKey;}
+
+    
+    return fetchSortString;
+    
+}
+
 - (NSFetchRequest *) fetchResponses {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTDataTrial"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialTimestampKey ascending:NO],
+    
+ //   fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kBTtrialTimestampKey ascending:NO],
+      fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:[self sessionsOrResponsesSortDescriptorString]  ascending:NO],
+                                         
+                                         
                                      [NSSortDescriptor sortDescriptorWithKey: kBTtrialLatencyKey ascending:YES]];
     
     return fetchRequest;
@@ -456,7 +488,11 @@ NSArray * columnLabelsArray;
 - (NSFetchRequest *) fetchSessions {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"BTDataSession"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"sessionDate" ascending:NO],
+    
+  //  fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"sessionDate" ascending:NO],
+      fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:[self sessionsOrResponsesSortDescriptorString] ascending:NO],
+                                  
+                                  
                                      [NSSortDescriptor sortDescriptorWithKey: @"sessionScore" ascending:YES]];
     
     return fetchRequest;
@@ -466,7 +502,8 @@ NSArray * columnLabelsArray;
 
 - (NSFetchRequest *) fetchSessionsOrResponses {
     
-    if (sessionsNotResponses) { return [self fetchSessions];
+    if (sessionsNotResponses) {
+        return [self fetchSessions];
     }
     else return [self fetchResponses];
     
@@ -503,6 +540,9 @@ NSArray * columnLabelsArray;
     }
 
     [self updateSessionsOrResponsesLabel];
+    
+    [self.column2Button setTitle:[self columnLabelForNumber:2] forState:UIControlStateNormal];
+    [self.column3Button setTitle:[self columnLabelForNumber:3] forState:UIControlStateNormal];
 
         [self updateUI];
  
