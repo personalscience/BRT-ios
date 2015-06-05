@@ -65,7 +65,7 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
     
     // make an oval-shaped object for the start button
     
-    BTStartView *button = [self makeStartButton:CGRectMake(verticalCenter  -kMoleHeight*3/2,height - kMoleHeight*2, kMoleHeight*3, kMoleHeight)];
+    BTStartView *button = [self makeStartButton:CGRectMake(verticalCenter  -kMoleHeight*3/2,height - kMoleHeight, kMoleHeight*3, kMoleHeight*2)];
     [button drawColor:[UIColor orangeColor]];
     button.alpha = 1.0;
     

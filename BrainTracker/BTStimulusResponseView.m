@@ -139,7 +139,7 @@
         CGSize stringSize = CGSizeMake(self.label.attributedText.size.width, self.label.attributedText.size.height);
 
         
-          [self.label.attributedText drawInRect:CGRectMake(centerX-stringSize.width/2, centerY-stringSize.height/2, centerX+stringSize.width/2, centerY+stringSize.height/2)];
+          [self.label.attributedText drawInRect:CGRectMake(centerX-stringSize.width/2, centerY-stringSize.height/3*4, centerX+stringSize.width/2, centerY+stringSize.height/2)];
  //   NSLog(@"drawing %@ at %@",numLabel, NSStringFromCGRect(self.frame));
     } // else NSLog(@"no label here");
 
