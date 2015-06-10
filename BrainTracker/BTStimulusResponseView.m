@@ -34,7 +34,7 @@
 - (UIImageView *) myImage
 {
     if (!_myImage)
-    {_myImage = [[UIImageView alloc] initWithImage:[self createImage]];
+    {_myImage = [[UIImageView alloc] initWithImage:[self createImage]]; // [UIImage imageNamed:@"MoleImageGreen"]]; //
     }
     
     return _myImage;
@@ -78,6 +78,7 @@
 
 
 
+
 - (UIImage *)createImage
 {
 	UIColor *color = [self buttonColor];
@@ -88,6 +89,12 @@
     
 	// Create a filled ellipse
 	[color setFill];
+//    
+//    CAGradientLayer *gradient = [CAGradientLayer layer];
+//    gradient.frame = self.bounds;
+//    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor blackColor] CGColor], nil];
+//    [self.layer insertSublayer:gradient atIndex:0];
+    
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:self.bounds];
     [path fill];
     [self showLabels];
