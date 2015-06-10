@@ -360,7 +360,6 @@
                                 <rect key="frame" x="20" y="68" width="560" height="394"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="394" id="Fs5-Qc-qI1"/>
                                     <constraint firstAttribute="height" constant="394" id="OBE-cT-K2q"/>
                                     <constraint firstAttribute="width" constant="560" id="czM-of-LXQ"/>
                                 </constraints>
@@ -428,6 +427,9 @@
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tlK-1V-Ag4">
                                 <rect key="frame" x="526" y="470" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="Ofl-5e-ESV"/>
+                                </constraints>
                                 <connections>
                                     <action selector="sessionsOrResponsesSwitchDidChange:" destination="wwS-MM-gTx" eventType="valueChanged" id="CSi-mz-rjA"/>
                                 </connections>
@@ -498,36 +500,29 @@
                         <constraints>
                             <constraint firstItem="mZK-Va-UVN" firstAttribute="top" secondItem="kDA-4V-PO7" secondAttribute="bottom" constant="10" id="0c4-xa-tKu"/>
                             <constraint firstItem="q10-Kg-HRE" firstAttribute="leading" secondItem="mZK-Va-UVN" secondAttribute="leading" id="1Z3-Nb-frA"/>
-                            <constraint firstItem="tlK-1V-Ag4" firstAttribute="leading" secondItem="WkI-ve-jMo" secondAttribute="trailing" constant="8" symbolic="YES" id="1Zy-3t-7Lw"/>
-                            <constraint firstItem="mZK-Va-UVN" firstAttribute="top" secondItem="nfr-4c-MAT" secondAttribute="bottom" constant="8" id="9MT-Qe-GtL"/>
                             <constraint firstItem="Oii-5K-7FS" firstAttribute="top" secondItem="tlK-1V-Ag4" secondAttribute="bottom" constant="50" id="DvF-Xa-8hU"/>
                             <constraint firstItem="q10-Kg-HRE" firstAttribute="top" secondItem="mZK-Va-UVN" secondAttribute="bottom" constant="13" id="Erb-wJ-mMC"/>
                             <constraint firstItem="q10-Kg-HRE" firstAttribute="baseline" secondItem="WkI-ve-jMo" secondAttribute="baseline" id="G5f-11-A8c"/>
                             <constraint firstItem="fpN-ry-mWf" firstAttribute="top" secondItem="q10-Kg-HRE" secondAttribute="bottom" constant="17" id="JkA-1f-Vma"/>
+                            <constraint firstItem="Oii-5K-7FS" firstAttribute="top" secondItem="fpN-ry-mWf" secondAttribute="bottom" constant="8" id="KAE-sg-tFo"/>
                             <constraint firstItem="ZyL-Jl-Q23" firstAttribute="leading" secondItem="nfr-4c-MAT" secondAttribute="trailing" constant="84" id="KSn-wz-2VB"/>
                             <constraint firstItem="q10-Kg-HRE" firstAttribute="leading" secondItem="quD-ne-eoV" secondAttribute="leading" constant="20" symbolic="YES" id="PpV-UO-I4x"/>
                             <constraint firstItem="fpN-ry-mWf" firstAttribute="leading" secondItem="quD-ne-eoV" secondAttribute="leadingMargin" constant="4" id="XIu-7S-HYE"/>
                             <constraint firstItem="nfr-4c-MAT" firstAttribute="leading" secondItem="quD-ne-eoV" secondAttribute="leadingMargin" constant="72" id="YAX-6g-o3l"/>
                             <constraint firstItem="q10-Kg-HRE" firstAttribute="centerY" secondItem="tlK-1V-Ag4" secondAttribute="centerY" id="ZtO-J5-Pbp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mZK-Va-UVN" secondAttribute="trailing" constant="4" id="a3y-L5-4hS"/>
                             <constraint firstItem="mZK-Va-UVN" firstAttribute="top" secondItem="nfr-4c-MAT" secondAttribute="bottom" constant="8" symbolic="YES" id="cAp-lM-k8v"/>
                             <constraint firstItem="kDA-4V-PO7" firstAttribute="top" secondItem="ZeV-YZ-2vu" secondAttribute="bottom" constant="8" id="fJY-8L-HAC"/>
                             <constraint firstItem="q10-Kg-HRE" firstAttribute="centerY" secondItem="tlK-1V-Ag4" secondAttribute="centerY" id="fZK-i2-G7g"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WkI-ve-jMo" secondAttribute="trailing" constant="66" id="gnA-UC-ULV"/>
                             <constraint firstItem="WkI-ve-jMo" firstAttribute="centerY" secondItem="tlK-1V-Ag4" secondAttribute="centerY" id="k8A-17-Qg1"/>
                             <constraint firstItem="kDA-4V-PO7" firstAttribute="leading" secondItem="quD-ne-eoV" secondAttribute="leadingMargin" constant="4" id="nrX-T9-aIZ"/>
                             <constraint firstItem="kDA-4V-PO7" firstAttribute="top" secondItem="ZeV-YZ-2vu" secondAttribute="bottom" constant="8" id="qvS-B1-I2R"/>
                             <constraint firstItem="Oii-5K-7FS" firstAttribute="top" secondItem="fpN-ry-mWf" secondAttribute="bottom" constant="8" id="s7d-SF-W8T"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tlK-1V-Ag4" secondAttribute="trailing" constant="9" id="szp-TH-pNG"/>
                             <constraint firstAttribute="trailing" secondItem="tlK-1V-Ag4" secondAttribute="trailing" constant="25" id="wAq-S2-fsE"/>
-                            <constraint firstItem="mZK-Va-UVN" firstAttribute="width" secondItem="quD-ne-eoV" secondAttribute="width" constant="-40" id="wde-x0-Pcs"/>
                             <constraint firstItem="ZyL-Jl-Q23" firstAttribute="top" secondItem="ZeV-YZ-2vu" secondAttribute="bottom" constant="8" id="yNM-vi-1cq"/>
-                            <constraint firstItem="mZK-Va-UVN" firstAttribute="top" secondItem="ZyL-Jl-Q23" secondAttribute="bottom" constant="10" id="zy3-1V-OYQ"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="9MT-Qe-GtL"/>
-                                <exclude reference="zy3-1V-OYQ"/>
-                            </mask>
-                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Results" image="resultsTab" id="hBZ-2g-ECp"/>
                     <connections>
