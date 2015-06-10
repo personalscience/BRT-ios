@@ -19,7 +19,7 @@
 @interface BTStartVC ()
 
 
-@property (strong, nonatomic) IBOutlet BTWedgeView *view;  // created as an outlet in Storyboard,
+//@property (strong, nonatomic) IBOutlet BTWedgeView *view;  // created as an outlet in Storyboard,
 //it's actually the view for this VC.
 
 

@@ -112,14 +112,7 @@
                     trialNumber++;
                     
                 }
-                //        
-                //        
-                //        for (NSString *oneCSVValue in valuesInLine) {
-                //            
-                //      
-                //            NSLog(@"(%@)",oneCSVValue);
-                //            
-                //    }
+
                 NSLog(@"\n");
                 
                 

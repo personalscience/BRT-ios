@@ -16,6 +16,8 @@
 
 NSString * const kZenobaseHardCodedURL = @"https://zenobase.com/#/oauth/authorize?response_type=token&client_id=317cg8pqd1&redirect_uri=x-braintracker:///";
 // signed up with username=braintracker password = braintracker
+// hardcoded because Zenobase needs to know *which* account posted the information.
+// Zenobase will interpret any client app that posts as having been originated from this account.
 
 
 

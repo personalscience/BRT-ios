@@ -12,8 +12,6 @@
 		FE3A781118E0A6850049F45E /* BTStimulusResponseView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A781018E0A6850049F45E /* BTStimulusResponseView.m */; };
 		FE3A7A751AFBEEEB00B2A655 /* Universal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE3A7A741AFBEEEB00B2A655 /* Universal.storyboard */; };
 		FE4205F21A3B752300176487 /* ZBConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4205F11A3B752300176487 /* ZBConnection.m */; };
-		FE5B4C9C18CA830600409CA5 /* home-7.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9B18CA830600409CA5 /* home-7.png */; };
-		FE5B4C9E18CA831300409CA5 /* config30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = FE5B4C9D18CA831300409CA5 /* config30x30.png */; };
 		FE5B4CA118CA86A900409CA5 /* BTResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */; };
 		FE5B4CAD18CBEE0C00409CA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */; };
 		FE5B8DC6190C574700DA47E0 /* BTResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5B8DC5190C574700DA47E0 /* BTResultsTableViewCell.m */; };
@@ -26,7 +24,6 @@
 		FE9148D418C7CE8B00A694B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE9148D218C7CE8B00A694B5 /* InfoPlist.strings */; };
 		FE9148D618C7CE8B00A694B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9148D518C7CE8B00A694B5 /* main.m */; };
 		FE9148DA18C7CE8B00A694B5 /* BTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9148D918C7CE8B00A694B5 /* BTAppDelegate.m */; };
-		FE9148DD18C7CE8B00A694B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE9148DB18C7CE8B00A694B5 /* Main.storyboard */; };
 		FE9148E318C7CE8B00A694B5 /* BTSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9148E218C7CE8B00A694B5 /* BTSettingsVC.m */; };
 		FE9148E518C7CE8B00A694B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE9148E418C7CE8B00A694B5 /* Images.xcassets */; };
 		FE9148EC18C7CE8B00A694B5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9148EB18C7CE8B00A694B5 /* XCTest.framework */; };
@@ -36,7 +33,6 @@
 		FE91490618C7D02F00A694B5 /* BTResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FE91490518C7D02F00A694B5 /* BTResponse.m */; };
 		FE91490C18C7D05A00A694B5 /* BTResultsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = FE91490B18C7D05A00A694B5 /* BTResultsTracker.m */; };
 		FE91491218C7D36500A694B5 /* BTResponseView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE91491118C7D36500A694B5 /* BTResponseView.m */; };
-		FE91491B18CA761D00A694B5 /* Chart_Up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE91491A18CA761D00A694B5 /* Chart_Up@2x.png */; };
 		FE9938A519D277500071A46D /* BTDataSession+BTAnalysis.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9938A419D277500071A46D /* BTDataSession+BTAnalysis.m */; };
 		FE9EAB2C19D5DB8D006F4159 /* BTDataSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9EAB2B19D5DB8D006F4159 /* BTDataSession.m */; };
 		FE9EAB2F19D5DB8E006F4159 /* BTDataTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9EAB2E19D5DB8E006F4159 /* BTDataTrial.m */; };
@@ -45,7 +41,6 @@
 		FEBA977618ECED03007E8245 /* BTHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBA977518ECED03007E8245 /* BTHomeVC.m */; };
 		FEBA977E18EF4A6C007E8245 /* BTSessionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBA977D18EF4A6C007E8245 /* BTSessionVC.m */; };
 		FEBA978418EF4EE7007E8245 /* BTMoleWhackViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */; };
-		FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */; };
 		FEBEC08418E5F32B00CED03B /* BTMoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEC08318E5F32B00CED03B /* BTMoleView.m */; };
 		FEBEE28719317B040056A5B2 /* BTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBEE28619317B040056A5B2 /* BTSession.m */; };
 		FEC23EC519CDE50400ECD16F /* BTTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC23EC419CDE50400ECD16F /* BTTrial.m */; };
@@ -79,8 +74,6 @@
 		FE3A7A741AFBEEEB00B2A655 /* Universal.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Universal.storyboard; sourceTree = "<group>"; };
 		FE4205F01A3B752300176487 /* ZBConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBConnection.h; sourceTree = "<group>"; };
 		FE4205F11A3B752300176487 /* ZBConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBConnection.m; sourceTree = "<group>"; };
-		FE5B4C9B18CA830600409CA5 /* home-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-7.png"; sourceTree = "<group>"; };
-		FE5B4C9D18CA831300409CA5 /* config30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config30x30.png; sourceTree = "<group>"; };
 		FE5B4C9F18CA86A900409CA5 /* BTResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTResultsVC.h; path = ../BTResultsVC.h; sourceTree = "<group>"; };
 		FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTResultsVC.m; path = ../BTResultsVC.m; sourceTree = "<group>"; };
 		FE5B4CAC18CBEE0C00409CA5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -101,7 +94,6 @@
 		FE9148D718C7CE8B00A694B5 /* BrainTracker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BrainTracker-Prefix.pch"; sourceTree = "<group>"; };
 		FE9148D818C7CE8B00A694B5 /* BTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTAppDelegate.h; sourceTree = "<group>"; };
 		FE9148D918C7CE8B00A694B5 /* BTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTAppDelegate.m; sourceTree = "<group>"; };
-		FE9148DC18C7CE8B00A694B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE9148E118C7CE8B00A694B5 /* BTSettingsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BTSettingsVC.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FE9148E218C7CE8B00A694B5 /* BTSettingsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BTSettingsVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		FE9148E418C7CE8B00A694B5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -115,7 +107,6 @@
 		FE91490B18C7D05A00A694B5 /* BTResultsTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BTResultsTracker.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		FE91491018C7D36500A694B5 /* BTResponseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTResponseView.h; sourceTree = "<group>"; };
 		FE91491118C7D36500A694B5 /* BTResponseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTResponseView.m; sourceTree = "<group>"; };
-		FE91491A18CA761D00A694B5 /* Chart_Up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chart_Up@2x.png"; sourceTree = "<group>"; };
 		FE9938A319D277500071A46D /* BTDataSession+BTAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTDataSession+BTAnalysis.h"; sourceTree = "<group>"; };
 		FE9938A419D277500071A46D /* BTDataSession+BTAnalysis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BTDataSession+BTAnalysis.m"; sourceTree = "<group>"; };
 		FE9EAB2A19D5DB8D006F4159 /* BTDataSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataSession.h; sourceTree = "<group>"; };
@@ -131,8 +122,6 @@
 		FEBA977D18EF4A6C007E8245 /* BTSessionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSessionVC.m; sourceTree = "<group>"; };
 		FEBA978218EF4EE7007E8245 /* BTMoleWhackViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTMoleWhackViewer.h; path = BrainTracker/BTMoleWhackViewer.h; sourceTree = "<group>"; };
 		FEBA978318EF4EE7007E8245 /* BTMoleWhackViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMoleWhackViewer.m; path = BrainTracker/BTMoleWhackViewer.m; sourceTree = "<group>"; };
-		FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMoleVC.h; sourceTree = "<group>"; };
-		FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMoleVC.m; sourceTree = "<group>"; };
 		FEBEC08218E5F32B00CED03B /* BTMoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTMoleView.h; path = ../BTMoleView.h; sourceTree = "<group>"; };
 		FEBEC08318E5F32B00CED03B /* BTMoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMoleView.m; path = ../BTMoleView.m; sourceTree = "<group>"; };
 		FEBED29818F1A56B00CF28DC /* BTTouchReturnedProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BTTouchReturnedProtocol.h; path = BrainTracker/BTTouchReturnedProtocol.h; sourceTree = "<group>"; };
@@ -214,9 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				FE9148E418C7CE8B00A694B5 /* Images.xcassets */,
-				FE5B4C9B18CA830600409CA5 /* home-7.png */,
-				FE5B4C9D18CA831300409CA5 /* config30x30.png */,
-				FE91491A18CA761D00A694B5 /* Chart_Up@2x.png */,
 			);
 			name = "BrainTracker Images";
 			sourceTree = "<group>";
@@ -274,7 +260,6 @@
 		FE9148CF18C7CE8B00A694B5 /* BrainTracker */ = {
 			isa = PBXGroup;
 			children = (
-				FE9148DB18C7CE8B00A694B5 /* Main.storyboard */,
 				FEE00F2D1B0570970003D60A /* SessionView.xib */,
 				FE3A7A741AFBEEEB00B2A655 /* Universal.storyboard */,
 				FEEEFE0D1A470406006F63AD /* BTGlobals.h */,
@@ -367,8 +352,6 @@
 				FE5B4CA018CA86A900409CA5 /* BTResultsVC.m */,
 				FEBA977C18EF4A6C007E8245 /* BTSessionVC.h */,
 				FEBA977D18EF4A6C007E8245 /* BTSessionVC.m */,
-				FEBEC07B18E5ECC000CED03B /* BTMoleVC.h */,
-				FEBEC07C18E5ECC000CED03B /* BTMoleVC.m */,
 				FED57F8F18CF757C00B91DEA /* BTChartVC.h */,
 				FED57F9018CF757C00B91DEA /* BTChartVC.m */,
 				FE9148E118C7CE8B00A694B5 /* BTSettingsVC.h */,
@@ -469,15 +452,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE5B4C9E18CA831300409CA5 /* config30x30.png in Resources */,
 				FE9148E518C7CE8B00A694B5 /* Images.xcassets in Resources */,
 				FE9148D418C7CE8B00A694B5 /* InfoPlist.strings in Resources */,
 				FEB338D718DA68FB00BA1D4D /* README.md in Resources */,
 				FE3A7A751AFBEEEB00B2A655 /* Universal.storyboard in Resources */,
-				FE91491B18CA761D00A694B5 /* Chart_Up@2x.png in Resources */,
 				FEE00F2E1B0570970003D60A /* SessionView.xib in Resources */,
-				FE5B4C9C18CA830600409CA5 /* home-7.png in Resources */,
-				FE9148DD18C7CE8B00A694B5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +501,6 @@
 				FE9EAB2F19D5DB8E006F4159 /* BTDataTrial.m in Sources */,
 				FE8BB5EC18E7DB50004A7F19 /* BTStartView.m in Sources */,
 				FE064F661AFAC22900058543 /* BTMoleLineViewer.swift in Sources */,
-				FEBEC07D18E5ECC000CED03B /* BTMoleVC.m in Sources */,
 				FE9938A519D277500071A46D /* BTDataSession+BTAnalysis.m in Sources */,
 				FE91490618C7D02F00A694B5 /* BTResponse.m in Sources */,
 			);
@@ -553,14 +531,6 @@
 				FE9148D318C7CE8B00A694B5 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		FE9148DB18C7CE8B00A694B5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FE9148DC18C7CE8B00A694B5 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		FE9148F418C7CE8B00A694B5 /* InfoPlist.strings */ = {
