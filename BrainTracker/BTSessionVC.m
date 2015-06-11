@@ -388,6 +388,9 @@
 
 }
 
+
+// Because each mole returns from its own animation one after the other, you need to count till you find the last
+// mole.  That's this one.
 - (bool) isFinalForeperiod {
     
     foreperiodCount++;

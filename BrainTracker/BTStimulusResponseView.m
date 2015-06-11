@@ -196,6 +196,8 @@
 
 - (void) drawGreen {
     [self setColor:[UIColor greenColor]];
+  //  self.subviews[[self.subviews count]] = [[UIImageView alloc] initWithImage:[self createImage]];
+    
  }
 
 - (void) drawRed {
@@ -225,11 +227,21 @@
     if (!_myImage)
     {
         [self addSubview:self.myImage];
+    } else
+        
+    {
+        
+        [self.subviews[0] removeFromSuperview]; // get rid of the most recent subview
+        
+        
+        // create a new subview that recomputes the color of the image.
+        UIImageView *circleImage = [[UIImageView alloc] initWithImage:[self createImage]];
+        
+        [self addSubview:circleImage];
+        
     }
     
- //   UIImageView *circleImage = [[UIImageView alloc] initWithImage:[self createImage]];
-  
- //  [self addSubview:circleImage];
+ 
 
 
     [self showLabels];
