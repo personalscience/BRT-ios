@@ -88,11 +88,6 @@
     
     if (trialIsCancelled) { // forePeriod ends prematurely when user lets up on start button
         
-        //  trialIsCancelled = false; // reset trialIsCancelled because foreperiod is over
-        // [self.trialView clearAllResponses];
-        // foreperiodCount--;
-        //      NSLog(@"finishedForeperiod = true, TrialisCancelled=True, foreperiodCount=%d",foreperiodCount );
-        
         if ([self isFinalForeperiod]) {
             NSLog(@"final with cancelled");
             finishedForeperiod = true;
@@ -112,6 +107,7 @@
             
             self.lastTrialStatus.text = @"GO";
             
+            [self showLatency];
             [self.trialView presentNewStimulusResponse];
             timeMarkForStartOfTrial = [[NSProcessInfo processInfo] systemUptime];
         }
@@ -122,6 +118,16 @@
     
 }
 
+- (void) showLatency {
+    
+    [self.trialView lightUpAllResponses];
+    
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        NSLog(@"Do some work");
+    });
+}
 
 // this is only called when the Start Button is released.
 
@@ -257,7 +263,7 @@
      [self.trial setSession:self.session];
     [self.results saveTrial:self.trial];
     
-    // get the all-time percentile for this response and cummulatively add it.
+    // get the all-time percentile for this response and cumulatively add it.
   //  [self.results saveResult:response];  // save the result first, or you risk crashing when you calculate percentileOfResponse
     
     double responsePercentile = [self.results percentileOfResponse:response];

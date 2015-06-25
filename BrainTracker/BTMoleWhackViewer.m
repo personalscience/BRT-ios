@@ -137,6 +137,14 @@ static const CGFloat kMoleHeight = 50;  // size for the mole object you will try
 
 }
 
+- (void) lightUpAllResponses {
+    for (uint i=1;i<[self.moles count]; i++){
+        [self.moles[i] setAlpha:1.0];
+        [self.moles[i] drawGreen];
+        // [self.moles[i] animatePresenceWithBlink];
+    }
+}
+
 - (void) presentForeperiod {
     for (uint i=1;i<[self.moles count]; i++){
         [self.moles[i] animatePresenceWithBlink];

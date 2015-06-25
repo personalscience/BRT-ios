@@ -25,6 +25,8 @@
 
 {
     CGPoint previousLocation;
+    bool isOutlined; // set to TRUE when you want the shape to be outlined
+    
   //  uint idNum;
 }
 
@@ -93,10 +95,35 @@
 //    CAGradientLayer *gradient = [CAGradientLayer layer];
 //    gradient.frame = self.bounds;
 //    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor blackColor] CGColor], nil];
-//    [self.layer insertSublayer:gradient atIndex:0];
+//    [self.layer insertSublayer:gradient atIndex:0];]
+    
+//    CGRect smallerRect = CGRectMake(self.bounds.origin.x+2, self.bounds.origin.y+2, self.bounds.size.width-2, self.bounds.size.height-2);
     
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:self.bounds];
+    
+    
+    
+    
     [path fill];
+    
+    if (isOutlined) { // yes, put a dark circle around the shape
+        path.lineWidth = 2.0;
+        [[UIColor blackColor] setFill];
+        [path stroke];
+        
+    }
+    isOutlined = false;
+    
+    
+    
+    
+//    UIBezierPath *innerCircle = [UIBezierPath bezierPathWithOvalInRect:smallerRect];
+//    
+//    
+//    
+//    [[UIColor blackColor] setFill];
+//    [path fill];
+    
     [self showLabels];
 	
 	UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -161,9 +188,11 @@
     
            self.transform = CGAffineTransformMakeScale(0.0, 0.0);
     
-    NSTimeInterval randomLag = (NSTimeInterval) (arc4random() / UINT32_MAX) ; // (random number between 0.0 and 1.0)
+    NSTimeInterval randomLag = (NSTimeInterval) (arc4random() / UINT32_MAX) ; // (random number between 0.0 and 1.0), but doesn't work
     
-    [UIView animateWithDuration:(1.5+randomLag) animations:^{
+    //NSTimeInterval randomLag = ((NSTimeInterval)arc4random() / 0x100000000);  // this one works
+    
+    [UIView animateWithDuration:(1.5+randomLag*2) animations:^{
         [self setAlpha:1.0];
         self.transform = CGAffineTransformIdentity;
 
@@ -201,12 +230,9 @@
  }
 
 - (void) drawRed {
-   
-//    if (_myImage){
-//    self.myImage = nil;
-//        [self removeFromSuperview];}
-//    
+    
      [self setColor:[UIColor redColor]];
+    isOutlined = true;
     
 }
 
@@ -265,6 +291,7 @@
           ];
     
     self.response = response;
+    isOutlined = true;
     
     self.idNum = [[[NSNumberFormatter alloc] init] numberFromString:[response responseLabel]];
                   

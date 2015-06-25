@@ -37,6 +37,7 @@
 
 
 - (void) clearAllResponses;
+- (void) lightUpAllResponses;
 
 @property (strong, nonatomic) id<BTTouchReturned> motherViewer; // the VC in which this viewer is currently embedded.
 @end
