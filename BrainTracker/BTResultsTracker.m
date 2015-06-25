@@ -227,7 +227,7 @@ int const kBTlastNTrialsCutoffValue = 100;
     
     double val = [session.sessionScore doubleValue] *100;
     
-    NSDictionary *event = @{@"rating":[NSNumber numberWithDouble:val]}; //[session.sessionScore stringValue]
+    NSDictionary *event = @{@"rating":[NSNumber numberWithDouble:val],@"count":session.sessionRounds,@"note":session.sessionComment}; //[session.sessionScore stringValue]
     // @"duration"  millisecond reaction time
     // @"percentage" 
     NSString *bucketID = [self.ZB ZBScopeTokenString];
