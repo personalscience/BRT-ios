@@ -100,7 +100,7 @@
     NSURLSession *session = [NSURLSession sharedSession];
     //Prepare the data task
     NSURLSessionDataTask * dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSAssert(!error,@"error returning from add event to bucket");
+       // NSAssert(!error,@"error returning from add event to bucket");
         //This block will be executed on the main thread once the data task has completed
         //Status Code is HTTP 201 CREATED
         //You have to cast to NSHTTPURLResponse, a subclass of NSURLResponse, to get the status code
