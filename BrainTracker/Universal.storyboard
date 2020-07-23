@@ -77,19 +77,15 @@
         <!--Mole Session-->
         <scene sceneID="kkn-6u-nqr">
             <objects>
-                <viewController title="Mole Session" id="ino-hC-Gny" customClass="BTSessionVC" sceneMemberID="viewController">
+                <viewController title="Mole Session" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="ino-hC-Gny" customClass="BTSessionVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OHt-VS-GLz"/>
                         <viewControllerLayoutGuide type="bottom" id="9P4-ty-l46"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="FPk-XP-sp4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ft9-74-EIN">
-                                <rect key="frame" x="20" y="83" width="560" height="497"/>
-                                <color key="backgroundColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press Orange Button to Start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyM-qg-GzN">
                                 <rect key="frame" x="61" y="20" width="333" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -128,6 +124,10 @@
                                     <action selector="didPressRedo:" destination="ino-hC-Gny" eventType="touchUpInside" id="WAo-hb-CbN"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ft9-74-EIN">
+                                <rect key="frame" x="36" y="100" width="343" height="557"/>
+                                <color key="backgroundColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="ft9-74-EIN" firstAttribute="top" secondItem="JDj-Yi-KE6" secondAttribute="bottom" constant="13" id="06L-nh-i4z"/>
@@ -157,7 +157,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="puZ-xb-nmj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="qJY-WS-5Qs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-27" y="-652"/>
+            <point key="canvasLocation" x="-27.536231884057973" y="-652.23214285714278"/>
         </scene>
         <!--Settings-->
         <scene sceneID="0vB-9Z-b0Q">
