@@ -40,15 +40,18 @@ var kMarginSpace:CGFloat = kMoleHeight / 4
     // create a new mole with response string = one more than the previous mole
     func makeMole(xy:CGPoint)
     {
-        let response = BTResponse(string: NSNumberFormatter().stringFromNumber(responseIndex++))
-        let newMole = BTResponseView(frame: CGRectMake(xy.x,xy.y, kMoleHeight, kMoleHeight), forResponse: response)
-        newMole.drawGreen()
+        let newResponseIndex = responseIndex+1
+        let response = BTResponse(string: NumberFormatter().string(from: NSNumber(value: newResponseIndex)))
+        responseIndex+=1
+        
+        let newMole = BTResponseView(frame: CGRect(x: xy.x,y: xy.y, width: kMoleHeight, height: kMoleHeight), for: response)
+        newMole?.drawGreen()
       //  newMole.alpha = 0.0
-        newMole.delegate = motherViewer
+        newMole?.delegate = motherViewer
         
-        tempMoles.addObject(newMole)
+        tempMoles.add(newMole)
         
-        self.addSubview(newMole)
+        self.addSubview(newMole!)
     }
     
        
@@ -56,19 +59,20 @@ var kMarginSpace:CGFloat = kMoleHeight / 4
     {
         
   
-        let fakeMole = BTStimulusResponseView(frame: CGRectMake(0,0, kMoleHeight, kMoleHeight), forResponse: BTResponse(string:NSNumberFormatter().stringFromNumber(1)))
+        let fakeMole = BTStimulusResponseView(frame: CGRect(x: 0,y: 0, width: kMoleHeight, height: kMoleHeight),
+                                              for: BTResponse(string:NumberFormatter().string(from: 1)))
         
-        tempMoles.addObject(fakeMole)
+        tempMoles.add(fakeMole)
         
  
-        println("laying out \(kBTNumberOfStimuli) stimuli ")
-        println("bounds = \(self.bounds)")
+        print("laying out \(kBTNumberOfStimuli) stimuli ")
+        print("bounds = \(self.bounds)")
         
    //     println("Interface = \(BTInterfaceSelection.value)")
         
        
         
-       if (BTInterfaceSelection.value == BTInterfaceArc.value)
+       if (BTInterfaceSelection == BTInterfaceArc)
        {
           super.layOutStimuli()
       } else
@@ -87,8 +91,8 @@ var kMarginSpace:CGFloat = kMoleHeight / 4
              yHeight =  (kMoleHeight)*(iFloat-1) + kMarginSpace * (iFloat)  + kMarginSpace
             
          
-            self.makeMole(CGPointMake(self.bounds.size.width/4 - kMoleHeight/2, yHeight))
-            self.makeMole(CGPointMake(self.bounds.size.width*3/4 - kMoleHeight/2, yHeight))
+            self.makeMole(xy: CGPoint(x: self.bounds.size.width/4 - kMoleHeight/2, y: yHeight))
+            self.makeMole(xy: CGPoint(x: self.bounds.size.width*3/4 - kMoleHeight/2, y: yHeight))
         }
        // super.layOutStimuli()
         
@@ -96,7 +100,7 @@ var kMarginSpace:CGFloat = kMoleHeight / 4
         moles = NSArray(array: tempMoles) as! [BTStimulusResponseView]
 
         
-        println("moles count = \(super.moles.count)")
+        print("moles count = \(super.moles.count)")
         }
         
     }
@@ -124,16 +128,16 @@ var kMarginSpace:CGFloat = kMoleHeight / 4
         line1.lineWidth = 1
         line2.lineWidth = 1
         
-        line1.moveToPoint(CGPointMake(self.bounds.size.width/4,0))
-        line2.moveToPoint(CGPointMake(self.bounds.size.width*3/4,0))
+        line1.move(to: CGPoint(x: self.bounds.size.width/4,y: 0))
+        line2.move(to: CGPoint(x: self.bounds.size.width*3/4,y: 0))
         
-        line1.addLineToPoint(CGPointMake(self.bounds.size.width/4,self.bounds.size.height))
-        line2.addLineToPoint(CGPointMake(self.bounds.size.width*3/4,self.bounds.size.height))
+        line1.addLine(to: CGPoint(x: self.bounds.size.width/4,y: self.bounds.size.height))
+        line2.addLine(to: CGPoint(x: self.bounds.size.width*3/4,y: self.bounds.size.height))
         
-        centerline.moveToPoint(CGPointMake(self.bounds.size.width/2, 0))
-        centerline.addLineToPoint(CGPointMake(self.bounds.size.width/2, self.bounds.size.height))
+        centerline.move(to: CGPoint(x: self.bounds.size.width/2, y: 0))
+        centerline.addLine(to: CGPoint(x: self.bounds.size.width/2, y: self.bounds.size.height))
         
-        UIColor.blueColor().setStroke()
+        UIColor.blue.setStroke()
         
         line1.stroke()
         line2.stroke()
@@ -141,12 +145,12 @@ var kMarginSpace:CGFloat = kMoleHeight / 4
         
     }
     
-    public override func drawRect(rect: CGRect) {
-        println("drawRect in BTMoleLineViewer.swift")
+    public override func draw(_ rect: CGRect) {
+        print("drawRect in BTMoleLineViewer.swift")
         
         drawGrid()
         
-        self.superview?.backgroundColor=UIColor.brownColor()
+        self.superview?.backgroundColor = .brown
         
         
         
