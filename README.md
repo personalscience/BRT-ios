@@ -1,17 +1,20 @@
 BrainTracker
 ============
 
-Measure speed of reaction times, a la Seth Roberts
+An algorithm developed by the late [Seth Roberts](https://sethroberts.net/), Professor of Psychology at University of California, Berkeley is based on his research showing that the speed at which you react to stimulii is a proxy measurement of your overall mental acuity. Dr. Roberts tested his algorithm for decades on himself, having implemented a version in the R programming language, and used the results to uncover many interesting and actionable self-improvement techniques, which he described using the term "Personal Science", the discipline of using science for personal  rather than professional reasons.
+
+The initial version of this app was developed in collaboration with Dr. Roberts in early 2014, though his untimely passing prevented its release for many years. Rewritten from his [publicly available code](https://github.com/personalscience/braintracker), it contains a number of significant improvements to make it more accessible to the general public, though it is far from complete. Lacking final tweaks and feedback from Dr. Roberts, it is released here "as-is", in the hopes that it may be of some benefit, or perhaps serve as inspiration for a motivated team to upgrade it to its full potential.
 
 Instructions
 ============
-Fairly obvious: press the start button, then hit the key that matches what you see.  Play again by either touching the same start button, or hit the "repeat" button.
 
-Scores are kept on your iPhone, accessible from within iTunes and copyable to your desktop computer. Look for the file "BrainTrackerResultsFile.csv". Should be (mostly) self-explanatory.
+Enter your initial conditions as text on the first screen and press "start" to switch to the testing screen. Press and hold the button at the bottom and wait until a red ball appears. Release the button and try to hit the ball as quickly as you can. Repeat this for as many times as the test requires.  The default number of times per session is 32, though you may change that in the settings screen.
+
+Scores are kept on your iPhone and are visible in the "Results" tab.  You can also copy a CSV version of all your results directly from your computer if you attach your iPhone and look under Files" for  "BrainTrackerResultsFile.csv". Should be (mostly) self-explanatory.
 
 Note that you can delete individual results (on the results page) by left-swiping the item on the table.
 
-The Settings screen will let you populate the app with random values (10 at a time) if you want to test some of the other features (like the chart).
+The Settings screen will let you populate the app with random values (10 at a time) if you want to test some of the other features.
 
 
 Architecture
@@ -44,7 +47,7 @@ View Controllers
 Viewers
 =======
 
-A view knows absolutely nothing about a session. It just uses kicks off some instances of BTStimulusResponseView nicely laid out. Those instances return a **BTResponse** when touched.
+A view knows absolutely nothing about a session. It just  kicks off some instances of BTStimulusResponseView nicely laid out. Those instances return a **BTResponse** when touched.
 
 *  **MoleWhackViewer**: viewer for the whack-a-mole UI
 *  **BTMoleLineViewer**: a subclass of BTMoleWhackViewer (written in Swift)
@@ -76,7 +79,6 @@ Session
 * SessionDate: a timestamp applied when the session is finished. 
 
 
-
 Plotting uses the field "SessionScore" in BTDataSession for drawing the results of each session.
 
 Debugging
@@ -92,8 +94,10 @@ Session results are saved to a store at http://zenobase.com. You must enter your
 Change Log
 ==========
 
-9/18: BTResultsTracker includes - (NSArray) trialsMatchingResponse  and only looks at the latest  kBTlastNTrialsCutoffValue (sorted chronologically) trials 
+2020-07-23: Updated for iOS 13.
 
-5/6: Swift language bridging headers added.
+2015-09-8: BTResultsTracker includes - (NSArray) trialsMatchingResponse  and only looks at the latest  kBTlastNTrialsCutoffValue (sorted chronologically) trials 
+
+2015-05-06: Swift language bridging headers added.
 
 
